@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Store Gmail</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+}
+
+header {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+header h1 {
+    color: #38bdf8;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    border: none;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px;
+    background: #38bdf8;
+    color: black;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.notice {
+    background: #334155;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.status {
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 10px;
+    animation: fadeIn 0.5s;
+}
+
+.pending {
+    background: orange;
+    color: black;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #94a3b8;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>💼 Job Stor Gmail</h1>
+    <h2>@rahulmanshur<h2>
+    <p>Kerja mudah hanya dari HP</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+    <h2>✅ Kenapa Harus Join?</h2>
+    <p>✔ Sudah banyak yang bergabung</p>
+    <p>✔ Pembayaran cepat & real</p>
+    <p>✔ Proses mudah & aman</p>
+</div>
+
+<div class="card">
+    <h2>📌 Detail Pekerjaan</h2>
+    <p>✔ Membuat akun Gmail</p>
+    <p>✔ Bayaran Rp1.500 / akun</p>
+    <p>✔ Bisa dari HP</p>
+</div>
+
+<div class="card">
+    <h2>📲 Kirim Data</h2>
+
+    <form onsubmit="kirimData(event)">
+        <input type="email" id="email" placeholder="Email kamu" required>
+        <input type="number" id="jumlah" placeholder="Jumlah akun" required>
+        <input type="text" id="wa" placeholder="Nomor WhatsApp" required>
+        <input type="text" id="dana" placeholder="Nomor DANA kamu (untuk pembayaran)" required>
+
+        <button type="submit" class="btn">Kirim Data</button>
+    </form>
+
+    <div id="statusBox"></div>
+
+    <div class="notice">
+        ⚠️ Demi keamanan, kami tidak meminta password di website.
+    </div>
+</div>
+
+<div class="card">
+    <h2>💰 Informasi Pembayaran</h2>
+    <p>✔ Pembayaran setelah verifikasi</p>
+    <p>✔ Estimasi: 1 - 2 jam</p>
+    <p>✔ Maksimal: 1x24 jam</p>
+</div>
+
+<div class="card">
+    <h2>👥 Gabung Grup</h2>
+    <a href="https://chat.whatsapp.com/JH8NB0A87Vx7mFjKQva7d9?mode=gi_t" class="btn">
+        Join Grup WhatsApp
+    </a>
+</div>
+
+</div>
+
+<div class="footer">
+    © 2026 Job Store Gmail
+</div>
+
+<!-- STATUS SCRIPT -->
+<script>
+function kirimData(e){
+    e.preventDefault();
+
+    document.getElementById("statusBox").innerHTML =
+        '<div class="status pending">⏳ Status: Menunggu Verifikasi Admin</div>';
+
+    setTimeout(() => {
+        document.getElementById("statusBox").innerHTML +=
+        '<div class="status">📩 Data berhasil dikirim! Tunggu proses pembayaran.</div>';
+    }, 1000);
+
+    e.target.reset();
+}
+</script>
+
+<!-- LIVE NOTIF -->
+<div id="liveNotif" style="
+position: fixed;
+bottom: 20px;
+right: 20px;
+background: #1e293b;
+padding: 12px;
+border-radius: 10px;
+display: none;
+font-size: 14px;
+"></div>
+
+<script>
+const nama = ["Andi", "Rizky", "Dimas", "Aldi", "Fajar", "Budi"];
+const jumlah = ["Rp7.500", "Rp12.000", "Rp15.000", "Rp9.000"];
+
+function showNotif() {
+    let n = nama[Math.floor(Math.random() * nama.length)];
+    let j = jumlah[Math.floor(Math.random() * jumlah.length)];
+
+    let notif = document.getElementById("liveNotif");
+    notif.innerHTML = "💸 " + n + " baru saja menerima pembayaran " + j;
+    notif.style.display = "block";
+
+    setTimeout(() => {
+        notif.style.display = "none";
+    }, 4000);
+}
+
+setInterval(showNotif, 8000);
+</script>
+
+</body>
+</html>
