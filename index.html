@@ -1,284 +1,169 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Job Store Gmail</title>
-
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: white;
-}
-
-header {
-    text-align: center;
-    padding: 40px 20px;
-}
-
-header h1 {
-    color: #38bdf8;
-    margin-bottom: 5px;
-}
-
-header p.username {
-    font-size: 0.9em;
-    color: #94a3b8;
-    margin-top: 0;
-}
-
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-}
-
-.card {
-    background: #1e293b;
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-}
-
-input[type="text"], input[type="number"] {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 8px;
-    border: none;
-    box-sizing: border-box;
-    background: #334155;
-    color: white;
-}
-
-textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 8px;
-    border: none;
-    min-height: 120px;
-    resize: vertical;
-    box-sizing: border-box;
-    background: #334155;
-    color: white;
-}
-
-::placeholder {
-  color: #a0aec0;
-  opacity: 1;
-}
-:-ms-input-placeholder {
-  color: #a0aec0;
-}
-::-ms-input-placeholder {
-  color: #a0aec0;
-}
-
-.btn {
-    display: inline-block;
-    padding: 12px;
-    background: #38bdf8;
-    color: black;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.notice {
-    background: #334155;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-.status {
-    padding: 12px;
-    border-radius: 10px;
-    margin-top: 10px;
-    animation: fadeIn 0.5s;
-    text-align: center;
-}
-
-.pending {
-    background: orange;
-    color: black;
-}
-
-.footer {
-    text-align: center;
-    padding: 20px;
-    color: #94a3b8;
-}
-
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-</style>
-</head>
-
-<body>
-
-<header>
-    <h1>💼 JOB GMAIL</h1>
-    <p class="username">@rahulmanshur</p>
-</header>
-
-<div class="container">
-
-<div class="card">
-    <h2>✅ Kenapa Harus Join?</h2>
-    <p>✔ Sudah banyak yang bergabung</p>
-    <p>✔ Pembayaran cepat & real</p>
-    <p>✔ Proses mudah & aman</p>
-</div>
-
-<div class="card">
-    <h2>📌 Detail Pekerjaan</h2>
-    <p>✔ Membuat akun Gmail</p>
-    <p>✔ Bayaran Rp1.500 / akun</p>
-    <p>✔ Bisa dari HP</p>
-</div>
-
-<div class="card">
-    <h2>📲 Kirim Data</h2>
-
-    <form id="submissionForm" action="https://formspree.io/f/mreyvjll" method="POST">
-        <!-- Formspree ID sudah terpasang di sini -->
-
-        <textarea name="email_list" id="email" placeholder="Masukkan Alamat Email Yang Akan di Stor&#10;(contoh:&#10;email1@gmail.com&#10;email2@gmail.com&#10;...)" required></textarea>
-        <input type="text" name="whatsapp_number" id="wa" placeholder="Nomor WhatsApp kamu" required>
-        <input type="text" name="dana_number" id="dana" placeholder="Nomor DANA kamu (untuk pembayaran)" required>
-
-        <button type="submit" class="btn">Stor Sekarang</button>
-    </form>
-
-    <div id="statusBox"></div>
-
-    <div class="notice">
-        ⚠️ Demi keamanan, kami tidak meminta password di website.
-    </div>
-</div>
-
-<div class="card">
-    <h2>💰 Informasi Pembayaran</h2>
-    <p>✔ Pembayaran setelah verifikasi</p>
-    <p>✔ Estimasi: 1 - 2 jam</p>
-    <p>✔ Maksimal: 1x24 jam</p>
-</div>
-
-<div class="card">
-    <h2>👥 Gabung Grup</h2>
-    <a href="https://chat.whatsapp.com/JH8NB0A87Vx7mFjKQva7d9?mode=gi_t" class="btn">
-        Join Grup WhatsApp
-    </a>
-</div>
-
-</div>
-
-<div class="footer">
-    © 2026 Job Stor Gmail
-</div>
-
-<!-- SCRIPT UNTUK MENGIRIM DATA DAN NOTIFIKASI -->
-<script>
-const form = document.getElementById('submissionForm');
-const statusBox = document.getElementById('statusBox');
-
-form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    statusBox.innerHTML = '<div class="status pending">⏳ Mengirim data...</div>';
-
-    const formData = new FormData(form);
-
-    const emailsInput = formData.get('email_list');
-    const emailList = emailsInput.split('\n').filter(email => email.trim() !== '');
-    const jumlahAkun = emailList.length;
-
-    formData.append('jumlah_akun', jumlahAkun);
-
-    try {
-        const response = await fetch(form.action, {
-            method: form.method,
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-
-        if (response.ok) {
-            statusBox.innerHTML = '<div class="status pending">✅ Data berhasil dikirim ke Gmail kamu! Sekarang mengarahkan ke WhatsApp...</div>';
-            form.reset();
-
-            const waNumber = formData.get('whatsapp_number');
-            const danaNumber = formData.get('dana_number');
-            const emailsFormatted = emailList.join('\n');
-
-            let pesan = `Halo admin, saya sudah setor akun:\n\nEmail:\n${emailsFormatted}\nJumlah: ${jumlahAkun} akun\nWA: ${waNumber}\nDANA: ${danaNumber}`;
-            let whatsappUrl = "https://wa.me/6288229814051?text=" + encodeURIComponent(pesan); // GANTI NOMOR WA INI JIKA BEDA
-
-            setTimeout(() => {
-                window.open(whatsappUrl, "_blank");
-                statusBox.innerHTML = '<div class="status pending">⏳ Data sudah terkirim.</div>';
-            }, 2000);
-        } else {
-            statusBox.innerHTML = '<div class="status pending">❌ Gagal mengirim data. Silakan coba lagi.</div>';
-            const errorData = await response.json();
-            console.error(errorData);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setor Akun Gmail - Job Store</title>
+    <!-- EmailJS CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function() {
+          emailjs.init({
+            // Public Key kamu dari EmailJS Account -> API Keys
+            publicKey: "cyAqUXxkALF6ZvvbH",
+          });
+       })();
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Mengubah align-items ke flex-start agar tidak terlalu ke tengah */
+            min-height: 100vh;
+            margin: 20px; /* Menambahkan margin agar tidak terlalu mepet ke atas */
+            box-sizing: border-box;
         }
-    } catch (error) {
-        statusBox.innerHTML = '<div class="status pending">❌ Terjadi kesalahan jaringan.</div>';
-        console.error(error);
-    }
-});
-</script>
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+        textarea,
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .message {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .info-box {
+            background-color: #e7f3fe;
+            border-left: 6px solid #2196F3;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            color: #2196F3;
+            font-size: 14px;
+        }
+        .info-box ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        .info-box li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Setor Akun Gmail</h1>
+        <div class="info-box">
+            <p><strong>Penting!</strong> Mohon perhatikan panduan berikut saat menyetor akun:</p>
+            <ul>
+                <li>Satu email per baris.</li>
+                <li>Hanya akun Google Mail (Gmail).</li>
+                <li>Pastikan email dan password benar.</li>
+                <li>Nomor WhatsApp harus aktif agar kami bisa memverifikasi dan memproses pembayaran.</li>
+            </ul>
+        </div>
+        <form id="gmailAccountForm">
+            <label for="email_list">Daftar Akun Gmail:</label>
+            <textarea id="email_list" name="email_list" placeholder="Contoh:&#10;user1@gmail.com:password123&#10;user2@gmail.com:password456" rows="8" required></textarea>
 
-<!-- SCRIPT UNTUK NOTIFIKASI LIVE -->
-<div id="liveNotif" style="
-position: fixed;
-bottom: 20px;
-right: 20px;
-background: #1e293b;
-padding: 12px;
-border-radius: 10px;
-display: none;
-font-size: 14px;
-z-index: 1000;
-"></div>
+            <label for="jumlah_akun">Jumlah Akun yang Disetor:</label>
+            <input type="text" id="jumlah_akun" name="jumlah_akun" placeholder="Contoh: 5" required>
 
-<script>
-const nama = ["Andi", "Rizky", "Dimas", "Aldi", "Fajar", "Budi", "Siti", "Ayu", "Joko"];
-const jumlah = ["Rp7.500", "Rp12.000", "Rp15.000", "Rp9.000", "Rp10.500", "Rp6.000"];
+            <label for="whatsapp_number">Nomor WhatsApp Anda:</label>
+            <input type="text" id="whatsapp_number" name="whatsapp_number" placeholder="Contoh: 6281234567890 (tanpa +)" required>
 
-function showNotif() {
-    let n = nama[Math.floor(Math.random() * nama.length)];
-    let j = jumlah[Math.floor(Math.random() * jumlah.length)];
+            <label for="dana_number">Nomor DANA untuk Pembayaran:</label>
+            <input type="text" id="dana_number" name="dana_number" placeholder="Contoh: 081234567890 (untuk pembayaran)" required>
 
-    let notif = document.getElementById("liveNotif");
-    notif.innerHTML = "💸 " + n + " baru saja menerima pembayaran " + j;
-    notif.style.display = "block";
+            <button type="submit" id="sendButton">Setor Akun Gmail</button>
+            <div id="message" class="message"></div>
+        </form>
+    </div>
 
-    setTimeout(() => {
-        notif.style.display = "none";
-    }, 4000);
-}
+    <script>
+    const form = document.getElementById('gmailAccountForm');
+    const sendButton = document.getElementById('sendButton');
+    const messageDiv = document.getElementById('message');
 
-setInterval(showNotif, 8000);
-</script>
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault(); // Menghentikan pengiriman form default
+        
+        sendButton.disabled = true;
+        sendButton.textContent = 'Mengirim...';
+        messageDiv.textContent = ''; // Kosongkan pesan sebelumnya
 
+        const templateParams = {
+            email_list: document.getElementById('email_list').value,
+            jumlah_akun: document.getElementById('jumlah_akun').value,
+            whatsapp_number: document.getElementById('whatsapp_number').value,
+            dana_number: document.getElementById('dana_number').value,
+        };
+
+        try {
+            // Service ID dan Template ID kamu dari EmailJS
+            await emailjs.send("service_k0awppf", "template_qgtm6e9", templateParams);
+
+            messageDiv.textContent = 'Penyetoran akun berhasil! Admin akan segera memproses.';
+            messageDiv.style.color = 'green';
+            form.reset(); // Mengosongkan form setelah berhasil
+        } catch (error) {
+            console.error('Gagal mengirim email:', error);
+            messageDiv.textContent = 'Gagal melakukan penyetoran. Mohon coba lagi atau hubungi admin langsung.';
+            messageDiv.style.color = 'red';
+        } finally {
+            sendButton.disabled = false;
+            sendButton.textContent = 'Setor Akun Gmail';
+        }
+    });
+    </script>
 </body>
 </html>
