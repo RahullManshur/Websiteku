@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Setor Akun Gmail - Job Gmail</title>
+    <title>Setor Akun Gmail - Job Store</title>
     <!-- Google Fonts: Inter untuk tampilan modern dan bersih -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,6 +36,11 @@
             /* Gradient untuk card utama (opsional, bisa diganti solid white) */
             --card-gradient-start: #f8fcfd;
             --card-gradient-end: #ffffff;
+
+            /* Warna untuk Live Activity */
+            --activity-bg: #e6fffa;
+            --activity-text: #2d3748;
+            --activity-icon: #38b2ac;
         }
 
         /* Keyframes untuk animasi */
@@ -71,6 +76,11 @@
             20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
 
+        @keyframes newActivity {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
         /* Styling dasar untuk body */
         body {
             font-family: 'Inter', sans-serif;
@@ -78,7 +88,7 @@
             color: var(--text-dark);
             display: flex;
             flex-direction: column; /* Mengatur item secara kolom */
-            justify-content: center;
+            justify-content: flex-start; /* Konten dimulai dari atas */
             align-items: center;
             min-height: 100vh;
             margin: 0;
@@ -94,7 +104,7 @@
         /* Gradasi di background seperti Buzzpoin */
         body::before {
             content: '';
-            position: absolute;
+            position: fixed; /* Agar tetap di tempat saat scroll */
             top: -10%;
             left: -10%;
             width: 120%;
@@ -106,7 +116,7 @@
         }
 
         /* Header (inspirasi dari navigasi Buzzpoin) */
-        .header {
+       .header {
             width: 100%;
             max-width: 600px;
             display: flex;
@@ -117,19 +127,19 @@
             animation: fadeIn 0.8s ease-out forwards;
             animation-delay: 0.1s;
         }
-        .header .logo {
+       .header.logo {
             display: flex;
             align-items: center;
             font-weight: 700;
             font-size: 1.5em;
             color: var(--text-dark);
         }
-        .header .logo i {
+       .header.logo i {
             color: var(--primary-green);
             margin-right: 8px;
             font-size: 1.2em;
         }
-        .header .nav-links a {
+       .header.nav-links a {
             text-decoration: none;
             color: var(--text-secondary-dark);
             font-weight: 500;
@@ -138,22 +148,22 @@
             border-radius: 8px;
             transition: all 0.3s ease;
         }
-        .header .nav-links a:hover {
+       .header.nav-links a:hover {
             color: var(--primary-green);
             background-color: rgba(55, 211, 150, 0.1);
         }
-        .header .nav-links a.active {
+       .header.nav-links a.active {
             background-color: var(--primary-green);
             color: white;
             box-shadow: 0 4px 10px rgba(55, 211, 150, 0.3);
         }
-        .header .nav-links a.active:hover {
+       .header.nav-links a.active:hover {
              background-color: var(--primary-green-dark);
              box-shadow: 0 6px 15px rgba(55, 211, 150, 0.4);
         }
 
         /* Kontainer utama website (form card) */
-        .container {
+       .container {
             background: linear-gradient(135deg, var(--card-gradient-start), var(--card-gradient-end));
             padding: 40px;
             border-radius: 16px; /* Lebih rounded */
@@ -167,9 +177,10 @@
             animation: popInScale 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Pop-in yang lebih dinamis */
             animation-delay: 0.2s;
             transition: all 0.3s ease;
+            margin-bottom: 30px; /* Jarak ke Live Activity */
         }
 
-        .container:hover {
+       .container:hover {
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
             transform: translateY(-5px); /* Sedikit naik saat hover */
         }
@@ -187,14 +198,14 @@
         }
 
         /* Section info/rules/warning */
-        .info-section {
+       .info-section {
             margin-bottom: 30px;
             opacity: 0;
             animation: fadeIn 0.6s ease-out forwards;
             animation-delay: 0.4s;
         }
 
-        .info-section h2 {
+       .info-section h2 {
             font-size: 1.4em;
             font-weight: 700;
             color: var(--text-dark);
@@ -203,11 +214,11 @@
             align-items: center;
             gap: 10px;
         }
-        .info-section h2 i {
+       .info-section h2 i {
             color: var(--primary-green); /* Ikon di judul section */
         }
 
-        .rules-box, .info-box, .warning-box {
+       .rules-box,.info-box,.warning-box {
             background-color: var(--bg-light); /* Lebih terang dari card utama */
             padding: 20px 25px;
             border-radius: 12px;
@@ -221,80 +232,80 @@
             animation: slideInFromLeft 0.6s ease-out forwards;
         }
 
-        .rules-box:hover, .info-box:hover, .warning-box:hover {
+       .rules-box:hover,.info-box:hover,.warning-box:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
 
-        .rules-box {
+       .rules-box {
             animation-delay: 0.5s;
             background-color: var(--rules-box-bg);
             border-left: 5px solid var(--rules-box-border);
         }
-        .rules-box h2 {
+       .rules-box h2 {
             color: var(--text-dark);
             margin-bottom: 10px;
         }
-        .rules-box h2 i {
+       .rules-box h2 i {
             color: var(--rules-box-border); /* Warna ikon di rules header */
             font-size: 1.1em;
             animation: pulseLight 1.5s infinite; /* Animasi ikon pulse */
         }
-        .rules-box ul {
+       .rules-box ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-        .rules-box li {
+       .rules-box li {
             margin-bottom: 10px;
             display: flex;
             align-items: flex-start;
             gap: 10px;
             line-height: 1.5;
         }
-        .rules-box li:last-child { margin-bottom: 0; }
-        .rules-box li strong {
+       .rules-box li:last-child { margin-bottom: 0; }
+       .rules-box li strong {
             color: var(--text-dark);
         }
-        .rules-box li i {
+       .rules-box li i {
             color: var(--primary-green); /* Ikon check di list rules */
             font-size: 1em;
             margin-top: 3px;
         }
 
-        .info-box {
+       .info-box {
             animation-delay: 0.6s;
             background-color: var(--info-box-bg);
             border-left: 5px solid var(--info-box-border);
         }
-        .info-box h2 {
+       .info-box h2 {
             color: var(--text-dark);
             margin-bottom: 10px;
         }
-        .info-box h2 i {
+       .info-box h2 i {
             color: var(--info-box-border);
             font-size: 1.1em;
         }
-        .info-box ul {
+       .info-box ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-        .info-box li {
+       .info-box li {
             margin-bottom: 8px;
             display: flex;
             align-items: flex-start;
             gap: 10px;
             line-height: 1.5;
         }
-        .info-box li:last-child { margin-bottom: 0; }
-        .info-box li i {
+       .info-box li:last-child { margin-bottom: 0; }
+       .info-box li i {
             color: var(--primary-green);
             font-size: 1em;
             margin-top: 3px;
         }
 
-        .warning-box {
+       .warning-box {
             animation-delay: 0.7s;
             background-color: var(--warning-box-bg);
             border-left: 5px solid var(--warning-box-border);
@@ -303,13 +314,13 @@
             gap: 15px;
             margin-top: 25px;
         }
-        .warning-box i {
+       .warning-box i {
             color: var(--warning-box-border);
             font-size: 1.5em;
             flex-shrink: 0; /* Icon tidak mengecil */
             animation: shakeInput 0.8s infinite alternate; /* Animasi shake halus */
         }
-        .warning-box span {
+       .warning-box span {
             color: var(--text-secondary-dark);
         }
 
@@ -388,7 +399,7 @@
         }
 
         /* Styling untuk pesan feedback (sukses/error) */
-        .message {
+       .message {
             margin-top: 25px;
             text-align: center;
             font-weight: 600;
@@ -397,19 +408,19 @@
             border-radius: 10px;
             animation: fadeIn 0.5s ease-out forwards;
         }
-        .message.success {
+       .message.success {
             background-color: rgba(40, 167, 69, 0.1);
             color: var(--whatsapp-green);
             border: 1px solid var(--whatsapp-green);
         }
-        .message.error {
+       .message.error {
             background-color: rgba(220, 53, 69, 0.1);
             color: #dc3545;
             border: 1px solid #dc3545;
         }
 
         /* Styling untuk link WhatsApp (grup & testimoni) */
-        .whatsapp-links {
+       .whatsapp-links {
             margin-top: 40px;
             padding-top: 20px;
             border-top: 1px solid var(--border-light);
@@ -418,9 +429,9 @@
             gap: 15px;
             opacity: 0;
             animation: slideInFromRight 0.6s ease-out forwards;
-            animation-delay: 0.9s;
+            animation-delay: 1s; /* Sesuaikan delay */
         }
-        .whatsapp-links a {
+       .whatsapp-links a {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -435,17 +446,141 @@
             transition: all 0.3s ease;
             box-shadow: 0 6px 15px rgba(37, 211, 102, 0.3);
         }
-        .whatsapp-links a:hover {
+       .whatsapp-links a:hover {
             background-color: var(--whatsapp-green-hover);
             transform: translateY(-3px) scale(1.01);
             box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4);
         }
-        .whatsapp-links a i {
+       .whatsapp-links a i {
             font-size: 1.3em;
         }
 
+        /* Live Activity Section */
+       .live-activity-section {
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--bg-dark-card);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+            animation-delay: 1.2s; /* Muncul setelah form */
+            border: 1px solid var(--border-light);
+        }
+       .live-activity-section h2 {
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            position: relative;
+        }
+       .live-activity-section h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-green);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+       .live-activity-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+       .live-activity-item {
+            display: flex;
+            align-items: center;
+            background-color: var(--activity-bg);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 5px solid var(--activity-icon);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            animation: newActivity 0.5s ease-out forwards;
+            opacity: 0; /* Untuk animasi individual */
+            transform: translateY(10px); /* Untuk animasi individual */
+        }
+       .live-activity-item:last-child {
+            margin-bottom: 0;
+        }
+       .live-activity-item i {
+            color: var(--activity-icon);
+            font-size: 1.4em;
+            margin-right: 15px;
+        }
+       .activity-details {
+            flex-grow: 1;
+        }
+       .activity-details span {
+            display: block;
+            color: var(--activity-text);
+        }
+       .activity-details.name {
+            font-weight: 700;
+            font-size: 1.05em;
+        }
+       .activity-details.amount {
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+       .activity-details.time {
+            font-size: 0.85em;
+            color: var(--text-secondary-dark);
+        }
+
+        /* Hidden section for Tentang Kami and FAQ */
+       .hidden-section {
+            display: none; /* Default hidden */
+            background: linear-gradient(135deg, var(--card-gradient-start), var(--card-gradient-end));
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+            border: 1px solid var(--border-light);
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: popInScale 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation-delay: 0.2s;
+        }
+       .hidden-section h2 {
+            font-size: 2.2em;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+       .hidden-section p,.hidden-section ul {
+            color: var(--text-secondary-dark);
+            font-size: 1em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+       .hidden-section ul {
+            list-style: none;
+            padding: 0;
+        }
+       .hidden-section ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 8px;
+        }
+       .hidden-section ul li::before {
+            content: '\f05a'; /* Font Awesome info-circle */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-green);
+        }
+
         /* Footer (inspirasi dari footer Buzzpoin) */
-        .footer {
+       .footer {
             width: 100%;
             max-width: 600px;
             text-align: center;
@@ -455,15 +590,15 @@
             padding-top: 30px;
             border-top: 1px solid var(--border-light);
             animation: fadeIn 0.8s ease-out forwards;
-            animation-delay: 1.2s;
+            animation-delay: 1.5s; /* Sesuaikan delay */
         }
-        .footer a {
+       .footer a {
             color: var(--primary-green);
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
         }
-        .footer a:hover {
+       .footer a:hover {
             color: var(--primary-green-dark);
         }
 
@@ -472,21 +607,21 @@
             body {
                 padding: 15px;
             }
-            .header {
+           .header {
                 flex-direction: column;
                 gap: 15px;
                 margin-bottom: 20px;
             }
-            .header .nav-links {
+           .header.nav-links {
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 10px;
             }
-            .header .nav-links a {
+           .header.nav-links a {
                 margin: 0;
             }
-            .container {
+           .container,.live-activity-section,.hidden-section {
                 padding: 25px;
                 border-radius: 12px;
             }
@@ -494,14 +629,14 @@
                 font-size: 2.2em;
                 margin-bottom: 20px;
             }
-            .rules-box, .info-box, .warning-box {
+           .rules-box,.info-box,.warning-box {
                 padding: 18px 20px;
             }
-            .warning-box {
+           .warning-box {
                 flex-direction: column;
                 text-align: center;
             }
-            .whatsapp-links a {
+           .whatsapp-links a {
                 padding: 12px 15px;
                 font-size: 1em;
             }
@@ -515,18 +650,18 @@
             <i class="fas fa-money-check-alt"></i> Job Store
         </div>
         <nav class="nav-links">
-            <a href="#" class="active">Setor Gmail</a>
-            <a href="#">Tentang Kami</a>
-            <a href="#">FAQ</a>
+            <a href="#setor-gmail" class="active" id="nav-setor-gmail">Setor Gmail</a>
+            <a href="#tentang-kami" id="nav-tentang-kami">Tentang Kami</a>
+            <a href="#faq" id="nav-faq">FAQ</a>
         </nav>
     </header>
 
-    <div class="container">
+    <div class="container" id="setor-gmail">
         <h1>Setor Akun Gmail Anda Sekarang!</h1>
 
         <!-- Bagian RULES -->
         <div class="rules-box">
-            <h2><i class="fas fa-check-circle"></i> Rules Penting</h2>
+            <h2><i class="fas fa-gavel"></i> Rules Penting</h2>
             <ul>
                 <li><i class="fas fa-info-circle"></i> <strong>Nama Akun:</strong> Bebas, hindari angka atau karakter aneh.</li>
                 <li><i class="fas fa-info-circle"></i> <strong>Password Akun:</strong> Wajib `aass1122`.</li>
@@ -551,7 +686,7 @@
 
         <!-- Form penyetoran akun Gmail -->
         <form id="gmailAccountForm">
-            <label for="email_list"><i class="fas fa-envelope"></i> Daftar Akun Gmail Anda:</label>
+            <label for="email_list"><i class="fas fa-envelope"></i> Setor Akun Gmail Anda:</label>
             <textarea id="email_list" name="email_list" placeholder="Masukkan setiap akun di baris baru.&#10;Contoh:&#10;user1@gmail.com:password123&#10;user2@gmail.com:password456" required></textarea>
 
             <label for="jumlah_akun"><i class="fas fa-calculator"></i> Jumlah Akun yang Disetor:</label>
@@ -587,6 +722,36 @@
         </div>
     </div>
 
+    <!-- Live Activity Section -->
+    <section class="live-activity-section" id="live-activity-section">
+        <h2><i class="fas fa-chart-line"></i> Aktivitas Pembayaran Terkini</h2>
+        <ul class="live-activity-list" id="activity-list">
+            <!-- Aktivitas pembayaran akan muncul di sini -->
+        </ul>
+    </section>
+
+    <!-- Section "Tentang Kami" (default hidden) -->
+    <section class="hidden-section" id="tentang-kami">
+        <h2>Tentang Kami</h2>
+        <p>Job Store adalah platform terpercaya yang memfasilitasi transaksi jual beli akun digital dengan aman dan efisien. Kami berdedikasi untuk menyediakan layanan terbaik bagi para pengguna, memastikan setiap transaksi berjalan lancar dan transparan.</p>
+        <p>Dengan fokus pada keamanan dan kepuasan pelanggan, kami terus berinovasi untuk menjadi pilihan utama Anda dalam mengelola aset digital.</p>
+    </section>
+
+    <!-- Section "FAQ" (default hidden) -->
+    <section class="hidden-section" id="faq">
+        <h2>Pertanyaan Umum (FAQ)</h2>
+        <ul>
+            <li><strong>Bagaimana cara menyetor akun Gmail?</strong>
+                <p>Isi formulir yang tersedia di halaman utama dengan detail akun Gmail dan informasi kontak Anda. Setelah itu, klik tombol "Kirim Data ke WhatsApp Admin" untuk melanjutkan proses.</p></li>
+            <li><strong>Berapa lama proses pembayaran?</strong>
+                <p>Pembayaran biasanya diproses dalam estimasi 1-2 jam setelah verifikasi, dengan maksimal 24 jam. Kami akan menghubungi Anda melalui WhatsApp untuk update status.</p></li>
+            <li><strong>Apakah akun saya aman?</strong>
+                <p>Ya, keamanan akun Anda adalah prioritas kami. Kami tidak pernah meminta password Gmail Anda secara langsung di website. Password yang Anda masukkan di formulir hanya untuk mempermudah proses verifikasi kami melalui WhatsApp.</p></li>
+            <li><strong>Apa itu akun verified 500p?</strong>
+                <p>Akun yang terkena verifikasi tambahan (seperti verifikasi profil) tidak akan dibeli atau akan dibeli dengan harga khusus 500p, sesuai dengan ketentuan yang berlaku.</p></li>
+        </ul>
+    </section>
+
     <!-- Footer ala Buzzpoin -->
     <footer class="footer">
         &copy; 2026 Job Store. All rights reserved. | <a href="#">Kebijakan Privasi</a> | <a href="#">Syarat & Ketentuan</a>
@@ -600,7 +765,56 @@
     const sendButton = document.getElementById('sendButton');
     const messageDiv = document.getElementById('message');
 
-    // Event listener untuk submit form
+    // ===============================================
+    // FUNGSI NAVIGASI
+    // ===============================================
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = {
+        'setor-gmail': document.getElementById('setor-gmail'),
+        'tentang-kami': document.getElementById('tentang-kami'),
+        'faq': document.getElementById('faq')
+    };
+
+    function showSection(targetId) {
+        // Sembunyikan semua section yang mungkin tampil
+        for (const id in sections) {
+            if (sections.hasOwnProperty(id)) {
+                sections[id].style.display = 'none';
+            }
+        }
+        // Tampilkan section yang dituju
+        if (sections[targetId]) {
+            sections[targetId].style.display = 'block';
+            // Scroll ke atas section yang aktif
+            sections[targetId].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Atur kelas aktif pada navigasi
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${targetId}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    // Event listener untuk klik navigasi
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1); // Ambil ID tanpa '#'
+            showSection(targetId);
+        });
+    });
+
+    // Tampilkan section 'setor-gmail' secara default saat load halaman
+    document.addEventListener('DOMContentLoaded', () => {
+        showSection('setor-gmail');
+    });
+
+    // ===============================================
+    // FUNGSI FORM SUBMIT
+    // ===============================================
     form.addEventListener('submit', function (e) {
         e.preventDefault(); // Mencegah reload halaman
 
@@ -616,8 +830,11 @@
         const danaOwnerName = document.getElementById('dana_owner_name').value;
 
         // Validasi sederhana untuk nomor WhatsApp dan DANA
-        if (!userWhatsAppNumber.match(/^\d+$/) || !danaNumber.match(/^\d+$/)) {
-            messageDiv.textContent = 'Nomor WhatsApp dan DANA hanya boleh berisi angka.';
+        const whatsappRegex = /^[0-9+]+$/; // Memperbolehkan angka dan '+'
+        const danaRegex = /^[0-9]+$/; // Hanya angka
+
+        if (!whatsappRegex.test(userWhatsAppNumber) ||!danaRegex.test(danaNumber)) {
+            messageDiv.textContent = 'Nomor WhatsApp dan DANA hanya boleh berisi angka (WhatsApp bisa dengan +).';
             messageDiv.className = 'message error';
             sendButton.disabled = false;
             sendButton.innerHTML = 'Kirim Data ke WhatsApp Admin <i class="fas fa-paper-plane"></i>';
@@ -650,6 +867,57 @@
             sendButton.innerHTML = 'Kirim Data ke WhatsApp Admin <i class="fas fa-paper-plane"></i>';
         }, 3000);
     });
+
+    // ===============================================
+    // FUNGSI LIVE ACTIVITY (SIMULASI)
+    // ===============================================
+    const activityList = document.getElementById('activity-list');
+    const dummyNames = ["Budi", "Siti", "Agus", "Dewi", "Faisal", "Linda", "Rudi", "Maya"];
+    const dummyAmounts = ["5.000", "10.000", "7.500", "12.000", "8.000", "6.500", "9.000"];
+
+    function getRandomItem(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function generateRandomActivity() {
+        const randomName = getRandomItem(dummyNames);
+        const randomAmount = getRandomItem(dummyAmounts);
+        const randomTime = Math.floor(Math.random() * 15) + 1; // 1-15 menit lalu
+
+        const item = document.createElement('li');
+        item.className = 'live-activity-item';
+        item.innerHTML = `
+            <i class="fas fa-money-bill-wave"></i>
+            <div class="activity-details">
+                <span class="name">${randomName} telah setor akun!</span>
+                <span class="amount">Rp ${randomAmount} Terbayar</span>
+                <span class="time">${randomTime} menit yang lalu</span>
+            </div>
+        `;
+        return item;
+    }
+
+    function updateLiveActivity() {
+        // Hapus item terlama jika sudah ada 5 atau lebih
+        if (activityList.children.length >= 5) {
+            activityList.removeChild(activityList.lastChild);
+        }
+
+        // Tambahkan item baru ke paling atas
+        const newActivity = generateRandomActivity();
+        activityList.prepend(newActivity);
+    }
+
+    // Generate beberapa aktivitas awal saat halaman dimuat
+    for (let i = 0; i < 3; i++) { // Tampilkan 3 aktivitas awal
+        const initialActivity = generateRandomActivity();
+        initialActivity.style.animationDelay = `${0.2 * i}s`; // Staggered animation
+        activityList.appendChild(initialActivity);
+    }
+
+    // Update aktivitas setiap beberapa detik (misal 5-10 detik)
+    setInterval(updateLiveActivity, Math.random() * (10000 - 5000) + 5000); // Acak 5-10 detik
+
     </script>
 </body>
 </html>
