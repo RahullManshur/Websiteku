@@ -20,14 +20,13 @@ header {
 
 header h1 {
     color: #38bdf8;
-    margin-bottom: 5px; /* Kurangi margin bawah h1 */
+    margin-bottom: 5px;
 }
 
-/* Style untuk username @rahulmanshur */
 header p.username {
-    font-size: 0.9em; /* Ukuran lebih kecil */
-    color: #94a3b8; /* Warna abu-abu yang soft */
-    margin-top: 0; /* Hapus margin atas */
+    font-size: 0.9em;
+    color: #94a3b8;
+    margin-top: 0;
 }
 
 .container {
@@ -48,7 +47,6 @@ header p.username {
     transform: translateY(-5px);
 }
 
-/* Style untuk input teks biasa (Nomor WhatsApp, Nomor DANA) */
 input[type="text"], input[type="number"] {
     width: 100%;
     padding: 10px;
@@ -60,7 +58,6 @@ input[type="text"], input[type="number"] {
     color: white;
 }
 
-/* Style untuk textarea (tempat memasukkan banyak email) */
 textarea {
     width: 100%;
     padding: 10px;
@@ -74,7 +71,6 @@ textarea {
     color: white;
 }
 
-/* Style untuk placeholder agar terlihat di dark mode */
 ::placeholder {
   color: #a0aec0;
   opacity: 1;
@@ -138,7 +134,6 @@ textarea {
 
 <header>
     <h1>💼 JOB GMAIL</h1>
-    <!-- Tambahan username di bawah judul -->
     <p class="username">@rahulmanshur</p>
 </header>
 
@@ -161,12 +156,13 @@ textarea {
 <div class="card">
     <h2>📲 Kirim Data</h2>
 
-    <form onsubmit="kirimData(event)">
-        <textarea id="email" placeholder="Masukkan Alamat Email Yang Akan di Stor&#10;(contoh:&#10;email1@gmail.com&#10;email2@gmail.com&#10;...)" required></textarea>
-        <input type="text" id="wa" placeholder="Nomor WhatsApp kamu" required>
-        <input type="text" id="dana" placeholder="Nomor DANA kamu (untuk pembayaran)" required>
+    <form id="submissionForm" action="https://formspree.io/f/mreyvjll" method="POST">
+        <!-- Formspree ID sudah terpasang di sini -->
 
-        <!-- Teks tombol diubah jadi "Stor Sekarang" -->
+        <textarea name="email_list" id="email" placeholder="Masukkan Alamat Email Yang Akan di Stor&#10;(contoh:&#10;email1@gmail.com&#10;email2@gmail.com&#10;...)" required></textarea>
+        <input type="text" name="whatsapp_number" id="wa" placeholder="Nomor WhatsApp kamu" required>
+        <input type="text" name="dana_number" id="dana" placeholder="Nomor DANA kamu (untuk pembayaran)" required>
+
         <button type="submit" class="btn">Stor Sekarang</button>
     </form>
 
@@ -197,31 +193,58 @@ textarea {
     © 2026 Job Stor Gmail
 </div>
 
-<!-- SCRIPT UNTUK MENGIRIM DATA KE WHATSAPP -->
+<!-- SCRIPT UNTUK MENGIRIM DATA DAN NOTIFIKASI -->
 <script>
-function kirimData(e){
+const form = document.getElementById('submissionForm');
+const statusBox = document.getElementById('statusBox');
+
+form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    let emailsInput = document.getElementById("email").value;
-    let emailList = emailsInput.split('\n').filter(email => email.trim() !== '');
-    let jumlah = emailList.length;
+    statusBox.innerHTML = '<div class="status pending">⏳ Mengirim data...</div>';
 
-    let wa = document.getElementById("wa").value;
-    let dana = document.getElementById("dana").value;
+    const formData = new FormData(form);
 
-    let emailsFormatted = emailList.join('\n');
+    const emailsInput = formData.get('email_list');
+    const emailList = emailsInput.split('\n').filter(email => email.trim() !== '');
+    const jumlahAkun = emailList.length;
 
-    let pesan = `Halo admin, saya sudah setor akun:\n\nEmail:\n${emailsFormatted}\nJumlah: ${jumlah} akun\nWA: ${wa}\nDANA: ${dana}`;
+    formData.append('jumlah_akun', jumlahAkun);
 
-    let url = "https://wa.me/6288229814051?text=" + encodeURIComponent(pesan);
+    try {
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
 
-    window.open(url, "_blank");
+        if (response.ok) {
+            statusBox.innerHTML = '<div class="status pending">✅ Data berhasil dikirim ke Gmail kamu! Sekarang mengarahkan ke WhatsApp...</div>';
+            form.reset();
 
-    document.getElementById("statusBox").innerHTML =
-        '<div class="status pending">⏳ Data dikirim ke WhatsApp admin</div>';
+            const waNumber = formData.get('whatsapp_number');
+            const danaNumber = formData.get('dana_number');
+            const emailsFormatted = emailList.join('\n');
 
-    e.target.reset();
-}
+            let pesan = `Halo admin, saya sudah setor akun:\n\nEmail:\n${emailsFormatted}\nJumlah: ${jumlahAkun} akun\nWA: ${waNumber}\nDANA: ${danaNumber}`;
+            let whatsappUrl = "https://wa.me/6288229814051?text=" + encodeURIComponent(pesan); // GANTI NOMOR WA INI JIKA BEDA
+
+            setTimeout(() => {
+                window.open(whatsappUrl, "_blank");
+                statusBox.innerHTML = '<div class="status pending">⏳ Data sudah terkirim.</div>';
+            }, 2000);
+        } else {
+            statusBox.innerHTML = '<div class="status pending">❌ Gagal mengirim data. Silakan coba lagi.</div>';
+            const errorData = await response.json();
+            console.error(errorData);
+        }
+    } catch (error) {
+        statusBox.innerHTML = '<div class="status pending">❌ Terjadi kesalahan jaringan.</div>';
+        console.error(error);
+    }
+});
 </script>
 
 <!-- SCRIPT UNTUK NOTIFIKASI LIVE -->
