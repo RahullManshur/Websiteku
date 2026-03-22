@@ -103,35 +103,27 @@ input {
 
 <div class="container">
 
-<div class="card">
-    <h2>✅ Kenapa Harus Join?</h2>
-    <p>✔ Sudah banyak yang bergabung</p>
-    <p>✔ Pembayaran cepat & real</p>
-    <p>✔ Proses mudah & aman</p>
-</div>
+<script>
+function kirimData(e){
+    e.preventDefault();
 
-<div class="card">
-    <h2>📌 Detail Pekerjaan</h2>
-    <p>✔ Membuat akun Gmail</p>
-    <p>✔ Bayaran Rp1.500 / akun</p>
-    <p>✔ Bisa dari HP</p>
-</div>
+    let email = document.getElementById("email").value;
+    let jumlah = document.getElementById("jumlah").value;
+    let wa = document.getElementById("wa").value;
+    let dana = document.getElementById("dana").value;
 
-<div class="card">
-    <h2>📲 Kirim Data</h2>
+    let pesan = `Halo admin, saya sudah setor akun:\n\nEmail: ${email}\nJumlah: ${jumlah}\nWA: ${wa}\nDANA: ${dana}`;
 
-   <div class="card">
-    <h2>📲 Kirim Data</h2>
-    <p>Klik tombol di bawah untuk isi data</p>
+    let url = "https://wa.me/62888229814051?text=" + encodeURIComponent(pesan);
 
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQtOlDV14DY56dEN-7ip1KlQ9KuonYqwl6_kI8VxHilSlBvA/viewform?usp=publish-editor">
-        Isi Data Sekarang
-    </a>
+    window.open(url, "_blank");
 
-    <div class="notice">
-        ⚠️ Demi keamanan, kami tidak meminta password di website.
-    </div>
-</div>
+    document.getElementById("statusBox").innerHTML =
+        '<div class="status pending">⏳ Data dikirim ke WhatsApp admin</div>';
+
+    e.target.reset();
+}
+</script>
     <div id="statusBox"></div>
 
     <div class="notice">
