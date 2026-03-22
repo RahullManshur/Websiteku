@@ -4,25 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Setor Akun Gmail - Job Store</title>
-    <!-- EmailJS CDN -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-       (function() {
-          emailjs.init({
-            // Public Key kamu dari EmailJS Account -> API Keys
-            publicKey: "cyAqUXxkALF6ZvvbH",
-          });
-       })();
-    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Mengubah align-items ke flex-start agar tidak terlalu ke tengah */
+            align-items: flex-start;
             min-height: 100vh;
-            margin: 20px; /* Menambahkan margin agar tidak terlalu mepet ke atas */
+            margin: 20px;
             box-sizing: border-box;
         }
         .container {
@@ -108,7 +98,7 @@
                 <li>Satu email per baris.</li>
                 <li>Hanya akun Google Mail (Gmail).</li>
                 <li>Pastikan email dan password benar.</li>
-                <li>Nomor WhatsApp harus aktif agar kami bisa memverifikasi dan memproses pembayaran.</li>
+                <li>Nomor WhatsApp Anda harus aktif agar kami bisa memverifikasi dan memproses pembayaran.</li>
             </ul>
         </div>
         <form id="gmailAccountForm">
@@ -118,8 +108,8 @@
             <label for="jumlah_akun">Jumlah Akun yang Disetor:</label>
             <input type="text" id="jumlah_akun" name="jumlah_akun" placeholder="Contoh: 5" required>
 
-            <label for="whatsapp_number">Nomor WhatsApp Anda:</label>
-            <input type="text" id="whatsapp_number" name="whatsapp_number" placeholder="Contoh: 6281234567890 (tanpa +)" required>
+            <label for="whatsapp_number_user">Nomor WhatsApp Anda:</label>
+            <input type="text" id="whatsapp_number_user" name="whatsapp_number_user" placeholder="Contoh: 6281234567890 (tanpa +)" required>
 
             <label for="dana_number">Nomor DANA untuk Pembayaran:</label>
             <input type="text" id="dana_number" name="dana_number" placeholder="Contoh: 081234567890 (untuk pembayaran)" required>
@@ -134,35 +124,44 @@
     const sendButton = document.getElementById('sendButton');
     const messageDiv = document.getElementById('message');
 
-    form.addEventListener('submit', async function (e) {
+    // NOMOR WHATSAPP KAMU (NOMOR ADMIN) SUDAH TERISI DI SINI
+    const adminWhatsAppNumber = "6288229814051"; // Nomor WhatsApp kamu: 088229814051, diubah ke format internasional tanpa +
+
+    form.addEventListener('submit', function (e) {
         e.preventDefault(); // Menghentikan pengiriman form default
         
         sendButton.disabled = true;
-        sendButton.textContent = 'Mengirim...';
+        sendButton.textContent = 'Mengarahkan ke WhatsApp...';
         messageDiv.textContent = ''; // Kosongkan pesan sebelumnya
 
-        const templateParams = {
-            email_list: document.getElementById('email_list').value,
-            jumlah_akun: document.getElementById('jumlah_akun').value,
-            whatsapp_number: document.getElementById('whatsapp_number').value,
-            dana_number: document.getElementById('dana_number').value,
-        };
+        const emailList = document.getElementById('email_list').value;
+        const jumlahAkun = document.getElementById('jumlah_akun').value;
+        const userWhatsAppNumber = document.getElementById('whatsapp_number_user').value;
+        const danaNumber = document.getElementById('dana_number').value;
 
-        try {
-            // Service ID dan Template ID kamu dari EmailJS
-            await emailjs.send("service_k0awppf", "template_qgtm6e9", templateParams);
+        // Membuat pesan WhatsApp
+        const waMessage = `Halo Admin, saya ingin menyetor akun Gmail:\n\n` +
+                          `Daftar Akun:\n${emailList}\n\n` +
+                          `Jumlah Akun: ${jumlahAkun}\n` +
+                          `Nomor WhatsApp User: ${userWhatsAppNumber}\n` +
+                          `Nomor DANA Pembayaran: ${danaNumber}\n\n` +
+                          `Mohon diproses, terima kasih.`;
 
-            messageDiv.textContent = 'Penyetoran akun berhasil! Admin akan segera memproses.';
-            messageDiv.style.color = 'green';
-            form.reset(); // Mengosongkan form setelah berhasil
-        } catch (error) {
-            console.error('Gagal mengirim email:', error);
-            messageDiv.textContent = 'Gagal melakukan penyetoran. Mohon coba lagi atau hubungi admin langsung.';
-            messageDiv.style.color = 'red';
-        } finally {
-            sendButton.disabled = false;
-            sendButton.textContent = 'Setor Akun Gmail';
-        }
+        // Mengkodekan pesan agar aman di URL
+        const encodedMessage = encodeURIComponent(waMessage);
+
+        // Membuat URL WhatsApp
+        const whatsappURL = `https://wa.me/${adminWhatsAppNumber}?text=${encodedMessage}`;
+
+        // Mengarahkan user ke WhatsApp
+        window.open(whatsappURL, '_blank');
+
+        messageDiv.textContent = 'Formulir berhasil dikirim! Silakan lanjutkan di WhatsApp.';
+        messageDiv.style.color = 'green';
+        form.reset(); // Mengosongkan form setelah berhasil
+        
+        sendButton.disabled = false;
+        sendButton.textContent = 'Setor Akun Gmail';
     });
     </script>
 </body>
