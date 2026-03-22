@@ -1,80 +1,228 @@
-const TOKEN = "8657907532:AAGH6T5seM8DeuLcYi6Yl3XXSLV_-yg7bkU";
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setor Gmail</title>
+
+<style>
+body{
+margin:0;
+font-family: 'Segoe UI', sans-serif;
+background:#f5f7fb;
+color:#1e293b;
+}
+
+/* HEADER */
+.header{
+background:white;
+padding:15px 20px;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-weight:bold;
+color:#6366f1;
+}
+
+.menu{
+font-size:14px;
+opacity:0.7;
+}
+
+/* CONTAINER */
+.container{
+max-width:420px;
+margin:40px auto;
+padding:25px;
+background:white;
+border-radius:14px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* TITLE */
+h1{
+font-size:20px;
+margin-bottom:5px;
+}
+
+.sub{
+font-size:13px;
+opacity:0.6;
+margin-bottom:20px;
+}
+
+/* INPUT */
+textarea,input{
+width:100%;
+padding:13px;
+margin:8px 0;
+border-radius:10px;
+border:1px solid #e2e8f0;
+background:#f8fafc;
+transition:0.3s;
+}
+
+textarea:focus,input:focus{
+outline:none;
+border-color:#6366f1;
+background:white;
+}
+
+/* BUTTON */
+button{
+width:100%;
+padding:14px;
+margin-top:10px;
+border:none;
+border-radius:10px;
+background:#6366f1;
+color:white;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#4f46e5;
+}
+
+/* STATS */
+.stats{
+display:flex;
+justify-content:space-between;
+background:#f1f5f9;
+padding:10px;
+border-radius:10px;
+font-size:13px;
+margin-top:5px;
+}
+
+/* STATUS */
+#status{
+text-align:center;
+margin-top:10px;
+font-size:13px;
+}
+
+/* INFO CARD */
+.info{
+background:#eef2ff;
+padding:12px;
+border-radius:10px;
+font-size:13px;
+margin-bottom:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<div class="logo">Setor Gmail</div>
+<div class="menu">Fast Payment</div>
+</div>
+
+<div class="container">
+
+<h1>Setor Akun Gmail</h1>
+<div class="sub">Proses cepat • Aman • Terpercaya</div>
+
+<div class="info">
+✔ 1 akun = Rp 1.500<br>
+✔ Pembayaran 1–24 jam<br>
+✔ Pastikan akun valid
+</div>
+
+<form id="form">
+
+<textarea id="akun" rows="8" placeholder="email1:pass&#10;email2:pass" required></textarea>
+
+<input type="number" id="jumlah" readonly placeholder="Jumlah akun">
+
+<div class="stats">
+<span id="count">0 akun</span>
+<span id="total">Rp 0</span>
+</div>
+
+<input type="text" id="wa" placeholder="Nomor WhatsApp" required>
+<input type="text" id="dana" placeholder="Nomor DANA" required>
+
+<button>Kirim Sekarang</button>
+
+<p id="status"></p>
+
+</form>
+</div>
+
+<script>
+
+/* CONFIG */
+const TOKEN = "8657907532";
 const CHAT_ID = "5943311408";
 
-const form = document.getElementById("form");
-const akun = document.getElementById("akun");
-const jumlah = document.getElementById("jumlah");
-const count = document.getElementById("count");
-const total = document.getElementById("total");
-const status = document.getElementById("status");
-const wa = document.getElementById("wa");
-const dana = document.getElementById("dana");
-
-let lastSubmit = 0;
+let lastSubmit=0;
 
 /* HITUNG */
-akun.addEventListener("input", () => {
-  let list = akun.value.split("\n").filter(x => x.trim() !== "");
-  jumlah.value = list.length;
-  count.innerText = list.length + " akun";
-  total.innerText = "Rp " + (list.length * 1500);
-});
+akun.oninput=()=>{
+let list=akun.value.split("\n").filter(x=>x.trim());
+jumlah.value=list.length;
+count.innerText=list.length+" akun";
+total.innerText="Rp "+(list.length*1500);
+};
 
 /* SUBMIT */
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+form.addEventListener("submit",async(e)=>{
+e.preventDefault();
 
-  if (Date.now() - lastSubmit < 3000) {
-    status.innerText = "Tunggu sebentar...";
-    return;
-  }
-  lastSubmit = Date.now();
+if(Date.now()-lastSubmit<5000){
+status.innerText="Tunggu sebentar...";
+return;
+}
+lastSubmit=Date.now();
 
-  let list = akun.value.split("\n").filter(x => x.includes("@"));
+status.innerText="Mengirim...";
 
-  if (list.length === 0) {
-    status.innerText = "Format salah!";
-    return;
-  }
+let list=akun.value.split("\n").filter(x=>x.includes("@"));
 
-  status.innerText = "Mengirim...";
+if(list.length==0){
+status.innerText="Format salah!";
+return;
+}
 
-  const text = `SETOR MASUK
+const text=`SETOR MASUK
 
 ${list.join("\n")}
 
 Jumlah: ${list.length}
-Total: Rp ${list.length * 1500}
+Total: Rp ${list.length*1500}
 
 WA: ${wa.value}
 DANA: ${dana.value}`;
 
-  try {
-    let res = await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: text
-      })
-    });
+try{
 
-    let data = await res.json();
+await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}`);
 
-    if (data.ok) {
-      status.innerText = "Berhasil!";
-      form.reset();
-      count.innerText = "0 akun";
-      total.innerText = "Rp 0";
-    } else {
-      status.innerText = "Gagal: " + data.description;
-    }
+setTimeout(()=>{
+window.open(`https://wa.me/${wa.value}?text=Setoran kamu sedang diproses`);
+},1000);
 
-  } catch (err) {
-    status.innerText = "Error koneksi!";
-    console.log(err);
-  }
+status.innerText="Berhasil!";
+form.reset();
+count.innerText="0 akun";
+total.innerText="Rp 0";
+
+}catch{
+status.innerText="Gagal!";
+}
 
 });
+
+</script>
+
+</body>
+</html>
