@@ -8,21 +8,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --dark-bg: #1a202c; /* Warna latar belakang gelap */
-            --dark-card: #2d3748; /* Warna latar belakang card */
-            --text-color: #e2e8f0; /* Warna teks terang */
-            --input-bg: #4a5568; /* Warna latar belakang input */
-            --input-border: #6b7280; /* Warna border input */
+            --dark-bg-start: #1c273a; /* Warna latar belakang gelap awal (untuk gradasi) */
+            --dark-bg-end: #141d2d;   /* Warna latar belakang gelap akhir (untuk gradasi) */
+            --dark-card: #2d3748;     /* Warna latar belakang card */
+            --text-color: #e2e8f0;    /* Warna teks terang */
+            --input-bg: #4a5568;      /* Warna latar belakang input */
+            --input-border: #6b7280;  /* Warna border input */
             --button-primary: #3490dc; /* Warna tombol utama (biru) */
+            --button-primary-hover: #2b6cb0; /* Warna hover tombol utama */
             --button-success: #38a169; /* Warna tombol berhasil (hijau) */
             --button-warning: #ecc94b; /* Warna tombol peringatan (kuning) */
-            --info-box-bg: #2d3748; /* Warna info box */
+            --info-box-bg: #2d3748;   /* Warna info box */
             --info-box-border: #4299e1; /* Warna border info box */
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--dark-bg);
+            /* Menggunakan gradasi linear untuk background body */
+            background: linear-gradient(135deg, var(--dark-bg-start), var(--dark-bg-end));
             color: var(--text-color);
             display: flex;
             justify-content: center;
@@ -31,24 +34,58 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+            line-height: 1.6; /* Sedikit spasi antar baris */
         }
 
         .container {
             background-color: var(--dark-card);
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Shadow lebih dalam */
             width: 100%;
             max-width: 500px;
             box-sizing: border-box;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Border halus */
+            position: relative; /* Untuk efek tambahan */
+            overflow: hidden; /* Pastikan efek tidak keluar */
+        }
+
+        /* Efek cahaya halus */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            transform: rotate(45deg);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .container:hover::before {
+            opacity: 1;
         }
 
         h1 {
             text-align: center;
             color: var(--text-color);
-            margin-bottom: 30px;
-            font-size: 2em;
-            letter-spacing: 0.05em;
+            margin-bottom: 5px; /* Kurangi margin bawah agar dekat dengan username */
+            font-size: 2.2em; /* Ukuran judul lebih besar */
+            letter-spacing: 0.08em;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sedikit bayangan pada teks judul */
+        }
+
+        .username {
+            display: block; /* Agar username di baris baru */
+            text-align: center;
+            color: #a0aec0; /* Warna abu-abu yang elegan */
+            font-size: 0.85em; /* Ukuran kecil */
+            margin-bottom: 25px; /* Jarak dengan elemen berikutnya */
+            font-style: italic; /* Elegan */
+            opacity: 0.8;
         }
 
         .section-title {
@@ -110,7 +147,7 @@
         }
 
         textarea:focus,
-        input[type="text"]:focus {
+        input[type="text"]::focus-visible { /* Menggunakan ::focus-visible untuk accessibility */
             outline: none;
             border-color: var(--button-primary);
             box-shadow: 0 0 0 3px rgba(52, 144, 220, 0.3);
@@ -131,19 +168,21 @@
             width: 100%;
             font-size: 1.1em;
             font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Tambah box-shadow untuk transisi */
             margin-top: 10px;
         }
 
         button:hover {
-            background-color: #2b6cb0; /* Sedikit lebih gelap dari primary */
+            background-color: var(--button-primary-hover);
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 144, 220, 0.4); /* Efek bayangan saat hover */
         }
 
         button:disabled {
             background-color: var(--input-border);
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
         .message {
@@ -197,7 +236,7 @@
             color: var(--text-color);
         }
         .info-box ul {
-            list-style: none; /* Hapus bullet default */
+            list-style: none;
             padding: 0;
             margin-top: 10px;
         }
@@ -208,7 +247,7 @@
             gap: 8px;
         }
         .info-box li i {
-            color: var(--button-primary); /* Warna ikon info */
+            color: var(--button-primary);
             font-size: 1em;
             margin-top: 3px;
         }
@@ -217,6 +256,7 @@
 <body>
     <div class="container">
         <h1>Setor Akun Gmail</h1>
+        <span class="username">@rahulmanshur</span> <!-- Tambahan username di sini -->
 
         <div class="info-box">
             <p><strong>Penting!</strong> Mohon perhatikan panduan berikut saat menyetor akun:</p>
@@ -256,9 +296,7 @@
     const sendButton = document.getElementById('sendButton');
     const messageDiv = document.getElementById('message');
 
-    // GANTI DENGAN NOMOR WHATSAPP KAMU (NOMOR ADMIN)
-    // Pastikan formatnya kode negara + nomor tanpa 0 di awal atau tanda +
-    const adminWhatsAppNumber = "6288229814051"; 
+    const adminWhatsAppNumber = "6288229814051"; // Nomor WhatsApp kamu
 
     form.addEventListener('submit', function (e) {
         e.preventDefault(); 
@@ -282,11 +320,10 @@
         const encodedMessage = encodeURIComponent(waMessage);
         const whatsappURL = `https://wa.me/${adminWhatsAppNumber}?text=${encodedMessage}`;
 
-        // Mengarahkan user ke WhatsApp
         window.open(whatsappURL, '_blank');
 
         messageDiv.textContent = 'Formulir berhasil dikirim! Silakan lanjutkan di WhatsApp.';
-        messageDiv.className = 'message success'; // Tambahkan kelas success
+        messageDiv.className = 'message success'; 
         form.reset(); 
         
         sendButton.disabled = false;
