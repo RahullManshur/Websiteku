@@ -40,6 +40,17 @@ header h1 {
     transform: translateY(-5px);
 }
 
+/* Modifikasi untuk textarea */
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    border: none;
+    min-height: 100px; /* Tambah tinggi minimal */
+    resize: vertical; /* Izinkan resize vertikal */
+}
+
 input {
     width: 100%;
     padding: 10px;
@@ -120,8 +131,10 @@ input {
     <h2>📲 Kirim Data</h2>
 
     <form onsubmit="kirimData(event)">
-        <input type="email" id="email" placeholder="Email kamu" required>
-        <input type="number" id="jumlah" placeholder="Jumlah akun" required>
+        <!-- Ganti input type="email" menjadi textarea -->
+        <textarea id="email" placeholder="Masukkan setiap email di baris baru (contoh: email1@gmail.com, email2@gmail.com)" required></textarea>
+        <!-- Hapus input jumlah akun, karena kita akan menghitung dari jumlah email -->
+        <!-- <input type="number" id="jumlah" placeholder="Jumlah akun" required> -->
         <input type="text" id="wa" placeholder="Nomor WhatsApp" required>
         <input type="text" id="dana" placeholder="Nomor DANA kamu (untuk pembayaran)" required>
 
@@ -160,12 +173,18 @@ input {
 function kirimData(e){
     e.preventDefault();
 
-    let email = document.getElementById("email").value;
-    let jumlah = document.getElementById("jumlah").value;
+    let emailsInput = document.getElementById("email").value;
+    // Pisahkan email berdasarkan baris baru, lalu filter baris kosong
+    let emailList = emailsInput.split('\n').filter(email => email.trim() !== '');
+    let jumlah = emailList.length; // Hitung jumlah email yang dimasukkan
+
     let wa = document.getElementById("wa").value;
     let dana = document.getElementById("dana").value;
 
-    let pesan = `Halo admin, saya sudah setor akun:\n\nEmail: ${email}\nJumlah: ${jumlah}\nWA: ${wa}\nDANA: ${dana}`;
+    // Gabungkan daftar email untuk pesan WhatsApp
+    let emailsFormatted = emailList.join('\n');
+
+    let pesan = `Halo admin, saya sudah setor akun:\n\nEmail:\n${emailsFormatted}\nJumlah: ${jumlah}\nWA: ${wa}\nDANA: ${dana}`;
 
     let url = "https://wa.me/6288229814051?text=" + encodeURIComponent(pesan);
 
