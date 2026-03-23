@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Setor Akun Gmail - Job Store</title>
+    <title>Setor Akun Gmail - Job Setor Gmail</title>
     <!-- Google Fonts: Inter untuk tampilan modern dan bersih -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -212,16 +212,16 @@
         /* Atur semua transisi warna secara global untuk dark mode */
         body,.container,.rules-box,.info-box,.warning-box,
         input, textarea, button,
- .live-activity-section,.live-activity-item,.hidden-section,.footer,
- .header.logo,.header.logo i, h1,.price-info,.price-info i,.price-info span,.info-section h2,.info-section h2 i,
- .rules-box h2,.rules-box h2 i,.rules-box li strong,.rules-box li i,
- .info-box h2,.info-box h2 i,.info-box li i,.warning-box i,.warning-box span,
+.live-activity-section,.live-activity-item,.hidden-section,.footer,
+.header.logo,.header.logo i, h1,.price-info,.price-info i,.price-info span,.info-section h2,.info-section h2 i,
+.rules-box h2,.rules-box h2 i,.rules-box li strong,.rules-box li i,
+.info-box h2,.info-box h2 i,.info-box li i,.warning-box i,.warning-box span,
         label,.live-activity-section h2,.live-activity-item i,.activity-details.name,
- .activity-details.amount,.activity-details.time,.hidden-section h2,
- .hidden-section p,.hidden-section ul,.hidden-section ul li::before,.footer a,
+.activity-details.amount,.activity-details.time,.hidden-section h2,
+.hidden-section p,.hidden-section ul,.hidden-section ul li::before,.footer a,
         #hamburgerMenuBtn, #mobileNavContent, #mobileNavContent ul li a,.dark-mode-toggle,
- .mobile-nav-item,.mobile-nav-item i,.mobile-nav-item span,
- .mobile-nav-header.nav-logo-text { /* Tambahan untuk mobile nav */
+.mobile-nav-item,.mobile-nav-item i,.mobile-nav-item span,
+.mobile-nav-header.nav-logo-text { /* Tambahan untuk mobile nav */
             transition: var(--color-transition);
         }
 
@@ -991,13 +991,13 @@
             body {
                 padding: 15px;
             }
-  .header {
+.header {
                 justify-content: space-between;
                 padding: 15px 0;
                 align-items: center;
                 position: static; /* Biarkan header static di mobile */
             }
-  .header.logo {
+.header.logo {
                 flex-grow: 1; /* Agar logo bisa mengambil ruang di tengah */
                 text-align: center;
                 margin-left: 0;
@@ -1006,10 +1006,10 @@
                 margin-right: 0;
                 order: -1; /* Pindahkan hamburger ke kiri */
             }
-  .dark-mode-toggle {
+.dark-mode-toggle {
                 margin-left: 0;
             }
-  .container, #live-activity-section,.hidden-section {
+.container, #live-activity-section,.hidden-section {
                 padding: 25px;
                 border-radius: 12px;
             }
@@ -1017,10 +1017,10 @@
                 font-size: 2.2em;
                 margin-bottom: 20px;
             }
-  .rules-box,.info-box,.warning-box {
+.rules-box,.info-box,.warning-box {
                 padding: 18px 20px;
             }
-  .warning-box {
+.warning-box {
                 flex-direction: column;
                 text-align: center;
             }
@@ -1034,7 +1034,7 @@
             <i class="fas fa-bars"></i>
         </button>
         <a href="#setor-gmail" class="logo">
-            <i class="fas fa-money-check-alt"></i> Job Store
+            <i class="fas fa-money-check-alt"></i> Job Setor Gmail <!-- Diubah di sini -->
         </a>
         <!-- TOMBOL DARK MODE -->
         <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
@@ -1048,7 +1048,7 @@
             <!-- Header di dalam menu mobile -->
             <div class="mobile-nav-header">
                 <div class="nav-logo-icon">B</div>
-                <div class="nav-logo-text">Job Setor Gmail</div> <!-- Sudah diubah di sini -->
+                <div class="nav-logo-text">Job Setor Gmail</div> <!-- Diubah di sini -->
                 <!-- Tombol close sudah ada di luar div ini, di bagian #mobileNavContent -->
             </div>
             
@@ -1132,7 +1132,7 @@
     <!-- Section "Tentang Kami" (default hidden) -->
     <section class="hidden-section" id="tentang-kami">
         <h2>Tentang Kami</h2>
-        <p>Job Store adalah platform terpercaya yang memfasilitasi transaksi jual beli akun digital dengan aman dan efisien. Kami berdedikasi untuk menyediakan layanan terbaik bagi para pengguna, memastikan setiap transaksi berjalan lancar dan transparan.</p>
+        <p>Job Setor Gmail adalah platform terpercaya yang memfasilitasi transaksi jual beli akun digital dengan aman dan efisien. Kami berdedikasi untuk menyediakan layanan terbaik bagi para pengguna, memastikan setiap transaksi berjalan lancar dan transparan.</p>
         <p>Dengan fokus pada keamanan dan kepuasan pelanggan, kami terus berinovasi untuk menjadi pilihan utama Anda dalam mengelola aset digital.</p>
     </section>
 
@@ -1226,6 +1226,8 @@
             'tentang-kami': document.getElementById('tentang-kami'),
             'faq': document.getElementById('faq'),
             'komunitas': document.getElementById('komunitas'),
+            // Semua section lainnya yang tidak ada di mobile nav tapi ada di konten utama
+            'live-activity-section': document.getElementById('live-activity-section') 
         };
 
         const liveActivitySection = document.getElementById('live-activity-section');
