@@ -433,23 +433,25 @@
             border-bottom: 1px solid var(--mobile-nav-border);
             position: relative; /* Untuk menampung close-btn jika diatur di sini */
         }
-.mobile-nav-header.nav-logo-icon { /* Perbaikan selector */
-            width: 35px;
-            height: 35px;
-            background-color: var(--primary-green);
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.2em;
-            margin-right: 10px;
-        }
+/* class nav-logo-icon yang menyebabkan B/J ekstra sudah dihapus */
+/*.mobile-nav-header.nav-logo-icon { */
+/* width: 35px; */
+/* height: 35px; */
+/* background-color: var(--primary-green); */
+/* border-radius: 8px; */
+/* display: flex; */
+/* justify-content: center; */
+/* align-items: center; */
+/* color: white; */
+/* font-weight: 700; */
+/* font-size: 1.2em; */
+/* margin-right: 10px; */
+/* } */
 .mobile-nav-header.nav-logo-text { /* Perbaikan selector */
             font-weight: 700;
             font-size: 1.2em;
             color: var(--mobile-nav-text-color);
+            margin-left: 0; /* Pastikan tidak ada margin kiri karena icon sudah dihapus */
         }
 
         /* Profile info (dihilangkan dari HTML, tapi CSSnya tetap ada jaga-jaga) */
@@ -1047,7 +1049,7 @@
         <div id="mobileNavContent">
             <!-- Header di dalam menu mobile -->
             <div class="mobile-nav-header">
-                <div class="nav-logo-icon">J</div> <!-- Mengambil huruf pertama dari "Job" -->
+                <!-- Elemen nav-logo-icon yang menyebabkan B/J ekstra sudah dihapus -->
                 <div class="nav-logo-text">Job Setor Gmail</div> <!-- Diubah di sini -->
                 <!-- Tombol close sudah ada di luar div ini, di bagian #mobileNavContent -->
             </div>
