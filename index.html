@@ -157,18 +157,19 @@
             font-size: 16px;
             position: relative; /* Untuk gradasi di background */
             z-index: 1;
+            perspective: 1000px; /* Untuk efek 3D saat hover di card */
         }
 
         /* Atur semua transisi warna secara global untuk dark mode */
         body,.container,.rules-box,.info-box,.warning-box,
         input, textarea, button,.header.nav-links a,
-      .live-activity-section,.live-activity-item,.hidden-section,.footer,
-      .header.logo,.header.logo i, h1,.info-section h2,.info-section h2 i,
-      .rules-box h2,.rules-box h2 i,.rules-box li strong,.rules-box li i,
-      .info-box h2,.info-box h2 i,.info-box li i,.warning-box i,.warning-box span,
-        label,.live-activity-section h2,.live-activity-item i,.activity-details.name, /* Perbaikan selector */
-      .activity-details.amount,.activity-details.time,.hidden-section h2, /* Perbaikan selector */
-      .hidden-section p,.hidden-section ul,.hidden-section ul li::before,.footer a {
+       .live-activity-section,.live-activity-item,.hidden-section,.footer,
+       .header.logo,.header.logo i, h1,.info-section h2,.info-section h2 i,
+       .rules-box h2,.rules-box h2 i,.rules-box li strong,.rules-box li i,
+       .info-box h2,.info-box h2 i,.info-box li i,.warning-box i,.warning-box span,
+        label,.live-activity-section h2,.live-activity-item i,.activity-details.name,
+       .activity-details.amount,.activity-details.time,.hidden-section h2,
+       .hidden-section p,.hidden-section ul,.hidden-section ul li::before,.footer a {
             transition: var(--color-transition);
         }
 
@@ -184,6 +185,9 @@
                         radial-gradient(circle at bottom right, rgba(55, 211, 150, 0.08), transparent 50%);
             opacity: 0.5;
             z-index: -1;
+            /* Parallax effect: background bergerak sedikit lebih lambat dari scroll */
+            transform: translateZ(-1px) scale(2); /* Jarakkan dan besarkan untuk efek parallax */
+            transform-origin: 50% 50%;
         }
         /* Gradasi background untuk dark mode */
         body.dark-mode::before {
@@ -289,6 +293,7 @@
             background-color: rgba(55, 211, 150, 0.2);
             color: var(--primary-green);
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(55, 211, 150, 0.3);
         }
 
       .dark-mode-toggle i {
@@ -317,10 +322,11 @@
             animation-delay: 0.2s;
             transition: all 0.3s ease;
             margin-bottom: 30px; /* Jarak ke Live Activity */
+            transform-style: preserve-3d; /* Untuk efek 3D saat hover */
         }
       .container:hover {
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-            transform: translateY(-5px); /* Sedikit naik saat hover */
+            transform: translateY(-5px) rotateX(1deg) rotateY(-1deg); /* Sedikit naik dan miring saat hover */
         }
 
         /* Judul utama */
@@ -363,16 +369,24 @@
             margin-bottom: 20px;
             border: 1px solid var(--border-light);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            opacity: 0; /* Mulai tersembunyi untuk animasi */
-            animation: slideInFromLeft 0.6s ease-out forwards;
+            transition: all 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Transisi untuk hover */
+            opacity: 0; /* Mulai tersembunyi untuk animasi staggered fade-in */
+            transform: translateY(20px); /* Untuk animasi staggered fade-in */
         }
+
+        /* Staggered animation classes */
+       .animated-item-1 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 0.4s; }
+       .animated-item-2 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 0.6s; }
+       .animated-item-3 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 0.8s; }
+       .animated-item-4 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 1.0s; }
+       .animated-item-5 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 1.2s; }
+       .animated-item-6 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 1.4s; }
+
       .rules-box:hover,.info-box:hover,.warning-box:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
       .rules-box {
-            animation-delay: 0.5s;
             background-color: var(--rules-box-bg);
             border-left: 5px solid var(--rules-box-border);
         }
@@ -408,7 +422,6 @@
         }
 
       .info-box {
-            animation-delay: 0.6s;
             background-color: var(--info-box-bg);
             border-left: 5px solid var(--info-box-border);
         }
@@ -440,7 +453,6 @@
         }
 
       .warning-box {
-            animation-delay: 0.7s;
             background-color: var(--warning-box-bg);
             border-left: 5px solid var(--warning-box-border);
             display: flex; /* Tambahkan display flex */
@@ -603,7 +615,14 @@
             animation: fadeIn 0.8s ease-out forwards;
             animation-delay: 1.2s; /* Muncul setelah form */
             border: 1px solid var(--border-light);
+            transform-style: preserve-3d; /* Untuk efek 3D saat hover */
+            transition: all 0.3s ease;
         }
+      .live-activity-section:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px) rotateX(0.5deg) rotateY(-0.5deg);
+        }
+
       .live-activity-section h2 {
             text-align: center;
             font-size: 1.8em;
@@ -638,9 +657,14 @@
             animation: newActivity 0.5s ease-out forwards;
             opacity: 0; /* Untuk animasi individual */
             transform: translateY(10px); /* Untuk animasi individual */
+            transition: all 0.2s ease;
         }
       .live-activity-item:last-child {
             margin-bottom: 0;
+        }
+      .live-activity-item:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
       .live-activity-item i {
             color: var(--activity-icon);
@@ -675,7 +699,14 @@
             opacity: 0;
             animation: popInScale 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             animation-delay: 0.2s;
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
         }
+      .hidden-section:hover {
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px) rotateX(1deg) rotateY(-1deg);
+        }
+
       .hidden-section h2 {
             font-size: 2.2em;
             font-weight: 800;
@@ -697,6 +728,10 @@
             position: relative;
             padding-left: 25px;
             margin-bottom: 8px;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: var(--li-delay); /* Diberikan delay via JS */
         }
       .hidden-section ul li::before {
             content: '\f05a'; /* Font Awesome info-circle */
@@ -735,25 +770,24 @@
             body {
                 padding: 15px;
             }
-          .header {
+         .header {
                 flex-direction: column;
                 gap: 15px;
                 margin-bottom: 20px;
             }
-          .header.nav-links { /* Selector yang benar */
-                display: flex;
+         .header.nav-links { /* Selector yang benar */
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 10px;
             }
-          .header.nav-links a { /* Selector yang benar */
+         .header.nav-links a { /* Selector yang benar */
                 flex-grow: 1; /* Agar tombol mengisi lebar yang tersedia */
                 text-align: center;
             }
-          .dark-mode-toggle {
+         .dark-mode-toggle {
                 margin-left: 0; /* Hapus margin di mobile */
             }
-          .container,.live-activity-section,.hidden-section {
+         .container,.live-activity-section,.hidden-section {
                 padding: 25px;
                 border-radius: 12px;
             }
@@ -761,14 +795,14 @@
                 font-size: 2.2em;
                 margin-bottom: 20px;
             }
-          .rules-box,.info-box,.warning-box {
+         .rules-box,.info-box,.warning-box {
                 padding: 18px 20px;
             }
-          .warning-box {
+         .warning-box {
                 flex-direction: column;
                 text-align: center;
             }
-          .whatsapp-links a {
+         .whatsapp-links a {
                 padding: 12px 15px;
                 font-size: 1em;
             }
@@ -796,7 +830,7 @@
         <h1>Setor Akun Gmail Anda Sekarang!</h1>
 
         <!-- Bagian RULES -->
-        <div class="rules-box">
+        <div class="rules-box animated-item-1">
             <h2><i class="fas fa-gavel"></i> Rules Penting</h2>
             <ul>
                 <li><i class="fas fa-info-circle"></i> <strong>Nama Akun:</strong> Bebas, hindari angka atau karakter aneh.</li>
@@ -809,7 +843,7 @@
         </div>
 
         <!-- Bagian Informasi Penting -->
-        <div class="info-box">
+        <div class="info-box animated-item-2">
             <h2><i class="fas fa-lightbulb"></i> Tips Sebelum Menyetor</h2>
             <p><strong>Perhatian!</strong> Mohon perhatikan panduan berikut saat menyetor akun agar proses lancar:</p>
             <ul>
@@ -821,7 +855,7 @@
         </div>
 
         <!-- Form penyetoran akun Gmail -->
-        <form id="gmailAccountForm">
+        <form id="gmailAccountForm" class="animated-item-3">
             <label for="email_list"><i class="fas fa-envelope"></i> Setor Akun Gmail Anda:</label>
             <textarea id="email_list" name="email_list" placeholder="Masukkan setiap akun di baris baru.&#10;Contoh:&#10;user1@gmail.com:password123&#10;user2@gmail.com:password456" required></textarea>
 
@@ -842,7 +876,7 @@
         </form>
 
         <!-- Bagian Link Grup WA dan Testimoni -->
-        <div class="whatsapp-links">
+        <div class="whatsapp-links animated-item-4">
             <a href="https://chat.whatsapp.com/JH8NB0A87Vx7mFjKQva7d9?mode=gi_t" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-whatsapp"></i> Gabung Grup Setor Gmail
             </a>
@@ -852,14 +886,14 @@
         </div>
 
         <!-- Kotak peringatan keamanan -->
-        <div class="warning-box">
+        <div class="warning-box animated-item-5">
             <i class="fas fa-shield-alt"></i>
             <span>Demi keamanan dan privasi, kami tidak meminta password Gmail Anda secara langsung di website ini. Password diisi di formulir ini hanya untuk memudahkan proses verifikasi kami di WhatsApp.</span>
         </div>
     </div>
 
     <!-- Live Activity Section -->
-    <section class="live-activity-section" id="live-activity-section">
+    <section class="live-activity-section animated-item-6" id="live-activity-section">
         <h2><i class="fas fa-chart-line"></i> Aktivitas Pembayaran Terkini</h2>
         <ul class="live-activity-list" id="activity-list">
             <!-- Aktivitas pembayaran akan muncul di sini -->
@@ -953,12 +987,31 @@
                 if (sections[targetId]) {
                     sections[targetId].style.display = 'block';
                     sections[targetId].scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    // Pemicu animasi staggered fade-in untuk elemen di 'setor-gmail'
+                    document.querySelectorAll('#setor-gmail >.animated-item-1').forEach(el => { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; });
+                    document.querySelectorAll('#setor-gmail >.animated-item-2').forEach(el => { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; });
+                    document.querySelectorAll('#setor-gmail >.animated-item-3').forEach(el => { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; });
+                    document.querySelectorAll('#setor-gmail >.animated-item-4').forEach(el => { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; });
+                    document.querySelectorAll('#setor-gmail >.animated-item-5').forEach(el => { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; });
+                    document.querySelectorAll('#live-activity-section.animated-item-6').forEach(el => { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; });
+
                 }
             } else {
                 liveActivitySection.style.display = 'none'; // Sembunyikan Live Activity di section lain
                 if (sections[targetId]) {
                     sections[targetId].style.display = 'block';
                     sections[targetId].scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    // Pemicu animasi untuk list item di FAQ/Tentang Kami
+                    if (targetId === 'faq' || targetId === 'tentang-kami') {
+                        sections[targetId].querySelectorAll('ul li').forEach((li, index) => {
+                            li.style.setProperty('--li-delay', `${0.2 * index + 0.5}s`);
+                            li.style.animation = 'none'; // Reset animation
+                            li.offsetHeight; // Trigger reflow
+                            li.style.animation = ''; // Re-apply animation
+                        });
+                    }
                 }
             }
 
