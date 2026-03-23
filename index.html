@@ -163,13 +163,14 @@
         /* Atur semua transisi warna secara global untuk dark mode */
         body,.container,.rules-box,.info-box,.warning-box,
         input, textarea, button,.header.nav-links a,
-       .live-activity-section,.live-activity-item,.hidden-section,.footer,
-       .header.logo,.header.logo i, h1,.info-section h2,.info-section h2 i,
-       .rules-box h2,.rules-box h2 i,.rules-box li strong,.rules-box li i,
-       .info-box h2,.info-box h2 i,.info-box li i,.warning-box i,.warning-box span,
+      .live-activity-section,.live-activity-item,.hidden-section,.footer,
+      .header.logo,.header.logo i, h1,.info-section h2,.info-section h2 i,
+      .rules-box h2,.rules-box h2 i,.rules-box li strong,.rules-box li i,
+      .info-box h2,.info-box h2 i,.info-box li i,.warning-box i,.warning-box span,
         label,.live-activity-section h2,.live-activity-item i,.activity-details.name,
-       .activity-details.amount,.activity-details.time,.hidden-section h2,
-       .hidden-section p,.hidden-section ul,.hidden-section ul li::before,.footer a {
+      .activity-details.amount,.activity-details.time,.hidden-section h2,
+      .hidden-section p,.hidden-section ul,.hidden-section ul li::before,.footer a,
+       #hamburgerMenuBtn, #mobileNav {
             transition: var(--color-transition);
         }
 
@@ -197,7 +198,7 @@
         }
 
         /* Header (inspirasi dari navigasi Buzzpoin) */
-      .header {
+     .header {
             width: 100%;
             max-width: 600px;
             display: flex;
@@ -207,8 +208,9 @@
             margin-bottom: 30px;
             animation: fadeIn 0.8s ease-out forwards;
             animation-delay: 0.1s;
+            position: relative; /* Untuk posisi menu hamburger */
         }
-      .header.logo { /* Selector yang benar */
+     .header.logo { /* Selector yang benar */
             display: flex;
             align-items: center;
             font-weight: 700;
@@ -220,18 +222,18 @@
             -webkit-text-fill-color: transparent;
             animation: gradientMove 5s ease infinite;
         }
-      .header.logo i { /* Selector yang benar */
+     .header.logo i { /* Selector yang benar */
             color: var(--primary-green); /* Ikon tetap warna solid */
             margin-right: 8px;
             font-size: 1.2em;
             /* Pastikan ikon tidak ikut transparan */
             -webkit-text-fill-color: var(--primary-green);
         }
-      .header.nav-links { /* Selector yang benar */
+     .header.nav-links { /* Selector yang benar */
             display: flex; /* Memastikan item navigasi inline */
             gap: 10px; /* Jarak antar tombol */
         }
-      .header.nav-links a { /* Selector yang benar */
+     .header.nav-links a { /* Selector yang benar */
             text-decoration: none;
             background-color: var(--nav-link-bg-inactive); /* Default inactive background */
             color: var(--nav-link-text-inactive); /* Default inactive text color */
@@ -250,7 +252,7 @@
             -webkit-text-fill-color: transparent;
             animation: gradientMove 8s linear infinite; /* Animasi lebih lambat */
         }
-      .header.nav-links a:hover { /* Selector yang benar */
+     .header.nav-links a:hover { /* Selector yang benar */
             color: var(--primary-green); /* Text color on hover */
             background-color: rgba(55, 211, 150, 0.2); /* Slightly darker inactive background on hover */
             /* Matikan efek gradien pada hover jika ingin warna solid */
@@ -258,7 +260,7 @@
             background-image: none;
             animation: none;
         }
-      .header.nav-links a.active { /* Selector yang benar */
+     .header.nav-links a.active { /* Selector yang benar */
             background-color: var(--primary-green);
             color: white;
             box-shadow: 0 4px 10px rgba(55, 211, 150, 0.3);
@@ -267,18 +269,19 @@
             background-image: none;
             animation: none;
         }
-      .header.nav-links a.active:hover { /* Selector yang benar */
+     .header.nav-links a.active:hover { /* Selector yang benar */
             background-color: var(--primary-green-dark);
             box-shadow: 0 6px 15px rgba(55, 211, 150, 0.4);
         }
 
         /* Styling tombol dark mode */
-      .dark-mode-toggle {
+     .dark-mode-toggle {
             background-color: var(--nav-link-bg-inactive);
             color: var(--nav-link-text-inactive);
             border: none;
-            border-radius: 8px;
-            padding: 10px 14px;
+            border-radius: 50%; /* Membuat tombol bulat */
+            width: 44px; /* Ukuran yang sama dengan padding tombol nav */
+            height: 44px; /* Ukuran yang sama dengan padding tombol nav */
             cursor: pointer;
             font-size: 1.2em;
             transition: var(--color-transition), transform 0.3s ease;
@@ -287,17 +290,19 @@
             justify-content: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             margin-left: 10px; /* Jarak dari nav links */
+            flex-shrink: 0; /* Agar tidak menyusut di mobile */
         }
 
-      .dark-mode-toggle:hover {
+     .dark-mode-toggle:hover {
             background-color: rgba(55, 211, 150, 0.2);
             color: var(--primary-green);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(55, 211, 150, 0.3);
         }
 
-      .dark-mode-toggle i {
+     .dark-mode-toggle i {
             transition: transform 0.5s ease;
+            color: var(--nav-link-text-inactive); /* Pastikan ikon punya warna */
         }
 
         /* Animasi ikon saat ganti mode */
@@ -306,8 +311,107 @@
             color: var(--text-dark); /* Warna ikon di dark mode */
         }
 
+        /* Hamburger menu */
+        #hamburgerMenuBtn {
+            display: none; /* Sembunyikan secara default di desktop */
+            background: none;
+            border: none;
+            font-size: 1.8em;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 0;
+            margin-right: 15px; /* Memberi sedikit jarak dari logo */
+            flex-shrink: 0;
+        }
+
+        /* Mobile Navigation (Menu Hamburger) */
+        #mobileNav {
+            display: none; /* Sembunyikan secara default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Overlay gelap */
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        #mobileNav.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        #mobileNavContent {
+            background: var(--bg-dark-card);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        #mobileNav.open #mobileNavContent {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        #mobileNavContent.close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            color: var(--text-secondary-dark);
+            cursor: pointer;
+        }
+
+        #mobileNavContent h3 {
+            color: var(--primary-green);
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        #mobileNavContent ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #mobileNavContent ul li {
+            margin-bottom: 15px;
+        }
+
+        #mobileNavContent ul li a {
+            display: block;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background-color: var(--bg-light);
+        }
+
+        #mobileNavContent ul li a:hover {
+            background-color: var(--primary-green);
+            color: white;
+            box-shadow: 0 4px 10px rgba(rgba(55, 211, 150, 0.3));
+        }
+
         /* Kontainer utama website (form card) */
-      .container {
+     .container {
             background: linear-gradient(135deg, var(--card-gradient-start), var(--card-gradient-end));
             padding: 40px;
             border-radius: 16px; /* Lebih rounded */
@@ -324,7 +428,7 @@
             margin-bottom: 30px; /* Jarak ke Live Activity */
             transform-style: preserve-3d; /* Untuk efek 3D saat hover */
         }
-      .container:hover {
+     .container:hover {
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
             transform: translateY(-5px) rotateX(1deg) rotateY(-1deg); /* Sedikit naik dan miring saat hover */
         }
@@ -342,13 +446,13 @@
         }
 
         /* Section info/rules/warning */
-      .info-section {
+     .info-section {
             margin-bottom: 30px;
             opacity: 0;
             animation: fadeIn 0.6s ease-out forwards;
             animation-delay: 0.4s;
         }
-      .info-section h2 {
+     .info-section h2 {
             font-size: 1.4em;
             font-weight: 700;
             color: var(--text-dark);
@@ -357,10 +461,10 @@
             align-items: center;
             gap: 10px;
         }
-      .info-section h2 i {
+     .info-section h2 i {
             color: var(--primary-green); /* Ikon di judul section */
         }
-      .rules-box,.info-box,.warning-box {
+     .rules-box,.info-box,.warning-box {
             background-color: var(--bg-light); /* Lebih terang dari card utama */
             padding: 20px 25px;
             border-radius: 12px;
@@ -375,84 +479,84 @@
         }
 
         /* Staggered animation classes */
-       .animated-item-1 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 0.4s; }
-       .animated-item-2 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 0.6s; }
-       .animated-item-3 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 0.8s; }
-       .animated-item-4 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 1.0s; }
-       .animated-item-5 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 1.2s; }
-       .animated-item-6 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 1.4s; }
+      .animated-item-1 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 0.4s; }
+      .animated-item-2 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 0.6s; }
+      .animated-item-3 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 0.8s; }
+      .animated-item-4 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 1.0s; }
+      .animated-item-5 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 1.2s; }
+      .animated-item-6 { animation: fadeIn 0.6s ease-out forwards; animation-delay: 1.4s; }
 
-      .rules-box:hover,.info-box:hover,.warning-box:hover {
+     .rules-box:hover,.info-box:hover,.warning-box:hover {
             transform: translateY(-5px) scale(1.01);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
-      .rules-box {
+     .rules-box {
             background-color: var(--rules-box-bg);
             border-left: 5px solid var(--rules-box-border);
         }
-      .rules-box h2 {
+     .rules-box h2 {
             color: var(--text-dark);
             margin-bottom: 10px;
         }
-      .rules-box h2 i {
+     .rules-box h2 i {
             color: var(--rules-box-border); /* Warna ikon di rules header */
             font-size: 1.1em;
             animation: pulseLight 1.5s infinite; /* Animasi ikon pulse */
         }
-      .rules-box ul {
+     .rules-box ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-      .rules-box li {
+     .rules-box li {
             margin-bottom: 10px;
             display: flex;
             align-items: flex-start;
             gap: 10px;
             line-height: 1.5;
         }
-      .rules-box li:last-child { margin-bottom: 0; }
-      .rules-box li strong {
+     .rules-box li:last-child { margin-bottom: 0; }
+     .rules-box li strong {
             color: var(--text-dark);
         }
-      .rules-box li i {
+     .rules-box li i {
             color: var(--primary-green); /* Ikon check di list rules */
             font-size: 1em;
             margin-top: 3px;
         }
 
-      .info-box {
+     .info-box {
             background-color: var(--info-box-bg);
             border-left: 5px solid var(--info-box-border);
         }
-      .info-box h2 {
+     .info-box h2 {
             color: var(--text-dark);
             margin-bottom: 10px;
         }
-      .info-box h2 i {
+     .info-box h2 i {
             color: var(--info-box-border);
             font-size: 1.1em;
         }
-      .info-box ul {
+     .info-box ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-      .info-box li {
+     .info-box li {
             margin-bottom: 8px;
             display: flex;
             align-items: flex-start;
             gap: 10px;
             line-height: 1.5;
         }
-      .info-box li:last-child { margin-bottom: 0; }
-      .info-box li i {
+     .info-box li:last-child { margin-bottom: 0; }
+     .info-box li i {
             color: var(--primary-green);
             font-size: 1em;
             margin-top: 3px;
         }
 
-      .warning-box {
+     .warning-box {
             background-color: var(--warning-box-bg);
             border-left: 5px solid var(--warning-box-border);
             display: flex; /* Tambahkan display flex */
@@ -461,13 +565,13 @@
             gap: 15px;
             margin-top: 25px;
         }
-      .warning-box i {
+     .warning-box i {
             color: var(--warning-box-border);
             font-size: 1.5em;
             flex-shrink: 0; /* Icon tidak mengecil */
             animation: shakeInput 0.8s infinite alternate; /* Animasi shake halus */
         }
-      .warning-box span {
+     .warning-box span {
             color: var(--text-secondary-dark);
         }
 
@@ -546,7 +650,7 @@
         }
 
         /* Styling untuk pesan feedback (sukses/error) */
-      .message {
+     .message {
             margin-top: 25px;
             text-align: center;
             font-weight: 600;
@@ -555,55 +659,24 @@
             border-radius: 10px;
             animation: fadeIn 0.5s ease-out forwards;
         }
-      .message.success {
+     .message.success {
             background-color: rgba(40, 167, 69, 0.1);
             color: var(--whatsapp-green);
             border: 1px solid var(--whatsapp-green);
         }
-      .message.error {
+     .message.error {
             background-color: rgba(220, 53, 69, 0.1);
             color: #dc3545;
             border: 1px solid #dc3545;
         }
 
         /* Styling untuk link WhatsApp (grup & testimoni) */
-      .whatsapp-links {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-light);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            opacity: 0;
-            animation: slideInFromRight 0.6s ease-out forwards;
-            animation-delay: 1s; /* Sesuaikan delay */
-        }
-      .whatsapp-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background-color: var(--whatsapp-green);
-            color: white;
-            padding: 14px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.05em;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.3);
-        }
-      .whatsapp-links a:hover {
-            background-color: var(--whatsapp-green-hover);
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4);
-        }
-      .whatsapp-links a i {
-            font-size: 1.3em;
+     .whatsapp-links { /* Ini tidak lagi digunakan untuk tampil di container utama */
+            display: none; /* Sembunyikan secara default */
         }
 
         /* Live Activity Section */
-      .live-activity-section {
+     .live-activity-section {
             width: 100%;
             max-width: 600px;
             background-color: var(--bg-dark-card);
@@ -618,12 +691,12 @@
             transform-style: preserve-3d; /* Untuk efek 3D saat hover */
             transition: all 0.3s ease;
         }
-      .live-activity-section:hover {
+     .live-activity-section:hover {
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
             transform: translateY(-3px) rotateX(0.5deg) rotateY(-0.5deg);
         }
 
-      .live-activity-section h2 {
+     .live-activity-section h2 {
             text-align: center;
             font-size: 1.8em;
             font-weight: 800;
@@ -631,7 +704,7 @@
             margin-bottom: 25px;
             position: relative;
         }
-      .live-activity-section h2::after {
+     .live-activity-section h2::after {
             content: '';
             display: block;
             width: 60px;
@@ -640,12 +713,12 @@
             margin: 10px auto 0;
             border-radius: 2px;
         }
-      .live-activity-list {
+     .live-activity-list {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-      .live-activity-item {
+     .live-activity-item {
             display: flex;
             align-items: center;
             background-color: var(--activity-bg);
@@ -659,33 +732,38 @@
             transform: translateY(10px); /* Untuk animasi individual */
             transition: all 0.2s ease;
         }
-      .live-activity-item:last-child {
+     .live-activity-item:last-child {
             margin-bottom: 0;
         }
-      .live-activity-item:hover {
+     .live-activity-item:hover {
             transform: translateY(-2px) scale(1.02);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
-      .live-activity-item i {
+     .live-activity-item i {
             color: var(--activity-icon);
             font-size: 1.4em;
             margin-right: 15px;
         }
-      .activity-details.name { /* Selector yang benar */
+     .activity-details {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+     .activity-details.name { /* Selector yang benar */
             font-weight: 700;
             font-size: 1.05em;
         }
-      .activity-details.amount { /* Selector yang benar */
+     .activity-details.amount { /* Selector yang benar */
             color: var(--primary-green);
             font-weight: 600;
         }
-      .activity-details.time { /* Selector yang benar */
+     .activity-details.time { /* Selector yang benar */
             font-size: 0.85em;
             color: var(--text-secondary-dark);
         }
 
         /* Hidden section for Tentang Kami and FAQ */
-      .hidden-section {
+     .hidden-section {
             display: none; /* Default hidden */
             background: linear-gradient(135deg, var(--card-gradient-start), var(--card-gradient-end));
             padding: 40px;
@@ -702,29 +780,29 @@
             transform-style: preserve-3d;
             transition: all 0.3s ease;
         }
-      .hidden-section:hover {
+     .hidden-section:hover {
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
             transform: translateY(-5px) rotateX(1deg) rotateY(-1deg);
         }
 
-      .hidden-section h2 {
+     .hidden-section h2 {
             font-size: 2.2em;
             font-weight: 800;
             color: var(--text-dark);
             margin-bottom: 20px;
             text-align: center;
         }
-      .hidden-section p,.hidden-section ul {
+     .hidden-section p,.hidden-section ul {
             color: var(--text-secondary-dark);
             font-size: 1em;
             line-height: 1.8;
             margin-bottom: 15px;
         }
-      .hidden-section ul {
+     .hidden-section ul {
             list-style: none;
             padding: 0;
         }
-      .hidden-section ul li {
+     .hidden-section ul li {
             position: relative;
             padding-left: 25px;
             margin-bottom: 8px;
@@ -733,7 +811,7 @@
             animation: fadeIn 0.5s ease-out forwards;
             animation-delay: var(--li-delay); /* Diberikan delay via JS */
         }
-      .hidden-section ul li::before {
+     .hidden-section ul li::before {
             content: '\f05a'; /* Font Awesome info-circle */
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
@@ -743,7 +821,7 @@
         }
 
         /* Footer (inspirasi dari footer Buzzpoin) */
-      .footer {
+     .footer {
             width: 100%;
             max-width: 600px;
             text-align: center;
@@ -755,13 +833,13 @@
             animation: fadeIn 0.8s ease-out forwards;
             animation-delay: 1.5s; /* Sesuaikan delay */
         }
-      .footer a {
+     .footer a {
             color: var(--primary-green);
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
         }
-      .footer a:hover {
+     .footer a:hover {
             color: var(--primary-green-dark);
         }
 
@@ -770,24 +848,26 @@
             body {
                 padding: 15px;
             }
-         .header {
-                flex-direction: column;
+        .header {
+                flex-direction: row; /* Kembali ke row untuk mobile, agar hamburger di kiri */
+                justify-content: flex-start; /* Logo dan hamburger di kiri */
                 gap: 15px;
                 margin-bottom: 20px;
             }
-         .header.nav-links { /* Selector yang benar */
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
+        .header.logo {
+                flex-grow: 1; /* Agar logo bisa mengisi ruang */
             }
-         .header.nav-links a { /* Selector yang benar */
-                flex-grow: 1; /* Agar tombol mengisi lebar yang tersedia */
-                text-align: center;
+        .header.nav-links {
+                display: none; /* Sembunyikan navigasi utama di mobile */
             }
-         .dark-mode-toggle {
-                margin-left: 0; /* Hapus margin di mobile */
+         #hamburgerMenuBtn {
+                display: block; /* Tampilkan tombol hamburger di mobile */
+                order: -1; /* Posisikan di paling kiri */
             }
-         .container,.live-activity-section,.hidden-section {
+        .dark-mode-toggle {
+                margin-left: auto; /* Pindahkan dark mode ke kanan */
+            }
+        .container,.live-activity-section,.hidden-section {
                 padding: 25px;
                 border-radius: 12px;
             }
@@ -795,16 +875,16 @@
                 font-size: 2.2em;
                 margin-bottom: 20px;
             }
-         .rules-box,.info-box,.warning-box {
+        .rules-box,.info-box,.warning-box {
                 padding: 18px 20px;
             }
-         .warning-box {
+        .warning-box {
                 flex-direction: column;
                 text-align: center;
             }
-         .whatsapp-links a {
-                padding: 12px 15px;
-                font-size: 1em;
+         /* Hapus whatsapp-links karena sudah pindah ke menu mobile */
+        .whatsapp-links {
+                display: none;
             }
         }
     </style>
@@ -812,6 +892,9 @@
 <body>
     <!-- Header ala Buzzpoin -->
     <header class="header">
+        <button id="hamburgerMenuBtn" aria-label="Open menu">
+            <i class="fas fa-bars"></i>
+        </button>
         <div class="logo">
             <i class="fas fa-money-check-alt"></i> Job Setor Gmail
         </div>
@@ -825,6 +908,20 @@
             <i class="fas fa-moon"></i>
         </button>
     </header>
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobileNav" class="mobile-nav-overlay">
+        <div id="mobileNavContent">
+            <button class="close-btn" id="closeMobileNavBtn"><i class="fas fa-times"></i></button>
+            <h3>Navigasi</h3>
+            <ul>
+                <li><a href="#setor-gmail" class="mobile-nav-link" data-target="setor-gmail">Setor Gmail</a></li>
+                <li><a href="#tentang-kami" class="mobile-nav-link" data-target="tentang-kami">Tentang Kami</a></li>
+                <li><a href="#faq" class="mobile-nav-link" data-target="faq">FAQ</a></li>
+                <li><a href="#komunitas" class="mobile-nav-link" data-target="komunitas">Komunitas</a></li>
+            </ul>
+        </div>
+    </div>
 
     <div class="container" id="setor-gmail">
         <h1>Setor Akun Gmail Anda Sekarang!</h1>
@@ -875,16 +972,6 @@
             <div id="message" class="message"></div>
         </form>
 
-        <!-- Bagian Link Grup WA dan Testimoni -->
-        <div class="whatsapp-links animated-item-4">
-            <a href="https://chat.whatsapp.com/JH8NB0A87Vx7mFjKQva7d9?mode=gi_t" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-whatsapp"></i> Gabung Grup Setor Gmail
-            </a>
-            <a href="https://whatsapp.com/channel/0029Vb7Pef20bIdwNmPREr1m" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-whatsapp"></i> Testimoni Setor Akun Gmail
-            </a>
-        </div>
-
         <!-- Kotak peringatan keamanan -->
         <div class="warning-box animated-item-5">
             <i class="fas fa-shield-alt"></i>
@@ -920,6 +1007,21 @@
             <li><strong>Apa itu akun verified 500p?</strong>
                 <p>Akun yang terkena verifikasi tambahan (seperti verifikasi profil) tidak akan dibeli atau akan dibeli dengan harga khusus 500p, sesuai dengan ketentuan yang berlaku.</p></li>
         </ul>
+    </section>
+
+    <!-- Section "Komunitas" (default hidden) -->
+    <section class="hidden-section" id="komunitas">
+        <h2>Komunitas Kami</h2>
+        <p>Bergabunglah dengan komunitas kami untuk mendapatkan informasi terbaru, tips, dan dukungan dari sesama anggota.</p>
+        <div class="whatsapp-links">
+            <a href="https://chat.whatsapp.com/JH8NB0A87Vx7mFjKQva7d9?mode=gi_t" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i> Gabung Grup Setor Gmail
+            </a>
+            <a href="https://whatsapp.com/channel/0029Vb7Pef20bIdwNmPREr1m" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i> Testimoni Setor Akun Gmail
+            </a>
+        </div>
+        <p style="margin-top: 20px;">Kami senang Anda menjadi bagian dari keluarga Job Store!</p>
     </section>
 
     <!-- Footer ala Buzzpoin -->
@@ -962,75 +1064,135 @@
         });
 
         // ===============================================
-        // FUNGSI NAVIGASI
+        // FUNGSI NAVIGASI & HAMBURGER MENU
         // ===============================================
         const navLinks = document.querySelectorAll('.nav-links a');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        const hamburgerMenuBtn = document.getElementById('hamburgerMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const closeMobileNavBtn = document.getElementById('closeMobileNavBtn');
+
         const sections = {
             'setor-gmail': document.getElementById('setor-gmail'),
             'tentang-kami': document.getElementById('tentang-kami'),
-            'faq': document.getElementById('faq')
+            'faq': document.getElementById('faq'),
+            'komunitas': document.getElementById('komunitas') // Tambahkan section komunitas
         };
 
         const liveActivitySection = document.getElementById('live-activity-section');
 
         function showSection(targetId) {
-            // Sembunyikan semua section yang mungkin tampil
+            // Sembunyikan semua section
             for (const id in sections) {
                 if (sections.hasOwnProperty(id)) {
                     sections[id].style.display = 'none';
+                    // Reset opacity dan transform untuk re-animate
+                    sections[id].style.opacity = 0;
+                    sections[id].style.transform = 'translateY(20px)';
                 }
             }
 
             // Atur visibility Live Activity
             if (targetId === 'setor-gmail') {
                 liveActivitySection.style.display = 'block'; // Tampilkan Live Activity jika di section Setor Gmail
-                if (sections[targetId]) {
-                    sections[targetId].style.display = 'block';
-                    sections[targetId].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Reset opacity dan transform untuk re-animate
+                liveActivitySection.style.opacity = 0;
+                liveActivitySection.style.transform = 'translateY(20px)';
+            } else {
+                liveActivitySection.style.display = 'none'; // Sembunyikan Live Activity di section lain
+            }
 
-                    // Pemicu animasi staggered fade-in untuk elemen di 'setor-gmail'
+            // Tampilkan section yang dituju
+            if (sections[targetId]) {
+                sections[targetId].style.display = 'block';
+                sections[targetId].style.opacity = 1; // Langsung tampilkan agar animasi popInScale bisa jalan
+                sections[targetId].style.transform = 'translateY(0)'; // Langsung tampilkan
+
+                sections[targetId].scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                // Pemicu animasi staggered fade-in untuk elemen di 'setor-gmail'
+                if (targetId === 'setor-gmail') {
                     document.querySelectorAll('#setor-gmail >.animated-item-1').forEach(el => { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; });
                     document.querySelectorAll('#setor-gmail >.animated-item-2').forEach(el => { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; });
                     document.querySelectorAll('#setor-gmail >.animated-item-3').forEach(el => { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; });
-                    document.querySelectorAll('#setor-gmail >.animated-item-4').forEach(el => { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; });
                     document.querySelectorAll('#setor-gmail >.animated-item-5').forEach(el => { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; });
                     document.querySelectorAll('#live-activity-section.animated-item-6').forEach(el => { el.style.animation = 'none'; el.offsetHeight; el.style.animation = ''; });
-
                 }
-            } else {
-                liveActivitySection.style.display = 'none'; // Sembunyikan Live Activity di section lain
-                if (sections[targetId]) {
-                    sections[targetId].style.display = 'block';
-                    sections[targetId].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Pemicu animasi untuk list item di FAQ/Tentang Kami/Komunitas
+                if (targetId === 'faq' || targetId === 'tentang-kami' || targetId === 'komunitas') {
+                    sections[targetId].querySelectorAll('ul li').forEach((li, index) => {
+                        li.style.setProperty('--li-delay', `${0.2 * index + 0.5}s`);
+                        li.style.animation = 'none'; // Reset animation
+                        li.offsetHeight; // Trigger reflow
+                        li.style.animation = ''; // Re-apply animation
+                    });
 
-                    // Pemicu animasi untuk list item di FAQ/Tentang Kami
-                    if (targetId === 'faq' || targetId === 'tentang-kami') {
-                        sections[targetId].querySelectorAll('ul li').forEach((li, index) => {
-                            li.style.setProperty('--li-delay', `${0.2 * index + 0.5}s`);
-                            li.style.animation = 'none'; // Reset animation
-                            li.offsetHeight; // Trigger reflow
-                            li.style.animation = ''; // Re-apply animation
-                        });
+                    // Untuk link whatsapp di komunitas
+                    if (targetId === 'komunitas') {
+                        document.querySelector('#komunitas.whatsapp-links').style.opacity = 0;
+                        document.querySelector('#komunitas.whatsapp-links').style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            document.querySelector('#komunitas.whatsapp-links').style.animation = 'fadeIn 0.6s ease-out forwards';
+                            document.querySelector('#komunitas.whatsapp-links').style.animationDelay = '0.8s';
+                        }, 100);
                     }
                 }
             }
 
-            // Atur kelas aktif pada navigasi
+            // Atur kelas aktif pada navigasi utama (desktop)
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === `#${targetId}`) {
                     link.classList.add('active');
                 }
             });
+
+            // Atur kelas aktif pada navigasi mobile
+            mobileNavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.target === targetId) {
+                    link.classList.add('active');
+                }
+            });
         }
 
-        // Event listener untuk klik navigasi
+        // Event listener untuk klik navigasi utama (desktop)
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1); // Ambil ID tanpa '#'
                 showSection(targetId);
             });
+        });
+
+        // Event listener untuk hamburger menu
+        hamburgerMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Nonaktifkan scroll body
+        });
+
+        closeMobileNavBtn.addEventListener('click', () => {
+            mobileNav.classList.remove('open');
+            document.body.style.overflow = ''; // Aktifkan kembali scroll body
+        });
+
+        // Event listener untuk klik link di mobile nav
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.dataset.target;
+                showSection(targetId);
+                mobileNav.classList.remove('open'); // Tutup menu setelah klik
+                document.body.style.overflow = ''; // Aktifkan kembali scroll body
+            });
+        });
+
+        // Tutup mobile nav jika klik di luar konten
+        mobileNav.addEventListener('click', (e) => {
+            if (e.target === mobileNav) {
+                mobileNav.classList.remove('open');
+                document.body.style.overflow = '';
+            }
         });
 
         // Tampilkan section 'setor-gmail' secara default saat load halaman
@@ -1069,8 +1231,9 @@
             const danaOwnerName = document.getElementById('dana_owner_name').value;
 
             // Validasi sederhana untuk nomor WhatsApp dan DANA
-            const whatsappRegex = /^[0-9+]+$/; // Memperbolehkan angka dan '+'
-            const danaRegex = /^[0-9]+$/; // Hanya angka
+            // Memperbolehkan angka dan '+' di awal untuk WA, angka saja untuk DANA
+            const whatsappRegex = /^[0-9+]+$/;
+            const danaRegex = /^[0-9]+$/;
 
             if (!whatsappRegex.test(userWhatsAppNumber) ||!danaRegex.test(danaNumber)) {
                 messageDiv.textContent = 'Nomor WhatsApp dan DANA hanya boleh berisi angka (WhatsApp bisa dengan +).';
@@ -1111,8 +1274,8 @@
         // FUNGSI LIVE ACTIVITY (SIMULASI)
         // ===============================================
         const activityList = document.getElementById('activity-list');
-        const dummyNames = ["Budi", "Siti", "Agus", "Dewi", "Faisal", "Linda", "Rudi", "Maya"];
-        const dummyAmounts = ["5.000", "10.000", "7.500", "12.000", "8.000", "6.500", "9.000"];
+        const dummyNames = ["Budi", "Siti", "Agus", "Dewi", "Faisal", "Linda", "Rudi", "Maya", "Joko", "Ani"];
+        const dummyAmounts = ["5.000", "10.000", "7.500", "12.000", "8.000", "6.500", "9.000", "15.000", "11.000", "7.000"];
 
         function getRandomItem(arr) {
             return arr[Math.floor(Math.random() * arr.length)];
