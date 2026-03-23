@@ -250,7 +250,7 @@
         }
 
         /* Header */
-    .header {
+   .header {
             width: 100%;
             max-width: 600px;
             display: flex;
@@ -262,7 +262,7 @@
             animation-delay: 0.1s;
             position: relative;
         }
-    .header.logo { /* Perbaikan selector */
+   .header.logo { /* Perbaikan selector */
             display: flex;
             align-items: center;
             font-weight: 700;
@@ -275,7 +275,7 @@
             animation: gradientMove 5s ease infinite;
             transition: var(--color-transition);
         }
-    .header.logo i { /* Perbaikan selector */
+   .header.logo i { /* Perbaikan selector */
             color: var(--primary-green);
             margin-right: 8px;
             font-size: 1.2em;
@@ -284,7 +284,7 @@
         }
 
         /* Styling tombol dark mode */
-    .dark-mode-toggle {
+   .dark-mode-toggle {
             background-color: var(--bg-light);
             color: var(--text-dark);
             border: none;
@@ -303,20 +303,20 @@
             z-index: 100;
         }
 
-    .dark-mode-toggle:hover {
+   .dark-mode-toggle:hover {
             background-color: rgba(55, 211, 150, 0.2);
             color: var(--primary-green);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px var(--shadow-button);
         }
 
-    .dark-mode-toggle i {
+   .dark-mode-toggle i {
             transition: transform 0.5s ease;
             color: var(--text-secondary-dark);
         }
 
         /* Animasi ikon saat ganti mode */
-    .dark-mode-toggle.rotated i {
+   .dark-mode-toggle.rotated i {
             animation: rotateIcon 0.5s ease-in-out forwards;
         }
 
@@ -453,9 +453,9 @@
         }
 
         /* Profile info (dihilangkan dari HTML, tapi CSSnya tetap ada jaga-jaga) */
-     .profile-info { display: none; }
+    .profile-info { display: none; }
 
-    .mobile-nav-list {
+   .mobile-nav-list {
             list-style: none;
             padding: 0;
             margin: 0;
@@ -463,16 +463,16 @@
             flex-grow: 1; /* Agar daftar menu mengisi sisa ruang */
         }
 
-    .mobile-nav-list li {
+   .mobile-nav-list li {
             margin-bottom: 5px; /* Jarak antar item menu */
             opacity: 0; /* Mulai tersembunyi untuk animasi */
             transform: translateX(-20px); /* Mulai dari kiri */
         }
-    .mobile-nav-list li.animated {
+   .mobile-nav-list li.animated {
             animation: itemFadeIn 0.3s ease-out forwards;
         }
 
-    .mobile-nav-item {
+   .mobile-nav-item {
             display: flex;
             align-items: center;
             padding: 12px 10px;
@@ -482,36 +482,36 @@
             border-radius: 8px;
             transition: all 0.2s ease, var(--color-transition);
         }
-    .mobile-nav-item i {
+   .mobile-nav-item i {
             margin-right: 15px;
             font-size: 1.1em;
             width: 25px; /* Lebar tetap untuk ikon */
             text-align: center;
             color: var(--mobile-nav-text-secondary);
         }
-    .mobile-nav-item span {
+   .mobile-nav-item span {
             flex-grow: 1;
         }
 
-    .mobile-nav-item:hover {
+   .mobile-nav-item:hover {
             background-color: var(--border-light);
             color: var(--text-dark);
         }
-    .mobile-nav-item.active {
+   .mobile-nav-item.active {
             background-color: var(--mobile-nav-active-item-bg);
             color: var(--mobile-nav-active-item-text);
         }
-    .mobile-nav-item.active i {
+   .mobile-nav-item.active i {
             color: var(--mobile-nav-active-item-text);
         }
 
-    .mobile-nav-item.logout {
+   .mobile-nav-item.logout {
             color: #ef4444; /* Warna merah untuk logout */
         }
-    .mobile-nav-item.logout i {
+   .mobile-nav-item.logout i {
             color: #ef4444;
         }
-    .mobile-nav-item.logout:hover {
+   .mobile-nav-item.logout:hover {
             background-color: #fee2e2;
             color: #dc2626;
         }
@@ -527,7 +527,7 @@
         }
 
         /* Kontainer utama website (form card) */
-    .container {
+   .container {
             background: linear-gradient(135deg, var(--card-gradient-start), var(--card-gradient-end));
             padding: 40px;
             border-radius: 16px;
@@ -546,7 +546,7 @@
             opacity: 0; /* Default hidden for JS animation */
             transform: translateY(20px);
         }
-    .container:hover {
+   .container:hover {
             box-shadow: 0 25px 50px var(--shadow-hover);
             transform: translateY(-5px) rotateX(1deg) rotateY(-1deg);
         }
@@ -564,7 +564,7 @@
             transition: var(--color-transition);
         }
         
-       .price-info {
+   .price-info {
             text-align: center;
             font-size: 1.2em;
             font-weight: 700;
@@ -572,17 +572,17 @@
             margin-bottom: 30px;
             opacity: 0; /* Untuk animasi */
             transform: translateY(20px); /* Untuk animasi */
-            animation: fadeIn 0.6s ease-out forwards; /* Akan dipicu oleh JS */
-            animation-delay: 0.8s; /* Delay default, bisa di-override JS */
+            /* animation: fadeIn 0.6s ease-out forwards; Akan dipicu oleh JS */
+            /* animation-delay: 0.8s; Delay default, bisa di-override JS */
             transition: var(--color-transition);
         }
-       .price-info i {
+   .price-info i {
             margin-right: 8px;
             color: var(--primary-green);
         }
 
         /* Section info/rules/warning */
-    .rules-box,.info-box,.warning-box {
+   .rules-box,.info-box,.warning-box {
             background-color: var(--bg-light);
             padding: 20px 25px;
             border-radius: 12px;
@@ -596,77 +596,77 @@
             transform: translateY(20px);
         }
 
-    .rules-box:hover,.info-box:hover,.warning-box:hover {
+   .rules-box:hover,.info-box:hover,.warning-box:hover {
             transform: translateY(-5px) scale(1.01);
             box-shadow: 0 10px 25px var(--shadow-item-hover);
         }
-    .rules-box {
+   .rules-box {
             background-color: var(--rules-box-bg);
             border-left: 5px solid var(--rules-box-border);
         }
-    .rules-box h2 {
+   .rules-box h2 {
             color: var(--text-dark);
             margin-bottom: 10px;
         }
-    .rules-box h2 i {
+   .rules-box h2 i {
             color: var(--rules-box-border);
             font-size: 1.1em;
             animation: pulseLight 1.5s infinite;
         }
-    .rules-box ul {
+   .rules-box ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-    .rules-box li {
+   .rules-box li {
             margin-bottom: 10px;
             display: flex;
             align-items: flex-start;
             gap: 10px;
             line-height: 1.5;
         }
-    .rules-box li:last-child { margin-bottom: 0; }
-    .rules-box li strong {
+   .rules-box li:last-child { margin-bottom: 0; }
+   .rules-box li strong {
             color: var(--text-dark);
         }
-    .rules-box li i {
+   .rules-box li i {
             color: var(--primary-green);
             font-size: 1em;
             margin-top: 3px;
         }
 
-    .info-box {
+   .info-box {
             background-color: var(--info-box-bg);
             border-left: 5px solid var(--info-box-border);
         }
-    .info-box h2 {
+   .info-box h2 {
             color: var(--text-dark);
             margin-bottom: 10px;
         }
-    .info-box h2 i {
+   .info-box h2 i {
             color: var(--info-box-border);
             font-size: 1.1em;
         }
-    .info-box ul {
+   .info-box ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-    .info-box li {
+   .info-box li {
             margin-bottom: 8px;
             display: flex;
             align-items: flex-start;
             gap: 10px;
             line-height: 1.5;
         }
-    .info-box li:last-child { margin-bottom: 0; }
-    .info-box li i {
+   .info-box li:last-child { margin-bottom: 0; }
+   .info-box li i {
             color: var(--primary-green);
             font-size: 1em;
             margin-top: 3px;
         }
 
-    .warning-box {
+   .warning-box {
             background-color: var(--warning-box-bg);
             border-left: 5px solid var(--warning-box-border);
             display: flex;
@@ -677,13 +677,13 @@
             opacity: 0;
             transform: translateY(20px);
         }
-    .warning-box i {
+   .warning-box i {
             color: var(--warning-box-border);
             font-size: 1.5em;
             flex-shrink: 0;
             animation: shakeInput 0.8s infinite alternate;
         }
-    .warning-box span {
+   .warning-box span {
             color: var(--text-secondary-dark);
         }
 
@@ -762,7 +762,7 @@
         }
 
         /* Styling untuk pesan feedback (sukses/error) */
-    .message {
+   .message {
             margin-top: 25px;
             text-align: center;
             font-weight: 600;
@@ -771,19 +771,19 @@
             border-radius: 10px;
             animation: fadeIn 0.5s ease-out forwards;
         }
-    .message.success {
+   .message.success {
             background-color: rgba(40, 167, 69, 0.1);
             color: var(--whatsapp-green);
             border: 1px solid var(--whatsapp-green);
         }
-    .message.error {
+   .message.error {
             background-color: rgba(220, 53, 69, 0.1);
             color: #dc3545;
             border: 1px solid #dc3545;
         }
 
         /* Styling untuk link WhatsApp (grup & testimoni) */
-    .whatsapp-links {
+   .whatsapp-links {
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -792,7 +792,7 @@
             transform: translateY(20px);
             /* animation-delay: 1.0s; handled by JS */
         }
-    .whatsapp-links a {
+   .whatsapp-links a {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -807,17 +807,17 @@
             transition: all 0.3s ease;
             box-shadow: 0 6px 15px rgba(37, 211, 102, 0.3);
         }
-    .whatsapp-links a:hover {
+   .whatsapp-links a:hover {
             background-color: var(--whatsapp-green-hover);
             transform: translateY(-3px) scale(1.01);
             box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4);
         }
-    .whatsapp-links a i {
+   .whatsapp-links a i {
             font-size: 1.3em;
         }
 
         /* Live Activity Section */
-    .live-activity-section {
+   .live-activity-section {
             width: 100%;
             max-width: 600px;
             background: linear-gradient(135deg, var(--card-gradient-start), var(--card-gradient-end)); /* Menggunakan gradient card */
@@ -833,12 +833,12 @@
             transform-style: preserve-3d;
             transition: all 0.3s ease, var(--color-transition);
         }
-    .live-activity-section:hover {
+   .live-activity-section:hover {
             box-shadow: 0 15px 35px var(--shadow-hover);
             transform: translateY(-3px) rotateX(0.5deg) rotateY(-0.5deg);
         }
 
-    .live-activity-section h2 {
+   .live-activity-section h2 {
             text-align: center;
             font-size: 1.8em;
             font-weight: 800;
@@ -846,7 +846,7 @@
             margin-bottom: 25px;
             position: relative;
         }
-    .live-activity-section h2::after {
+   .live-activity-section h2::after {
             content: '';
             display: block;
             width: 60px;
@@ -855,12 +855,12 @@
             margin: 10px auto 0;
             border-radius: 2px;
         }
-    .live-activity-list {
+   .live-activity-list {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-    .live-activity-item {
+   .live-activity-item {
             display: flex;
             align-items: center;
             background-color: var(--activity-bg);
@@ -874,38 +874,38 @@
             transform: translateY(10px);
             transition: all 0.2s ease, var(--color-transition);
         }
-    .live-activity-item:last-child {
+   .live-activity-item:last-child {
             margin-bottom: 0;
         }
-    .live-activity-item:hover {
+   .live-activity-item:hover {
             transform: translateY(-2px) scale(1.02);
             box-shadow: 0 4px 12px var(--shadow-item-hover);
         }
-    .live-activity-item i {
+   .live-activity-item i {
             color: var(--activity-icon);
             font-size: 1.4em;
             margin-right: 15px;
         }
-    .activity-details {
+   .activity-details {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
-    .activity-details.name { /* Perbaikan selector */
+   .activity-details.name { /* Perbaikan selector */
             font-weight: 700;
             font-size: 1.05em;
         }
-    .activity-details.amount { /* Perbaikan selector */
+   .activity-details.amount { /* Perbaikan selector */
             color: var(--primary-green);
             font-weight: 600;
         }
-    .activity-details.time { /* Perbaikan selector */
+   .activity-details.time { /* Perbaikan selector */
             font-size: 0.85em;
             color: var(--text-secondary-dark);
         }
 
         /* Hidden section for Tentang Kami and FAQ */
-    .hidden-section {
+   .hidden-section {
             display: none;
             background: linear-gradient(135deg, var(--card-gradient-start), var(--card-gradient-end));
             padding: 40px;
@@ -923,29 +923,29 @@
             transform-style: preserve-3d;
             transition: all 0.3s ease, var(--color-transition);
         }
-    .hidden-section:hover {
+   .hidden-section:hover {
             box-shadow: 0 25px 50px var(--shadow-hover);
             transform: translateY(-5px) rotateX(1deg) rotateY(-1deg);
         }
 
-    .hidden-section h2 {
+   .hidden-section h2 {
             font-size: 2.2em;
             font-weight: 800;
             color: var(--text-dark);
             margin-bottom: 20px;
             text-align: center;
         }
-    .hidden-section p,.hidden-section ul {
+   .hidden-section p,.hidden-section ul {
             color: var(--text-secondary-dark);
             font-size: 1em;
             line-height: 1.8;
             margin-bottom: 15px;
         }
-    .hidden-section ul {
+   .hidden-section ul {
             list-style: none;
             padding: 0;
         }
-    .hidden-section ul li {
+   .hidden-section ul li {
             position: relative;
             padding-left: 25px;
             margin-bottom: 8px;
@@ -954,7 +954,7 @@
             /* animation: fadeIn 0.5s ease-out forwards; handled by JS */
             /* animation-delay: var(--li-delay); */
         }
-    .hidden-section ul li::before {
+   .hidden-section ul li::before {
             content: '\f05a';
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
@@ -964,7 +964,7 @@
         }
 
         /* Footer */
-    .footer {
+   .footer {
             width: 100%;
             max-width: 600px;
             text-align: center;
@@ -976,13 +976,13 @@
             animation: fadeIn 0.8s ease-out forwards;
             animation-delay: 1.5s;
         }
-    .footer a {
+   .footer a {
             color: var(--primary-green);
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
         }
-    .footer a:hover {
+   .footer a:hover {
             color: var(--primary-green-dark);
         }
 
@@ -991,13 +991,13 @@
             body {
                 padding: 15px;
             }
-       .header {
+      .header {
                 justify-content: space-between;
                 padding: 15px 0;
                 align-items: center;
                 position: static; /* Biarkan header static di mobile */
             }
-       .header.logo {
+      .header.logo {
                 flex-grow: 1; /* Agar logo bisa mengambil ruang di tengah */
                 text-align: center;
                 margin-left: 0;
@@ -1006,10 +1006,10 @@
                 margin-right: 0;
                 order: -1; /* Pindahkan hamburger ke kiri */
             }
-       .dark-mode-toggle {
+      .dark-mode-toggle {
                 margin-left: 0;
             }
-       .container, #live-activity-section,.hidden-section {
+      .container, #live-activity-section,.hidden-section {
                 padding: 25px;
                 border-radius: 12px;
             }
@@ -1017,10 +1017,10 @@
                 font-size: 2.2em;
                 margin-bottom: 20px;
             }
-       .rules-box,.info-box,.warning-box {
+      .rules-box,.info-box,.warning-box {
                 padding: 18px 20px;
             }
-       .warning-box {
+      .warning-box {
                 flex-direction: column;
                 text-align: center;
             }
@@ -1066,7 +1066,7 @@
 
     <div class="container" id="setor-gmail">
         <h1>Setor Akun Gmail Anda Sekarang!</h1>
-        <p class="price-info"><i class="fas fa-money-bill-wave"></i> Harga per akun: Rp 1.500,-</p>
+        <p class="price-info"><i class="fas fa-tags"></i> Harga per akun: Rp 1.500,-</p>
 
         <!-- Bagian RULES -->
         <div class="rules-box">
@@ -1163,7 +1163,7 @@
                 <i class="fab fa-whatsapp"></i> Testimoni Setor Akun Gmail
             </a>
         </div>
-        <p style="margin-top: 20px;">Kami senang Anda menjadi bagian dari keluarga Job Setor!</p>
+        <p style="margin-top: 20px;">Kami senang Anda menjadi bagian dari keluarga Job Store!</p>
     </section>
 
     <!-- Footer -->
@@ -1227,13 +1227,6 @@
             'tentang-kami': document.getElementById('tentang-kami'),
             'faq': document.getElementById('faq'),
             'komunitas': document.getElementById('komunitas'),
-            // 'daftar-tugas': document.getElementById('daftar-tugas'), // Dihapus dari nav
-            // 'tugas-saya': document.getElementById('tugas-saya'), // Dihapus dari nav
-            // 'saldo-penarikan': document.getElementById('saldo-penarikan'), // Dihapus dari nav
-            // 'riwayat-transaksi': document.getElementById('riwayat-transaksi'), // Dihapus dari nav
-            // 'akun-sosmed': document.getElementById('akun-sosmed'), // Dihapus dari nav
-            // 'leaderboard': document.getElementById('leaderboard'), // Dihapus dari nav
-            // 'logout': document.getElementById('logout') // Dihapus dari nav
         };
 
         const liveActivitySection = document.getElementById('live-activity-section');
@@ -1264,12 +1257,10 @@
                 if (sections.hasOwnProperty(id)) {
                     const section = sections[id];
                     section.style.display = 'none';
-                    // resetElementAnimation(section); // Reset animation for the entire section
                 }
             }
             // Sembunyikan dan reset Live Activity
             liveActivitySection.style.display = 'none';
-            // resetElementAnimation(liveActivitySection);
 
             // Tampilkan section yang dituju dan picu animasinya
             const targetSection = sections[targetId];
@@ -1377,7 +1368,7 @@
         }
         
         closeMobileNavBtnOutside.addEventListener('click', closeMobileNav); // Tombol X di luar mobileNav
-        closeMobileNavBtnInside.addEventListener('click', closeMobileNav); // Tombol X di dalam mobileNav
+        // closeMobileNavBtnInside.addEventListener('click', closeMobileNav); // Tombol X di dalam mobileNav, dihapus dari HTML
         mobileNav.addEventListener('click', (e) => { // Klik di overlay gelap
             if (e.target === mobileNav) {
                 closeMobileNav();
@@ -1390,17 +1381,6 @@
                 e.preventDefault();
                 const targetId = this.dataset.target;
                 
-                // Jika klik logout, langsung log (atau handle sesuai kebutuhan)
-                if (targetId === 'logout') {
-                    console.log('User clicked logout!');
-                    // Di sini kamu bisa tambahkan logika logout, redirect, dll.
-                    // Untuk saat ini, kita akan menutup menu dan menampilkan pesan placeholder
-                    // showSection(targetId); // Jika ingin menampilkan section logout
-                    closeMobileNav(); // Tutup menu
-                    alert('Anda telah keluar.'); // Contoh sederhana
-                    return;
-                }
-
                 showSection(targetId);
                 closeMobileNav(); // Tutup menu setelah memilih section
             });
