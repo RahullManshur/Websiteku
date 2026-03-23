@@ -13,6 +13,7 @@
     <style>
         /* Variabel CSS untuk kemudahan kustomisasi warna */
         :root {
+            /* Warna terang (default) */
             --primary-green: #37d396; /* Hijau utama Buzzpoin */
             --primary-green-dark: #2ab681;
             --bg-light: #f0f4f7; /* Latar belakang terang */
@@ -45,6 +46,40 @@
             /* Warna untuk Navigasi Header */
             --nav-link-bg-inactive: #e0e0e0; /* Background abu-abu muda solid */
             --nav-link-text-inactive: #4a5568; /* Teks gelap untuk non-aktif */
+
+            /* Transisi untuk properti warna */
+            --color-transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        /* Tema Dark Mode */
+        body.dark-mode {
+            --primary-green: #37d396; /* Hijau tetap sama untuk highlight */
+            --primary-green-dark: #2ab681;
+            --bg-light: #1a202c; /* Background gelap */
+            --bg-dark-card: #2d3748; /* Card gelap */
+            --text-dark: #f7fafc; /* Teks terang */
+            --text-secondary-dark: #cbd5e0; /* Teks sekunder terang */
+            --border-light: #4a5568; /* Border gelap */
+
+            --info-box-bg: #2b6cb0; /* Biru lebih gelap */
+            --info-box-border: #63b3ed;
+            --rules-box-bg: #9b2c2c; /* Merah lebih gelap */
+            --rules-box-border: #fc8181;
+            --warning-box-bg: #975a16; /* Oranye lebih gelap */
+            --warning-box-border: #f6ad55;
+
+            --whatsapp-green: #25d366;
+            --whatsapp-green-hover: #1da851;
+
+            --card-gradient-start: #2d3748; /* Gradient card gelap */
+            --card-gradient-end: #1a202c;
+
+            --activity-bg: #2c5282; /* Aktivitas gelap */
+            --activity-text: #e2e8f0;
+            --activity-icon: #63b3ed;
+
+            --nav-link-bg-inactive: #4a5568;
+            --nav-link-text-inactive: #f7fafc;
         }
 
         /* Keyframes untuk animasi */
@@ -105,6 +140,19 @@
             z-index: 1;
         }
 
+        /* Atur semua transisi warna secara global untuk dark mode */
+        body,.container,.rules-box,.info-box,.warning-box,
+        input, textarea, button,.header.nav-links a,
+       .live-activity-section,.live-activity-item,.hidden-section,.footer,
+       .header.logo,.header.logo i, h1,.info-section h2,.info-section h2 i,
+       .rules-box h2,.rules-box h2 i,.rules-box li strong,.rules-box li i,
+       .info-box h2,.info-box h2 i,.info-box li i,.warning-box i,.warning-box span,
+        label,.live-activity-section h2,.live-activity-item i,.activity-details.name,
+       .activity-details.amount,.activity-details.time,.hidden-section h2,
+       .hidden-section p,.hidden-section ul,.hidden-section ul li::before,.footer a {
+            transition: var(--color-transition);
+        }
+
         /* Gradasi di background seperti Buzzpoin */
         body::before {
             content: '';
@@ -117,6 +165,12 @@
                         radial-gradient(circle at bottom right, rgba(55, 211, 150, 0.08), transparent 50%);
             opacity: 0.5;
             z-index: -1;
+        }
+        /* Gradasi background untuk dark mode */
+        body.dark-mode::before {
+             background: radial-gradient(circle at top left, rgba(55, 211, 150, 0.05), transparent 50%),
+                         radial-gradient(circle at bottom right, rgba(55, 211, 150, 0.05), transparent 50%);
+             opacity: 0.8; /* Sedikit lebih jelas di dark mode */
         }
 
         /* Header (inspirasi dari navigasi Buzzpoin) */
@@ -168,8 +222,41 @@
             box-shadow: 0 4px 10px rgba(55, 211, 150, 0.3);
         }
        .header.nav-links a.active:hover {
-             background-color: var(--primary-green-dark);
-             box-shadow: 0 6px 15px rgba(55, 211, 150, 0.4);
+            background-color: var(--primary-green-dark);
+            box-shadow: 0 6px 15px rgba(55, 211, 150, 0.4);
+        }
+
+        /* Styling tombol dark mode */
+       .dark-mode-toggle {
+            background-color: var(--nav-link-bg-inactive);
+            color: var(--nav-link-text-inactive);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: var(--color-transition), transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-left: 10px; /* Jarak dari nav links */
+        }
+
+       .dark-mode-toggle:hover {
+            background-color: rgba(55, 211, 150, 0.2);
+            color: var(--primary-green);
+            transform: translateY(-2px);
+        }
+
+       .dark-mode-toggle i {
+            transition: transform 0.5s ease;
+        }
+
+        /* Animasi ikon saat ganti mode */
+        body.dark-mode.dark-mode-toggle i {
+            transform: rotate(180deg); /* Animasi putar ikon saat dark mode */
+            color: var(--text-dark); /* Warna ikon di dark mode */
         }
 
         /* Kontainer utama website (form card) */
@@ -189,7 +276,6 @@
             transition: all 0.3s ease;
             margin-bottom: 30px; /* Jarak ke Live Activity */
         }
-
        .container:hover {
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
             transform: translateY(-5px); /* Sedikit naik saat hover */
@@ -214,7 +300,6 @@
             animation: fadeIn 0.6s ease-out forwards;
             animation-delay: 0.4s;
         }
-
        .info-section h2 {
             font-size: 1.4em;
             font-weight: 700;
@@ -227,7 +312,6 @@
        .info-section h2 i {
             color: var(--primary-green); /* Ikon di judul section */
         }
-
        .rules-box,.info-box,.warning-box {
             background-color: var(--bg-light); /* Lebih terang dari card utama */
             padding: 20px 25px;
@@ -241,12 +325,10 @@
             opacity: 0; /* Mulai tersembunyi untuk animasi */
             animation: slideInFromLeft 0.6s ease-out forwards;
         }
-
        .rules-box:hover,.info-box:hover,.warning-box:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
-
        .rules-box {
             animation-delay: 0.5s;
             background-color: var(--rules-box-bg);
@@ -319,6 +401,7 @@
             animation-delay: 0.7s;
             background-color: var(--warning-box-bg);
             border-left: 5px solid var(--warning-box-border);
+            display: flex; /* Tambahkan display flex */
             flex-direction: row;
             align-items: center; /* Teks di tengah dengan ikon */
             gap: 15px;
@@ -368,7 +451,7 @@
             opacity: 0.7;
         }
         textarea:focus,
-        input[type="text"]::focus-visible {
+        input[type="text"]:focus-visible { /* Perbaiki focus-visible */
             outline: none;
             border-color: var(--primary-green);
             box-shadow: 0 0 0 3px rgba(55, 211, 150, 0.3), inset 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -522,9 +605,6 @@
             font-size: 1.4em;
             margin-right: 15px;
         }
-       .activity-details {
-            flex-grow: 1;
-        }
        .activity-details.name {
             font-weight: 700;
             font-size: 1.05em;
@@ -628,6 +708,9 @@
                 flex-grow: 1; /* Agar tombol mengisi lebar yang tersedia */
                 text-align: center;
             }
+           .dark-mode-toggle {
+                margin-left: 0; /* Hapus margin di mobile */
+            }
            .container,.live-activity-section,.hidden-section {
                 padding: 25px;
                 border-radius: 12px;
@@ -661,6 +744,10 @@
             <a href="#tentang-kami" id="nav-tentang-kami">Tentang Kami</a>
             <a href="#faq" id="nav-faq">FAQ</a>
         </nav>
+        <!-- TOMBOL DARK MODE -->
+        <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+        </button>
     </header>
 
     <div class="container" id="setor-gmail">
@@ -765,171 +852,216 @@
     </footer>
 
     <script>
-    // Nomor WhatsApp admin (bisa diganti jika perlu)
-    const adminWhatsAppNumber = "6288229814051";
+        // ===============================================
+        // FUNGSI DARK MODE
+        // ===============================================
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
 
-    const form = document.getElementById('gmailAccountForm');
-    const sendButton = document.getElementById('sendButton');
-    const messageDiv = document.getElementById('message');
+        // Cek preferensi user dari local storage
+        const prefersDarkMode = localStorage.getItem('darkMode') === 'true';
 
-    // ===============================================
-    // FUNGSI NAVIGASI
-    // ===============================================
-    const navLinks = document.querySelectorAll('.nav-links a');
-    const sections = {
-        'setor-gmail': document.getElementById('setor-gmail'),
-        'tentang-kami': document.getElementById('tentang-kami'),
-        'faq': document.getElementById('faq')
-    };
-
-    function showSection(targetId) {
-        // Sembunyikan semua section yang mungkin tampil
-        for (const id in sections) {
-            if (sections.hasOwnProperty(id)) {
-                sections[id].style.display = 'none';
-            }
-        }
-        // Tampilkan section yang dituju
-        if (sections[targetId]) {
-            sections[targetId].style.display = 'block';
-            // Scroll ke atas section yang aktif
-            sections[targetId].scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        // Atur kelas aktif pada navigasi
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${targetId}`) {
-                link.classList.add('active');
-            }
-        });
-    }
-
-    // Event listener untuk klik navigasi
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1); // Ambil ID tanpa '#'
-            showSection(targetId);
-        });
-    });
-
-    // Tampilkan section 'setor-gmail' secara default saat load halaman
-    document.addEventListener('DOMContentLoaded', () => {
-        // Periksa apakah ada hash di URL saat halaman dimuat
-        const initialHash = window.location.hash.substring(1);
-        if (initialHash && sections[initialHash]) {
-            showSection(initialHash);
+        // Terapkan mode awal
+        if (prefersDarkMode) {
+            body.classList.add('dark-mode');
+            darkModeToggle.querySelector('i').className = 'fas fa-sun'; // Ganti ikon jadi matahari
         } else {
-            showSection('setor-gmail');
-        }
-    });
-
-    // ===============================================
-    // FUNGSI FORM SUBMIT
-    // ===============================================
-    form.addEventListener('submit', function (e) {
-        e.preventDefault(); // Mencegah reload halaman
-
-        sendButton.disabled = true;
-        sendButton.innerHTML = 'Mengarahkan ke WhatsApp... <i class="fas fa-spinner fa-spin"></i>'; // Loading spinner
-        messageDiv.textContent = ''; // Kosongkan pesan sebelumnya
-
-        // Ambil data dari input form
-        const emailList = document.getElementById('email_list').value;
-        const jumlahAkun = document.getElementById('jumlah_akun').value;
-        const userWhatsAppNumber = document.getElementById('whatsapp_number_user').value;
-        const danaNumber = document.getElementById('dana_number').value;
-        const danaOwnerName = document.getElementById('dana_owner_name').value;
-
-        // Validasi sederhana untuk nomor WhatsApp dan DANA
-        const whatsappRegex = /^[0-9+]+$/; // Memperbolehkan angka dan '+'
-        const danaRegex = /^[0-9]+$/; // Hanya angka
-
-        if (!whatsappRegex.test(userWhatsAppNumber) ||!danaRegex.test(danaNumber)) {
-            messageDiv.textContent = 'Nomor WhatsApp dan DANA hanya boleh berisi angka (WhatsApp bisa dengan +).';
-            messageDiv.className = 'message error';
-            sendButton.disabled = false;
-            sendButton.innerHTML = 'Kirim Data ke WhatsApp Admin <i class="fas fa-paper-plane"></i>';
-            return; // Hentikan eksekusi
+            darkModeToggle.querySelector('i').className = 'fas fa-moon'; // Ganti ikon jadi bulan
         }
 
-        // Buat pesan WhatsApp
-        const waMessage = `Halo Admin, saya ingin menyetor akun Gmail:\n\n` +
-                          `*Daftar Akun*:\n${emailList}\n\n` +
-                          `*Jumlah Akun*: ${jumlahAkun}\n` +
-                          `*Nomor WhatsApp User*: ${userWhatsAppNumber}\n` +
-                          `*Nomor DANA Pembayaran*: ${danaNumber}\n` +
-                          `*Nama Pemilik Akun DANA*: ${danaOwnerName}\n\n` +
-                          `Mohon diproses, terima kasih.`;
+        // Event listener untuk tombol dark mode
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode'); // Toggle class dark-mode di body
+            const isDarkMode = body.classList.contains('dark-mode');
 
-        const encodedMessage = encodeURIComponent(waMessage);
-        const whatsappURL = `https://wa.me/${adminWhatsAppNumber}?text=${encodedMessage}`;
+            // Simpan preferensi di local storage
+            localStorage.setItem('darkMode', isDarkMode);
 
-        // Buka link WhatsApp di tab baru
-        window.open(whatsappURL, '_blank');
+            // Ganti ikon sesuai mode
+            if (isDarkMode) {
+                darkModeToggle.querySelector('i').className = 'fas fa-sun'; // Ganti ikon jadi matahari
+            } else {
+                darkModeToggle.querySelector('i').className = 'fas fa-moon'; // Ganti ikon jadi bulan
+            }
+        });
 
-        // Berikan feedback ke pengguna
-        messageDiv.textContent = 'Formulir berhasil dikirim! Silakan lanjutkan di WhatsApp.';
-        messageDiv.className = 'message success';
-        form.reset(); // Reset form setelah dikirim
+        // ===============================================
+        // FUNGSI NAVIGASI
+        // ===============================================
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = {
+            'setor-gmail': document.getElementById('setor-gmail'),
+            'tentang-kami': document.getElementById('tentang-kami'),
+            'faq': document.getElementById('faq')
+        };
 
-        // Kembalikan tombol ke keadaan semula setelah beberapa saat
-        setTimeout(() => {
-            sendButton.disabled = false;
-            sendButton.innerHTML = 'Kirim Data ke WhatsApp Admin <i class="fas fa-paper-plane"></i>';
-        }, 3000);
-    });
+        // Live activity section juga perlu di-hide/show oleh navigasi jika ingin diatur
+        const liveActivitySection = document.getElementById('live-activity-section');
 
-    // ===============================================
-    // FUNGSI LIVE ACTIVITY (SIMULASI)
-    // ===============================================
-    const activityList = document.getElementById('activity-list');
-    const dummyNames = ["Budi", "Siti", "Agus", "Dewi", "Faisal", "Linda", "Rudi", "Maya"];
-    const dummyAmounts = ["5.000", "10.000", "7.500", "12.000", "8.000", "6.500", "9.000"];
+        function showSection(targetId) {
+            // Sembunyikan semua section yang mungkin tampil (termasuk Live Activity jika tidak di #setor-gmail)
+            for (const id in sections) {
+                if (sections.hasOwnProperty(id)) {
+                    sections[id].style.display = 'none';
+                }
+            }
 
-    function getRandomItem(arr) {
-        return arr[Math.floor(Math.random() * arr.length)];
-    }
+            // Atur visibility Live Activity
+            if (targetId === 'setor-gmail') {
+                liveActivitySection.style.display = 'block'; // Tampilkan Live Activity jika di section Setor Gmail
+                if (sections[targetId]) {
+                    sections[targetId].style.display = 'block';
+                    sections[targetId].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            } else {
+                liveActivitySection.style.display = 'none'; // Sembunyikan Live Activity di section lain
+                if (sections[targetId]) {
+                    sections[targetId].style.display = 'block';
+                    sections[targetId].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
 
-    function generateRandomActivity() {
-        const randomName = getRandomItem(dummyNames);
-        const randomAmount = getRandomItem(dummyAmounts);
-        const randomTime = Math.floor(Math.random() * 15) + 1; // 1-15 menit lalu
-
-        const item = document.createElement('li');
-        item.className = 'live-activity-item';
-        item.innerHTML = `
-            <i class="fas fa-money-bill-wave"></i>
-            <div class="activity-details">
-                <span class="name">${randomName} telah setor akun!</span>
-                <span class="amount">Rp ${randomAmount} Terbayar</span>
-                <span class="time">${randomTime} menit yang lalu</span>
-            </div>
-        `;
-        return item;
-    }
-
-    function updateLiveActivity() {
-        // Hapus item terlama jika sudah ada 5 atau lebih
-        if (activityList.children.length >= 5) {
-            activityList.removeChild(activityList.lastChild);
+            // Atur kelas aktif pada navigasi
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${targetId}`) {
+                    link.classList.add('active');
+                }
+            });
         }
 
-        // Tambahkan item baru ke paling atas
-        const newActivity = generateRandomActivity();
-        activityList.prepend(newActivity);
-    }
+        // Event listener untuk klik navigasi
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1); // Ambil ID tanpa '#'
+                showSection(targetId);
+            });
+        });
 
-    // Generate beberapa aktivitas awal saat halaman dimuat
-    for (let i = 0; i < 3; i++) { // Tampilkan 3 aktivitas awal
-        const initialActivity = generateRandomActivity();
-        initialActivity.style.animationDelay = `${0.2 * i}s`; // Staggered animation
-        activityList.appendChild(initialActivity);
-    }
+        // Tampilkan section 'setor-gmail' secara default saat load halaman
+        document.addEventListener('DOMContentLoaded', () => {
+            // Periksa apakah ada hash di URL saat halaman dimuat
+            const initialHash = window.location.hash.substring(1);
+            if (initialHash && sections[initialHash]) {
+                showSection(initialHash);
+            } else {
+                showSection('setor-gmail');
+            }
+        });
 
-    // Update aktivitas setiap beberapa detik (misal 5-10 detik)
-    setInterval(updateLiveActivity, Math.random() * (10000 - 5000) + 5000); // Acak 5-10 detik
+        // ===============================================
+        // FUNGSI FORM SUBMIT
+        // ===============================================
+        // Nomor WhatsApp admin (bisa diganti jika perlu)
+        const adminWhatsAppNumber = "6288229814051";
+
+        const form = document.getElementById('gmailAccountForm');
+        const sendButton = document.getElementById('sendButton');
+        const messageDiv = document.getElementById('message');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // Mencegah reload halaman
+
+            sendButton.disabled = true;
+            sendButton.innerHTML = 'Mengarahkan ke WhatsApp... <i class="fas fa-spinner fa-spin"></i>'; // Loading spinner
+            messageDiv.textContent = ''; // Kosongkan pesan sebelumnya
+
+            // Ambil data dari input form
+            const emailList = document.getElementById('email_list').value;
+            const jumlahAkun = document.getElementById('jumlah_akun').value;
+            const userWhatsAppNumber = document.getElementById('whatsapp_number_user').value;
+            const danaNumber = document.getElementById('dana_number').value;
+            const danaOwnerName = document.getElementById('dana_owner_name').value;
+
+            // Validasi sederhana untuk nomor WhatsApp dan DANA
+            const whatsappRegex = /^[0-9+]+$/; // Memperbolehkan angka dan '+'
+            const danaRegex = /^[0-9]+$/; // Hanya angka
+
+            if (!whatsappRegex.test(userWhatsAppNumber) ||!danaRegex.test(danaNumber)) {
+                messageDiv.textContent = 'Nomor WhatsApp dan DANA hanya boleh berisi angka (WhatsApp bisa dengan +).';
+                messageDiv.className = 'message error';
+                sendButton.disabled = false;
+                sendButton.innerHTML = 'Kirim Data ke WhatsApp Admin <i class="fas fa-paper-plane"></i>';
+                return; // Hentikan eksekusi
+            }
+
+            // Buat pesan WhatsApp
+            const waMessage = `Halo Admin, saya ingin menyetor akun Gmail:\n\n` +
+                              `*Daftar Akun*:\n${emailList}\n\n` +
+                              `*Jumlah Akun*: ${jumlahAkun}\n` +
+                              `*Nomor WhatsApp User*: ${userWhatsAppNumber}\n` +
+                              `*Nomor DANA Pembayaran*: ${danaNumber}\n` +
+                              `*Nama Pemilik Akun DANA*: ${danaOwnerName}\n\n` +
+                              `Mohon diproses, terima kasih.`;
+
+            const encodedMessage = encodeURIComponent(waMessage);
+            const whatsappURL = `https://wa.me/${adminWhatsAppNumber}?text=${encodedMessage}`;
+
+            // Buka link WhatsApp di tab baru
+            window.open(whatsappURL, '_blank');
+
+            // Berikan feedback ke pengguna
+            messageDiv.textContent = 'Formulir berhasil dikirim! Silakan lanjutkan di WhatsApp.';
+            messageDiv.className = 'message success';
+            form.reset(); // Reset form setelah dikirim
+
+            // Kembalikan tombol ke keadaan semula setelah beberapa saat
+            setTimeout(() => {
+                sendButton.disabled = false;
+                sendButton.innerHTML = 'Kirim Data ke WhatsApp Admin <i class="fas fa-paper-plane"></i>';
+            }, 3000);
+        });
+
+        // ===============================================
+        // FUNGSI LIVE ACTIVITY (SIMULASI)
+        // ===============================================
+        const activityList = document.getElementById('activity-list');
+        const dummyNames = ["Budi", "Siti", "Agus", "Dewi", "Faisal", "Linda", "Rudi", "Maya"];
+        const dummyAmounts = ["5.000", "10.000", "7.500", "12.000", "8.000", "6.500", "9.000"];
+
+        function getRandomItem(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function generateRandomActivity() {
+            const randomName = getRandomItem(dummyNames);
+            const randomAmount = getRandomItem(dummyAmounts);
+            const randomTime = Math.floor(Math.random() * 15) + 1; // 1-15 menit lalu
+
+            const item = document.createElement('li');
+            item.className = 'live-activity-item';
+            item.innerHTML = `
+                <i class="fas fa-money-bill-wave"></i>
+                <div class="activity-details">
+                    <span class="name">${randomName} telah setor akun!</span>
+                    <span class="amount">Rp ${randomAmount} Terbayar</span>
+                    <span class="time">${randomTime} menit yang lalu</span>
+                </div>
+            `;
+            return item;
+        }
+
+        function updateLiveActivity() {
+            // Hapus item terlama jika sudah ada 5 atau lebih
+            if (activityList.children.length >= 5) {
+                activityList.removeChild(activityList.lastChild);
+            }
+
+            // Tambahkan item baru ke paling atas
+            const newActivity = generateRandomActivity();
+            activityList.prepend(newActivity);
+        }
+
+        // Generate beberapa aktivitas awal saat halaman dimuat
+        for (let i = 0; i < 3; i++) { // Tampilkan 3 aktivitas awal
+            const initialActivity = generateRandomActivity();
+            initialActivity.style.animationDelay = `${0.2 * i}s`; // Staggered animation
+            activityList.appendChild(initialActivity);
+        }
+
+        // Update aktivitas setiap beberapa detik (misal 5-10 detik)
+        setInterval(updateLiveActivity, Math.random() * (10000 - 5000) + 5000); // Acak 5-10 detik
 
     </script>
 </body>
