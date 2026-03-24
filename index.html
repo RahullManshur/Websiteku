@@ -1103,7 +1103,7 @@
                 text-align: center;
             }
            /* Tombol floating di mobile */
-        .contact-admin-main-button {
+       .contact-admin-main-button {
                 bottom: 15px;
                 right: 15px; /* Pindah ke kanan bawah */
                 left: auto; /* Reset left */
@@ -1111,7 +1111,7 @@
                 height: 50px;
                 font-size: 1.3em;
            }
-        .contact-options-content {
+       .contact-options-content {
                 width: 90%;
                 padding: 25px;
            }
@@ -1155,6 +1155,7 @@
         <button class="close-btn" id="closeMobileNavBtnOutside" aria-label="Tutup menu"><i class="fas fa-times"></i></button> 
     </div>
 
+    <!-- Konten utama halaman -->
     <div class="container" id="setor-gmail">
         <h1>Setor Akun Gmail Anda Sekarang!</h1>
         <p class="price-info"><i class="fas fa-tags"></i> Harga per akun: Rp 1.500,-</p>
@@ -1261,6 +1262,7 @@
     </footer>
 
     <!-- Tombol "Hubungi Admin" di halaman utama (Floating Action Button) -->
+    <!-- PENTING: Tombol ini dipindahkan keluar dari <div class="container"> agar tidak terpengaruh oleh overflow: hidden; -->
     <button class="contact-admin-main-button" id="mainContactAdminBtn" aria-label="Hubungi Admin">
         <i class="fas fa-headset"></i>
     </button>
@@ -1323,11 +1325,12 @@
         // ===============================================
         // FUNGSI NAVIGASI & HAMBURGER MENU
         // ===============================================
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-item'); 
+        const navItems = document.querySelectorAll('.mobile-nav-list.mobile-nav-item'); // Semua item navigasi mobile
         const hamburgerMenuBtn = document.getElementById('hamburgerMenuBtn');
         const mobileNav = document.getElementById('mobileNav');
         const mobileNavContent = document.getElementById('mobileNavContent');
         const closeMobileNavBtnOutside = document.getElementById('closeMobileNavBtnOutside');
+        const mobileContactAdminBtn = document.getElementById('mobileContactAdminBtn'); // Dapatkan tombol "Hubungi Admin" di menu mobile
 
         const sections = {
             'setor-gmail': document.getElementById('setor-gmail'),
@@ -1429,10 +1432,12 @@
             }
 
             // Atur kelas aktif pada navigasi mobile
-            mobileNavLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.dataset.target === targetId) {
+            navItems.forEach(item => { // Ganti mobileNavLinks menjadi navItems
+                const link = item.querySelector('a');
+                if (link && link.dataset.target === targetId) {
                     link.classList.add('active');
+                } else if (link) {
+                    link.classList.remove('active');
                 }
             });
         }
@@ -1445,9 +1450,8 @@
             document.body.style.overflow = 'hidden'; // Mencegah scroll di body
 
             // Animate mobile nav list items
-            const navItems = mobileNavContent.querySelectorAll('.mobile-nav-list li');
-            navItems.forEach((item, index) => {
-                // Reset animasi dulu sebelum di-trigger lagi
+            const navListItems = mobileNavContent.querySelectorAll('.mobile-nav-list li');
+            navListItems.forEach((item, index) => {
                 item.style.animation = 'none';
                 item.offsetHeight; // Trigger reflow
                 item.style.animation = `itemFadeIn 0.3s ease-out forwards`;
@@ -1466,8 +1470,8 @@
                 mobileNav.classList.remove('open', 'closing');
                 mobileNavContent.removeEventListener('animationend', handler);
                 // Reset animasi item di menu setelah ditutup
-                const navItems = mobileNavContent.querySelectorAll('.mobile-nav-list li');
-                navItems.forEach(item => {
+                const navListItems = mobileNavContent.querySelectorAll('.mobile-nav-list li');
+                navListItems.forEach(item => {
                     item.style.animation = 'none';
                     item.style.opacity = 0;
                     item.style.transform = 'translateX(-20px)';
@@ -1485,24 +1489,19 @@
             }
         });
 
-        // Event listener untuk klik link di mobile nav
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                // Cek apakah ini link "Hubungi Admin" di mobile nav
-                if (this.id === 'mobileContactAdminBtn') {
-                    e.preventDefault(); // Mencegah navigasi ke '#'
-                    openContactOptionsModal();
-                    closeMobileNav(); // Tutup menu mobile
-                    return;
-                }
-                // Jika ini link internal, lanjutkan seperti biasa
-                const targetId = this.dataset.target;
-                if (targetId) { // Hanya jika ada data-target
-                    e.preventDefault();
-                    showSection(targetId);
-                    closeMobileNav(); // Tutup menu setelah memilih section
-                }
-            });
+        // Event listener untuk klik link di mobile nav (selain "Hubungi Admin")
+        navItems.forEach(item => {
+            const link = item.querySelector('a');
+            if (link && link.id!== 'mobileContactAdminBtn') { // Hanya untuk link selain "Hubungi Admin"
+                link.addEventListener('click', function(e) {
+                    const targetId = this.dataset.target;
+                    if (targetId) { 
+                        e.preventDefault();
+                        showSection(targetId);
+                        closeMobileNav();
+                    }
+                });
+            }
         });
 
         // Tampilkan section 'setor-gmail' secara default saat load halaman
@@ -1673,7 +1672,6 @@
         // FUNGSI MODAL HUBUNGI ADMIN
         // ===============================================
         const mainContactAdminBtn = document.getElementById('mainContactAdminBtn');
-        const mobileContactAdminBtn = document.getElementById('mobileContactAdminBtn'); // Pastikan ini ada dan id-nya benar
         const contactOptionsModal = document.getElementById('contactOptionsModal');
         const closeContactOptionsModal = document.getElementById('closeContactOptionsModal');
 
@@ -1692,8 +1690,12 @@
             mainContactAdminBtn.addEventListener('click', openContactOptionsModal);
         }
         // Event listener untuk tombol di menu mobile
-        if (mobileContactAdminBtn) { 
-            mobileContactAdminBtn.addEventListener('click', openContactOptionsModal);
+        if (mobileContactAdminBtn) { // Pastikan ini adalah tombol di menu mobile
+            mobileContactAdminBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // Mencegah link ke #
+                openContactOptionsModal();
+                closeMobileNav(); // Tutup menu mobile setelah membuka modal
+            });
         }
         // Event listener untuk tombol close modal
         if (closeContactOptionsModal) { 
