@@ -1147,6 +1147,7 @@
                 <li><a href="#tentang-kami" class="mobile-nav-item" data-target="tentang-kami"><i class="fas fa-info-circle"></i> <span>Tentang Kami</span></a></li>
                 <li><a href="#faq" class="mobile-nav-item" data-target="faq"><i class="fas fa-question-circle"></i> <span>FAQ</span></a></li>
                 <li><a href="#komunitas" class="mobile-nav-item" data-target="komunitas"><i class="fas fa-users"></i> <span>Komunitas</span></a></li>
+                <!-- Ubah ini untuk memicu modal -->
                 <li><a href="#" class="mobile-nav-item" id="mobileContactAdminBtn"><i class="fas fa-headset"></i> <span>Hubungi Admin</span></a></li>
             </ul>
         </div>
@@ -1322,11 +1323,11 @@
         // ===============================================
         // FUNGSI NAVIGASI & HAMBURGER MENU
         // ===============================================
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-item'); // Selector sudah benar
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-item'); 
         const hamburgerMenuBtn = document.getElementById('hamburgerMenuBtn');
         const mobileNav = document.getElementById('mobileNav');
         const mobileNavContent = document.getElementById('mobileNavContent');
-        const closeMobileNavBtnOutside = document.getElementById('closeMobileNavBtnOutside'); // Tombol X di luar mobileNavContent
+        const closeMobileNavBtnOutside = document.getElementById('closeMobileNavBtnOutside');
 
         const sections = {
             'setor-gmail': document.getElementById('setor-gmail'),
@@ -1672,7 +1673,7 @@
         // FUNGSI MODAL HUBUNGI ADMIN
         // ===============================================
         const mainContactAdminBtn = document.getElementById('mainContactAdminBtn');
-        const mobileContactAdminBtn = document.getElementById('mobileContactAdminBtn');
+        const mobileContactAdminBtn = document.getElementById('mobileContactAdminBtn'); // Pastikan ini ada dan id-nya benar
         const contactOptionsModal = document.getElementById('contactOptionsModal');
         const closeContactOptionsModal = document.getElementById('closeContactOptionsModal');
 
@@ -1686,13 +1687,16 @@
             document.body.style.overflow = ''; // Mengizinkan scroll kembali
         }
 
-        if (mainContactAdminBtn) { // Pastikan tombol ada sebelum menambahkan event listener
+        // Event listener untuk tombol utama di halaman
+        if (mainContactAdminBtn) { 
             mainContactAdminBtn.addEventListener('click', openContactOptionsModal);
         }
-        if (mobileContactAdminBtn) { // Pastikan tombol ada sebelum menambahkan event listener
+        // Event listener untuk tombol di menu mobile
+        if (mobileContactAdminBtn) { 
             mobileContactAdminBtn.addEventListener('click', openContactOptionsModal);
         }
-        if (closeContactOptionsModal) { // Pastikan tombol ada sebelum menambahkan event listener
+        // Event listener untuk tombol close modal
+        if (closeContactOptionsModal) { 
             closeContactOptionsModal.addEventListener('click', closeContactOptionsModalFunc);
         }
 
