@@ -209,7 +209,8 @@
             font-size: 16px;
             position: relative; /* Untuk gradasi di background */
             z-index: 1;
-            perspective: 1000px; /* Untuk efek 3D saat hover di card */
+            /* Hapus transform-style: preserve-3d; untuk menghindari masalah fixed positioning */
+            /* perspective: 1000px; */ 
             transition: var(--color-transition); /* Global transition for dark mode */
         }
 
@@ -515,7 +516,8 @@
             /* animation-delay: 0.2s; */
             transition: all 0.3s ease, var(--color-transition);
             margin-bottom: 30px;
-            transform-style: preserve-3d;
+            /* Hapus transform-style: preserve-3d; untuk menghindari masalah fixed positioning */
+            /* transform-style: preserve-3d; */ 
             opacity: 0; /* Default hidden for JS animation */
             transform: translateY(20px);
         }
@@ -803,7 +805,7 @@
             /* animation: fadeIn 0.8s ease-out forwards; handled by JS for staggered effect */
             /* animation-delay: 1.2s; */
             border: 1px solid var(--border-light);
-            transform-style: preserve-3d;
+            /* transform-style: preserve-3d; */ /* Hapus ini */
             transition: all 0.3s ease, var(--color-transition);
         }
 .live-activity-section:hover {
@@ -893,7 +895,7 @@
             transform: translateY(20px); /* Initial state for animation */
             /* animation: popInScale 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; */
             /* animation-delay: 0.2s; */
-            transform-style: preserve-3d;
+            /* transform-style: preserve-3d; */ /* Hapus ini */
             transition: all 0.3s ease, var(--color-transition);
         }
 .hidden-section:hover {
@@ -949,7 +951,7 @@
     margin-bottom: 30px;
     opacity: 0;
     transform: translateY(20px);
-    transform-style: preserve-3d;
+    /* transform-style: preserve-3d; */ /* Hapus ini */
     transition: all 0.3s ease, var(--color-transition);
 }
 
@@ -1113,7 +1115,7 @@
                 text-align: center;
             }
            /* Tombol floating di mobile */
-    .contact-admin-main-button {
+   .contact-admin-main-button {
                 bottom: 15px!important;
                 right: 15px!important; /* Pindah ke kanan bawah */
                 left: auto!important; /* Reset left */
@@ -1285,7 +1287,7 @@
     </footer>
 
     <!-- Tombol "Hubungi Admin" di halaman utama (Floating Action Button) -->
-    <!-- PENTING: Tombol ini dipindahkan keluar dari semua container utama -->
+    <!-- PENTING: Tombol ini dipindahkan keluar dari semua container utama, langsung di dalam body -->
     <button class="contact-admin-main-button" id="mainContactAdminBtn" aria-label="Hubungi Admin">
         <i class="fas fa-headset"></i>
     </button>
