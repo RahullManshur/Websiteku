@@ -331,7 +331,7 @@
             padding: 0;
             flex-shrink: 0;
             box-shadow: none;
-            transition: var(--color-transition), transform 0.3s ease;
+            transition: color 0.3s ease, transform 0.3s ease;
             z-index: 100;
             width: 44px;
             height: 44px;
@@ -1089,7 +1089,7 @@
                 <li><i class="fas fa-long-arrow-alt-right"></i> Satu email per baris (contoh: user1@gmail.com:password123).</li>
                 <li><i class="fas fa-long-arrow-alt-right"></i> Akun Gmail/Google Harus Baru, Bukan Akun Lama.</li>
                 <li><i class="fas fa-long-arrow-alt-right"></i> Pastikan email dan password benar serta aktif.</li>
-                <li><i class="fas fa-long-arrow-alt-right"></i> Nomor WhatsApp Anda harus aktif agar kami bisa memverifikasi dan memproses pembayaran.</li>
+                <li><i class="fas fa-long-arrow-alt-right"></i> Anda akan dihubungi via WhatsApp Admin untuk verifikasi dan pembayaran. Pastikan Anda punya akun WhatsApp yang aktif dan bisa dihubungi.</li>
             </ul>
         </div>
 
@@ -1100,11 +1100,7 @@
 
             <label for="jumlah_akun"><i class="fas fa-calculator"></i> Jumlah Akun yang Disetor:</label>
             <input type="text" id="jumlah_akun" name="jumlah_akun" placeholder="Contoh: 5" required>
-
-            <!-- Hapus label dan input untuk Nomor WhatsApp Anda -->
-            <!-- <label for="whatsapp_number_user"><i class="fab fa-whatsapp"></i> Nomor WhatsApp Anda:</label> -->
-            <!-- <input type="text" id="whatsapp_number_user" name="whatsapp_number_user" placeholder="Contoh: 6281234567890 (tanpa +)" required> -->
-
+            
             <label for="dana_number"><i class="fas fa-wallet"></i> Nomor DANA untuk Pembayaran:</label>
             <input type="text" id="dana_number" name="dana_number" placeholder="Contoh: 081234567890" required>
 
@@ -1157,7 +1153,7 @@
         <h2>Komunitas Kami</h2>
         <p>Bergabunglah dengan komunitas kami untuk mendapatkan informasi terbaru, tips, dan dukungan dari sesama anggota.</p>
         <div class="whatsapp-links">
-            <a href="https://chat.whatsapp.com/JH8NB0A87Vx7mFjKQva7d9?mode=gi_t" target="_blank" rel="noopener noreferrer">
+            <a href="https://chat.whatsapp.com/InOjoQT0Lf35PntrZAUSLg?mode=gi_t" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-whatsapp"></i> Gabung Grup Setor Gmail
             </a>
             <a href="https://whatsapp.com/channel/0029Vb7Pef20bIdwNmPREr1m" target="_blank" rel="noopener noreferrer">
@@ -1227,7 +1223,6 @@
             'tentang-kami': document.getElementById('tentang-kami'),
             'faq': document.getElementById('faq'),
             'komunitas': document.getElementById('komunitas'),
-            // Semua section lainnya yang tidak ada di mobile nav tapi ada di konten utama
             'live-activity-section': document.getElementById('live-activity-section') 
         };
 
@@ -1370,7 +1365,6 @@
         }
         
         closeMobileNavBtnOutside.addEventListener('click', closeMobileNav); // Tombol X di luar mobileNav
-        // closeMobileNavBtnInside.addEventListener('click', closeMobileNav); // Tombol X di dalam mobileNav, dihapus dari HTML
         mobileNav.addEventListener('click', (e) => { // Klik di overlay gelap
             if (e.target === mobileNav) {
                 closeMobileNav();
@@ -1401,8 +1395,8 @@
         // ===============================================
         // FUNGSI FORM SUBMIT
         // ===============================================
-        // Nomor WhatsApp admin tetap ada di sini untuk tujuan pengiriman data formulir
-        const adminWhatsAppNumber = "6285191214733"; // NOMOR WHATSAPP ADMIN SUDAH DIUBAH DI SINI
+        // Nomor WhatsApp admin sudah diganti
+        const adminWhatsAppNumber = "6288229814051";
 
         const form = document.getElementById('gmailAccountForm');
         const sendButton = document.getElementById('sendButton');
@@ -1413,20 +1407,68 @@
 
             sendButton.disabled = true;
             sendButton.innerHTML = 'Mengarahkan ke WhatsApp... <i class="fas fa-spinner fa-spin"></i>';
-            messageDiv.textContent = '';
+            messageDiv.textContent = ''; // Kosongkan pesan sebelumnya
+            messageDiv.className = 'message'; // Reset kelas pesan
 
             const emailList = document.getElementById('email_list').value;
             const jumlahAkun = document.getElementById('jumlah_akun').value;
-            // const userWhatsAppNumber = document.getElementById('whatsapp_number_user').value; // Ini dihapus
             const danaNumber = document.getElementById('dana_number').value;
             const danaOwnerName = document.getElementById('dana_owner_name').value;
 
-            // const whatsappRegex = /^[0-9+]+$/; // Ini dihapus
-            const danaRegex = /^[0-9]+$/;
+            // --- Validasi Formulir ---
+            let isValid = true;
+            let errorMessage = '';
 
-            // Validasi nomor WhatsApp user dihapus karena fieldnya sudah tidak ada
+            // Validasi email_list (format email:password dan tidak kosong)
+            if (!emailList.trim()) {
+                isValid = false;
+                errorMessage += 'Daftar Akun Gmail tidak boleh kosong.<br>';
+            } else {
+                const emailLines = emailList.split('\n').filter(line => line.trim()!== '');
+                if (emailLines.length === 0) {
+                    isValid = false;
+                    errorMessage += 'Daftar Akun Gmail tidak boleh kosong.<br>';
+                } else {
+                    const emailPasswordRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+:.*$/;
+                    for (const line of emailLines) {
+                        if (!emailPasswordRegex.test(line.trim())) {
+                            isValid = false;
+                            errorMessage += `Format akun Gmail salah: "${line.trim()}". Harusnya "email@gmail.com:password".<br>`;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Validasi jumlah_akun (harus angka positif)
+            const parsedJumlahAkun = parseInt(jumlahAkun);
+            if (isNaN(parsedJumlahAkun) || parsedJumlahAkun <= 0) {
+                isValid = false;
+                errorMessage += 'Jumlah Akun harus berupa angka positif.<br>';
+            } else if (parsedJumlahAkun!== emailList.split('\n').filter(line => line.trim()!== '').length) {
+                isValid = false;
+                errorMessage += 'Jumlah Akun yang diinput tidak sesuai dengan jumlah akun yang disetor.<br>';
+            }
+
+            // Validasi dana_number (hanya angka)
+            const danaRegex = /^[0-9]+$/;
             if (!danaRegex.test(danaNumber)) {
-                messageDiv.textContent = 'Nomor DANA hanya boleh berisi angka.';
+                isValid = false;
+                errorMessage += 'Nomor DANA hanya boleh berisi angka.<br>';
+            } else if (danaNumber.length < 10 || danaNumber.length > 13) { // Contoh: validasi panjang nomor DANA
+                isValid = false;
+                errorMessage += 'Nomor DANA tidak valid (panjang 10-13 digit angka).<br>';
+            }
+
+            // Validasi dana_owner_name (tidak boleh kosong)
+            if (!danaOwnerName.trim()) {
+                isValid = false;
+                errorMessage += 'Nama Pemilik Akun DANA tidak boleh kosong.<br>';
+            }
+            // --- End Validasi Formulir ---
+
+            if (!isValid) {
+                messageDiv.innerHTML = errorMessage;
                 messageDiv.className = 'message error';
                 sendButton.disabled = false;
                 sendButton.innerHTML = 'Kirim Data ke WhatsApp Admin <i class="fas fa-paper-plane"></i>';
@@ -1436,7 +1478,6 @@
             const waMessage = `Halo Admin, saya ingin menyetor akun Gmail:\n\n` +
                               `*Daftar Akun*:\n${emailList}\n\n` +
                               `*Jumlah Akun*: ${jumlahAkun}\n` +
-                              // `*Nomor WhatsApp User*: ${userWhatsAppNumber}\n` + // Ini dihapus
                               `*Nomor DANA Pembayaran*: ${danaNumber}\n` +
                               `*Nama Pemilik Akun DANA*: ${danaOwnerName}\n\n` +
                               `Mohon diproses, terima kasih.`;
