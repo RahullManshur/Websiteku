@@ -33,6 +33,8 @@
             /* Warna WhatsApp */
             --whatsapp-green: #25d366;
             --whatsapp-green-hover: #1da851;
+            --telegram-blue: #0088cc;
+            --telegram-blue-hover: #007bb5;
 
             /* Gradient untuk card utama (opsional, bisa diganti solid white) */
             --card-gradient-start: #f8fcfd;
@@ -86,6 +88,8 @@
 
             --whatsapp-green: #25d366;
             --whatsapp-green-hover: #1da851;
+            --telegram-blue: #0088cc;
+            --telegram-blue-hover: #007bb5;
 
             --card-gradient-start: #2d3748; /* Gradient card gelap */
             --card-gradient-end: #1a202c;
@@ -219,9 +223,10 @@
         label,.live-activity-section h2,.live-activity-item i,.activity-details.name,
 .activity-details.amount,.activity-details.time,.hidden-section h2,
 .hidden-section p,.hidden-section ul,.hidden-section ul li::before,.footer a,
-        #hamburgerMenuBtn, #mobileNavContent, #mobileNavContent ul li a,.dark-mode-toggle,
-.mobile-nav-item,.mobile-nav-item i,.mobile-nav-item span,
-.mobile-nav-header.nav-logo-text,.contact-admin-main-button { /* Tambahan untuk mobile nav dan tombol baru */
+        #hamburgerMenuBtn, #mobileNavContent,.mobile-nav-item,
+.mobile-nav-header.nav-logo-text, #darkModeToggle,.contact-admin-main-button,
+.contact-options-modal,.contact-options-content,.contact-option-button,
+.contact-option-button i,.contact-option-button span { /* Tambahan untuk modal dan tombol baru */
             transition: var(--color-transition);
         }
 
@@ -492,27 +497,6 @@
         }
 .mobile-nav-item.active i {
             color: var(--mobile-nav-active-item-text);
-        }
-
-.mobile-nav-item.logout {
-            color: #ef4444; /* Warna merah untuk logout */
-        }
-.mobile-nav-item.logout i {
-            color: #ef4444;
-        }
-.mobile-nav-item.logout:hover {
-            background-color: #fee2e2;
-            color: #dc2626;
-        }
-        body.dark-mode.mobile-nav-item.logout { /* Perbaikan selector dark mode */
-            color: #fca5a5;
-        }
-        body.dark-mode.mobile-nav-item.logout i { /* Perbaikan selector dark mode */
-            color: #fca5a5;
-        }
-        body.dark-mode.mobile-nav-item.logout:hover { /* Perbaikan selector dark mode */
-            background-color: #451a1a;
-            color: #f87171;
         }
 
         /* Kontainer utama website (form card) */
@@ -975,36 +959,108 @@
             color: var(--primary-green-dark);
         }
 
-        /* Tombol "Hubungi Admin" di halaman utama */
+        /* Tombol "Hubungi Admin" di halaman utama (Floating Action Button) */
 .contact-admin-main-button {
+            position: fixed; /* Membuat tombol melayang */
+            bottom: 20px; /* Jarak dari bawah */
+            left: 20px; /* Jarak dari kiri */
+            background: linear-gradient(45deg, #37d396, #2ab681); /* Menggunakan primary green gradient */
+            color: white;
+            padding: 15px; /* Sesuaikan padding untuk ukuran bulat */
+            border: none;
+            border-radius: 50%; /* Membuat tombol bulat */
+            cursor: pointer;
+            font-size: 1.5em; /* Ukuran ikon lebih besar */
+            box-shadow: 0 5px 15px rgba(55, 211, 150, 0.4);
+            transition: all 0.3s ease, var(--color-transition);
+            z-index: 999; /* Pastikan di atas konten lain */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 55px; /* Menentukan ukuran tetap */
+            height: 55px; /* Menentukan ukuran tetap */
+        }
+.contact-admin-main-button:hover {
+            transform: scale(1.1) rotate(5deg); /* Sedikit membesar dan berputar */
+            box-shadow: 0 8px 20px rgba(55, 211, 150, 0.6);
+            background: linear-gradient(45deg, #2ab681, #37d396); /* Balik gradien atau cerahkan */
+        }
+.contact-admin-main-button i {
+            color: white; /* Pastikan ikon berwarna putih */
+        }
+
+        /* Modal Contact Options */
+.contact-options-modal {
+            display: none; /* Sembunyikan secara default */
+            position: fixed;
+            z-index: 1001; /* Di atas mobile nav */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6); /* Overlay gelap */
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+.contact-options-content {
+            background-color: var(--bg-dark-card);
+            margin: auto;
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 350px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px var(--shadow-normal);
+            animation: popInScale 0.3s ease-out;
+            border: 1px solid var(--border-light);
+        }
+
+.contact-options-content h2 {
+            font-size: 1.5em;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+.contact-option-button {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            background: linear-gradient(45deg, #128C7E, #25D366); /* WhatsApp-like gradient */
-            color: white;
-            padding: 15px 25px;
-            border: none;
-            border-radius: 50px; /* Bentuk bulat/oval */
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: 700;
+            padding: 12px 20px;
+            border-radius: 10px;
             text-decoration: none;
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+            font-weight: 600;
+            font-size: 1.05em;
+            margin-bottom: 15px;
             transition: all 0.3s ease;
-            margin-top: 25px; /* Jarak dari warning box */
-            width: fit-content; /* Sesuai konten */
-            margin-left: auto;
-            margin-right: auto;
         }
-.contact-admin-main-button:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 25px rgba(37, 211, 102, 0.5);
-            background: linear-gradient(45deg, #1da851, #25d366); /* Sedikit lebih cerah/kontras */
-        }
-.contact-admin-main-button i {
-            font-size: 1.3em;
+.contact-option-button.whatsapp {
+            background-color: var(--whatsapp-green);
             color: white;
+        }
+.contact-option-button.whatsapp:hover {
+            background-color: var(--whatsapp-green-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+        }
+.contact-option-button.telegram {
+            background-color: var(--telegram-blue);
+            color: white;
+        }
+.contact-option-button.telegram:hover {
+            background-color: var(--telegram-blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 136, 204, 0.3);
+        }
+.contact-option-button i {
+            font-size: 1.2em;
+        }
+.contact-option-button:last-child {
+            margin-bottom: 0;
         }
 
         /* Responsif untuk layar kecil */
@@ -1045,9 +1101,18 @@
                 flex-direction: column;
                 text-align: center;
             }
-           .contact-admin-main-button {
-                width: 100%; /* Lebar penuh di mobile */
-            }
+           /* Tombol floating di mobile */
+          .contact-admin-main-button {
+                bottom: 15px;
+                left: 15px;
+                width: 50px; /* Sedikit lebih kecil di mobile */
+                height: 50px;
+                font-size: 1.3em;
+           }
+          .contact-options-content {
+                width: 90%;
+                padding: 25px;
+           }
         }
     </style>
 </head>
@@ -1080,8 +1145,7 @@
                 <li><a href="#tentang-kami" class="mobile-nav-item" data-target="tentang-kami"><i class="fas fa-info-circle"></i> <span>Tentang Kami</span></a></li>
                 <li><a href="#faq" class="mobile-nav-item" data-target="faq"><i class="fas fa-question-circle"></i> <span>FAQ</span></a></li>
                 <li><a href="#komunitas" class="mobile-nav-item" data-target="komunitas"><i class="fas fa-users"></i> <span>Komunitas</span></a></li>
-                <li><a href="https://wa.me/6288229814051" target="_blank" class="mobile-nav-item" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> <span>Hubungi Admin (WA)</span></a></li>
-                <li><a href="https://t.me/Everythingsuckk" target="_blank" class="mobile-nav-item" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i> <span>Hubungi Admin (Telegram)</span></a></li>
+                <li><a href="#" class="mobile-nav-item" id="mobileContactAdminBtn"><i class="fas fa-headset"></i> <span>Hubungi Admin</span></a></li>
             </ul>
         </div>
         <!-- Tombol close di luar mobileNavContent, untuk klik di area overlay -->
@@ -1141,10 +1205,6 @@
             <span>Demi keamanan dan privasi, kami tidak meminta password Gmail Anda secara langsung di website ini. Password diisi di formulir ini hanya untuk memudahkan proses verifikasi kami di WhatsApp.</span>
         </div>
         
-        <!-- Tombol "Hubungi Admin" di halaman utama -->
-        <a href="https://wa.me/6288229814051" target="_blank" rel="noopener noreferrer" class="contact-admin-main-button">
-            <i class="fab fa-whatsapp"></i> Hubungi Admin
-        </a>
     </div>
 
     <!-- Live Activity Section -->
@@ -1196,6 +1256,25 @@
     <footer class="footer">
         &copy; 2026 Job Setor Gmail. All rights reserved. | <a href="#">Kebijakan Privasi</a> | <a href="#">Syarat & Ketentuan</a>
     </footer>
+
+    <!-- Tombol "Hubungi Admin" di halaman utama (Floating Action Button) -->
+    <button class="contact-admin-main-button" id="mainContactAdminBtn" aria-label="Hubungi Admin">
+        <i class="fas fa-headset"></i>
+    </button>
+
+    <!-- Modal Contact Options -->
+    <div id="contactOptionsModal" class="contact-options-modal">
+        <div class="contact-options-content">
+            <h2>Hubungi Admin</h2>
+            <a href="https://wa.me/6288229814051" target="_blank" rel="noopener noreferrer" class="contact-option-button whatsapp">
+                <i class="fab fa-whatsapp"></i> <span>WhatsApp Admin</span>
+            </a>
+            <a href="https://t.me/Everythingsuckk" target="_blank" rel="noopener noreferrer" class="contact-option-button telegram">
+                <i class="fab fa-telegram-plane"></i> <span>Telegram Admin</span>
+            </a>
+            <button class="close-btn" id="closeContactOptionsModal" aria-label="Tutup"><i class="fas fa-times"></i></button>
+        </div>
+    </div>
 
     <script>
         // ===============================================
@@ -1406,17 +1485,20 @@
         // Event listener untuk klik link di mobile nav
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                // Cek apakah ini link eksternal (WA/Telegram)
-                if (this.getAttribute('href').startsWith('http')) {
-                    // Biarkan browser handle link eksternal
-                    closeMobileNav(); // Tutup menu tapi biarkan link terbuka
-                    return; 
+                // Cek apakah ini link "Hubungi Admin" di mobile nav
+                if (this.id === 'mobileContactAdminBtn') {
+                    e.preventDefault(); // Mencegah navigasi ke '#'
+                    openContactOptionsModal();
+                    closeMobileNav(); // Tutup menu mobile
+                    return;
                 }
-                e.preventDefault();
+                // Jika ini link internal, lanjutkan seperti biasa
                 const targetId = this.dataset.target;
-                
-                showSection(targetId);
-                closeMobileNav(); // Tutup menu setelah memilih section
+                if (targetId) { // Hanya jika ada data-target
+                    e.preventDefault();
+                    showSection(targetId);
+                    closeMobileNav(); // Tutup menu setelah memilih section
+                }
             });
         });
 
@@ -1583,6 +1665,35 @@
 
         // Update activities at random intervals
         setInterval(updateLiveActivity, Math.random() * (10000 - 5000) + 5000); // Acak 5-10 detik
+
+        // ===============================================
+        // FUNGSI MODAL HUBUNGI ADMIN
+        // ===============================================
+        const mainContactAdminBtn = document.getElementById('mainContactAdminBtn');
+        const mobileContactAdminBtn = document.getElementById('mobileContactAdminBtn');
+        const contactOptionsModal = document.getElementById('contactOptionsModal');
+        const closeContactOptionsModal = document.getElementById('closeContactOptionsModal');
+
+        function openContactOptionsModal() {
+            contactOptionsModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Mencegah scroll di body
+        }
+
+        function closeContactOptionsModalFunc() {
+            contactOptionsModal.style.display = 'none';
+            document.body.style.overflow = ''; // Mengizinkan scroll kembali
+        }
+
+        mainContactAdminBtn.addEventListener('click', openContactOptionsModal);
+        mobileContactAdminBtn.addEventListener('click', openContactOptionsModal);
+        closeContactOptionsModal.addEventListener('click', closeContactOptionsModalFunc);
+
+        // Tutup modal jika klik di luar konten
+        contactOptionsModal.addEventListener('click', (e) => {
+            if (e.target === contactOptionsModal) {
+                closeContactOptionsModalFunc();
+            }
+        });
     </script>
 </body>
 </html>
