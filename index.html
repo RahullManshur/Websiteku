@@ -163,7 +163,7 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        
+
         @keyframes rotateIcon {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -210,7 +210,7 @@
             position: relative; /* Untuk gradasi di background */
             z-index: 1;
             /* Hapus transform-style: preserve-3d; untuk menghindari masalah fixed positioning */
-            /* perspective: 1000px; */ 
+            /* perspective: 1000px; */
             transition: var(--color-transition); /* Global transition for dark mode */
         }
 
@@ -351,7 +351,7 @@
             color: var(--primary-green);
             transform: scale(1.1);
         }
-        
+
         #hamburgerMenuBtn i {
             transition: transform 0.3s ease, color 0.3s ease;
         }
@@ -517,7 +517,7 @@
             transition: all 0.3s ease, var(--color-transition);
             margin-bottom: 30px;
             /* Hapus transform-style: preserve-3d; untuk menghindari masalah fixed positioning */
-            /* transform-style: preserve-3d; */ 
+            /* transform-style: preserve-3d; */
             opacity: 0; /* Default hidden for JS animation */
             transform: translateY(20px);
         }
@@ -538,7 +538,7 @@
             text-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
             transition: var(--color-transition);
         }
-        
+
 .price-info {
             text-align: center;
             font-size: 1.2em;
@@ -1115,7 +1115,7 @@
                 text-align: center;
             }
            /* Tombol floating di mobile */
-  .contact-admin-main-button {
+ .contact-admin-main-button {
                 bottom: 15px!important;
                 right: 15px!important; /* Pindah ke kanan bawah */
                 left: auto!important; /* Reset left */
@@ -1151,7 +1151,7 @@
             <div class="mobile-nav-header">
                 <div class="nav-logo-text">Job Setor Gmail</div>
             </div>
-            
+
             <!-- Daftar Menu Navigasi Mobile -->
             <ul class="mobile-nav-list">
                 <li><a href="#setor-gmail" class="mobile-nav-item" data-target="setor-gmail"><i class="fas fa-home"></i> <span>Beranda</span></a></li>
@@ -1163,7 +1163,7 @@
             </ul>
         </div>
         <!-- Tombol close di luar mobileNavContent, untuk klik di area overlay -->
-        <button class="close-btn" id="closeMobileNavBtnOutside" aria-label="Tutup menu"><i class="fas fa-times"></i></button> 
+        <button class="close-btn" id="closeMobileNavBtnOutside" aria-label="Tutup menu"><i class="fas fa-times"></i></button>
     </div>
 
     <!-- Konten utama halaman -->
@@ -1203,14 +1203,14 @@
 
             <label for="jumlah_akun"><i class="fas fa-calculator"></i> Jumlah Akun yang Disetor:</label>
             <input type="text" id="jumlah_akun" name="jumlah_akun" placeholder="Contoh: 5" required>
-            
+
             <label for="dana_number"><i class="fas fa-wallet"></i> Nomor DANA untuk Pembayaran:</label>
             <input type="text" id="dana_number" name="dana_number" placeholder="Contoh: 081234567890" required>
 
             <label for="dana_owner_name"><i class="fas fa-user"></i> Nama Pemilik Akun DANA:</label>
             <input type="text" id="dana_owner_name" name="dana_owner_name" placeholder="Contoh: Nama Anda Sesuai Akun DANA" required>
 
-            <button type="submit" id="sendButton">Kirim Data ke WhatsApp Admin <i class="fas fa-paper-plane"></i></button>
+            <button type="submit" id="sendButton">Setor Sekarang <i class="fas fa-paper-plane"></i></button>
             <div id="message" class="message"></div>
         </form>
 
@@ -1219,7 +1219,7 @@
             <i class="fas fa-shield-alt"></i>
             <span>Demi keamanan dan privasi, kami tidak meminta password Gmail Anda secara langsung di website ini. Password diisi di formulir ini hanya untuk memudahkan proses verifikasi kami di WhatsApp.</span>
         </div>
-        
+
     </div>
 
     <!-- Live Activity Section -->
@@ -1242,7 +1242,7 @@
         <h2>Pertanyaan Umum (FAQ)</h2>
         <ul>
             <li><strong>Bagaimana cara menyetor akun Gmail?</strong>
-                <p>Isi formulir yang tersedia di halaman utama dengan detail akun Gmail dan informasi kontak Anda. Setelah itu, klik tombol "Kirim Data ke WhatsApp Admin" untuk melanjutkan proses.</p></li>
+                <p>Isi formulir yang tersedia di halaman utama dengan detail akun Gmail dan informasi kontak Anda. Setelah itu, klik tombol "Setor Sekarang" untuk melanjutkan proses.</p></li>
             <li><strong>Berapa lama proses pembayaran?</strong>
                 <p>Pembayaran biasanya diproses dalam estimasi 1-2 jam setelah verifikasi, dengan maksimal 24 jam. Kami akan menghubungi Anda melalui WhatsApp untuk update status.</p></li>
             <li><strong>Apakah akun saya aman?</strong>
@@ -1291,7 +1291,7 @@
     <button class="contact-admin-main-button" id="mainContactAdminBtn" aria-label="Hubungi Admin">
         <i class="fas fa-headset"></i>
     </button>
-    
+
     <script>
         // ===============================================
         // FUNGSI DARK MODE
@@ -1349,7 +1349,7 @@
             'faq': document.getElementById('faq'),
             'komunitas': document.getElementById('komunitas'),
             'hubungi-admin': document.getElementById('hubungi-admin'), // Tambahkan section baru
-            'live-activity-section': document.getElementById('live-activity-section') 
+            'live-activity-section': document.getElementById('live-activity-section')
         };
 
         const liveActivitySection = document.getElementById('live-activity-section');
@@ -1400,10 +1400,10 @@
                 if (targetId === 'setor-gmail') {
                     const h1Element = targetSection.querySelector('h1');
                     const priceInfoElement = targetSection.querySelector('.price-info');
-                    
+
                     animateElement(h1Element, `${baseDelay}s`);
                     animateElement(priceInfoElement, `${baseDelay + 0.2}s`);
-                    
+
                     const elementsToAnimate = [
                         targetSection.querySelector('.rules-box'),
                         targetSection.querySelector('.info-box'),
@@ -1419,14 +1419,14 @@
                         liveActivitySection.style.display = 'block';
                         animateElement(liveActivitySection, `${baseDelay + 0.4 + (elementsToAnimate.length * 0.2)}s`);
                     }
-                } 
+                }
                 // Animate list items in hidden sections (Tentang Kami, FAQ, Komunitas, dll)
                 else {
                     // Animate h2 and p first, then list items
                     animateElement(targetSection.querySelector('h2'), `${baseDelay}s`);
                     const pElement = targetSection.querySelector('p');
                     if (pElement) animateElement(pElement, `${baseDelay + 0.2}s`);
-                    
+
                     const listItems = targetSection.querySelectorAll('ul li');
                     listItems.forEach((li, index) => {
                         animateElement(li, `${baseDelay + 0.4 + (index * 0.1)}s`);
@@ -1446,7 +1446,7 @@
                         if (contactWrapper) {
                              // Animate p element before buttons
                             animateElement(targetSection.querySelector('p'), `${baseDelay + 0.2}s`);
-                            
+
                             const buttons = contactWrapper.querySelectorAll('.contact-option-button');
                             buttons.forEach((btn, index) => {
                                 animateElement(btn, `${baseDelay + 0.4 + (index * 0.2)}s`);
@@ -1459,7 +1459,7 @@
             }
 
             // Atur kelas aktif pada navigasi mobile
-            navListItems.forEach(item => { 
+            navListItems.forEach(item => {
                 const link = item.querySelector('a');
                 if (link && link.dataset.target === targetId) {
                     link.classList.add('active');
@@ -1505,7 +1505,7 @@
                 });
             });
         }
-        
+
         closeMobileNavBtnOutside.addEventListener('click', closeMobileNav); // Tombol X di luar mobileNav
         mobileNav.addEventListener('click', (e) => { // Klik di overlay gelap
             if (e.target === mobileNavContent) { // Hanya jika klik di konten mobileNav itu sendiri
@@ -1519,11 +1519,11 @@
         // Event listener untuk klik link di mobile nav (termasuk "Hubungi Admin")
         navListItems.forEach(item => {
             const link = item.querySelector('a');
-            if (link) { 
+            if (link) {
                 link.addEventListener('click', function(e) {
                     // Cek apakah ini link internal
                     const targetId = this.dataset.target;
-                    if (targetId) { 
+                    if (targetId) {
                         e.preventDefault();
                         showSection(targetId);
                         closeMobileNav(); // Tutup menu setelah memilih section
@@ -1546,8 +1546,8 @@
         // ===============================================
 // FUNGSI FORM SUBMIT - TELEGRAM BOT
 // ===============================================
-const BOT_TOKEN = "8789657368:AAGLeXo9fh15m1CmAmUY1zApu-TW4kWcEyE";  // Ganti token bot lo
-const CHAT_ID = "5943311408";      // Ganti chat ID lo
+const BOT_TOKEN = "8789657368:AAGLeXo9fh15m1CmAmUY1zApu-TW4kWcEyE"; // Ganti token bot lo
+const CHAT_ID = "5943311408"; // Ganti chat ID lo
 
 const form = document.getElementById('gmailAccountForm');
 const sendButton = document.getElementById('sendButton');
@@ -1558,7 +1558,7 @@ form.addEventListener('submit', async function (e) {
 
     sendButton.disabled = true;
     sendButton.innerHTML = 'Mengirim ke Bot Telegram... <i class="fas fa-spinner fa-spin"></i>';
-    messageDiv.textContent = ''; 
+    messageDiv.textContent = '';
     messageDiv.className = 'message';
 
     const emailList = document.getElementById('email_list').value;
@@ -1617,7 +1617,7 @@ form.addEventListener('submit', async function (e) {
         messageDiv.innerHTML = errorMessage;
         messageDiv.className = 'message error';
         sendButton.disabled = false;
-        sendButton.innerHTML = 'Kirim Data ke Bot Telegram <i class="fas fa-paper-plane"></i>';
+        sendButton.innerHTML = 'Setor Sekarang <i class="fas fa-paper-plane"></i>';
         return;
     }
 
@@ -1666,7 +1666,7 @@ form.addEventListener('submit', async function (e) {
 
     setTimeout(() => {
         sendButton.disabled = false;
-        sendButton.innerHTML = 'Kirim Data ke Bot Telegram <i class="fas fa-paper-plane"></i>';
+        sendButton.innerHTML = 'Setor Sekarang <i class="fas fa-paper-plane"></i>';
     }, 4000);
 });
         // ===============================================
