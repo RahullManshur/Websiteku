@@ -610,26 +610,26 @@
             margin-top: 3px;
             flex-shrink: 0; /* Pastikan ikon tidak mengecil */
         }
-.rules-box li.rule-content {
+.rules-box.rule-content {
     flex-grow: 1; /* Konten teks mengambil sisa ruang yang tersedia */
-    /* Remove display: flex, flex-direction: column here to handle paragraphs/spans inside naturally */
     word-wrap: break-word; /* Memastikan teks tidak keluar batas */
     overflow-wrap: break-word; /* Fallback untuk word-wrap */
 }
 
 /* Style untuk contoh diterima/tidak diterima */
-.rules-box.rule-content.example {
+.rules-box.example {
     display: block; /* Membuat setiap contoh di baris baru */
-    margin-top: 5px; /* Sedikit jarak dari teks sebelumnya */
+    margin-top: 5px; /* Jarak antar teks aturan utama dan contoh */
     font-size: 0.9em;
     color: var(--text-secondary-dark);
     line-height: 1.3;
 }
-.rules-box.rule-content.example.accepted {
+.rules-box.example.accepted {
     color: var(--primary-green);
 }
-.rules-box.rule-content.example.rejected {
+.rules-box.example.rejected {
     color: var(--rules-box-border);
+    margin-bottom: 8px; /* Tambah jarak di bawah contoh rejected */
 }
 
 .info-box {
@@ -1201,8 +1201,8 @@
                     <i class="fas fa-check-circle"></i>
                     <div class="rule-content">
                         <strong>Nama Akun:</strong> Harus mengandung kata "loony" dengan maksimal 2 angka tambahan (lebih baik tanpa angka).
-                        <span class="example accepted">Contoh Diterima: <code>Elaloony89@gmail.com</code> ✅</span>
-                        <span class="example rejected">Contoh Tidak Diterima: <code>elaa23@gmail.com</code> ❌ (Tidak ada "loony")</span>
+                        <p class="example accepted">Contoh Diterima: <code>Elaloony89@gmail.com</code> ✅</p>
+                        <p class="example rejected">Contoh Tidak Diterima: <code>elaa23@gmail.com</code> ❌ (Tidak ada "loony")</p>
                     </div>
                 </li>
                 <li>
