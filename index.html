@@ -601,7 +601,7 @@
             line-height: 1.5;
             word-wrap: break-word; /* Memastikan teks tidak keluar batas */
             overflow-wrap: break-word; /* Fallback untuk word-wrap */
-            flex-wrap: wrap; /* Izinkan wrapping untuk konten di dalam li */
+            /* flex-wrap: wrap; */ /* Izinkan wrapping untuk konten di dalam li */
         }
 .rules-box li:last-child { margin-bottom: 0; }
 .rules-box li strong {
@@ -613,8 +613,10 @@
             margin-top: 3px;
             flex-shrink: 0; /* Pastikan ikon tidak mengecil */
         }
-.rules-box li.rule-content {
+.rules-box li.rule-text-content {
     flex-grow: 1; /* Konten teks mengambil sisa ruang */
+    display: flex;
+    flex-direction: column; /* Mengatur konten teks dalam kolom */
 }
 /* Style untuk contoh diterima/tidak diterima */
 .rules-box li.example {
@@ -717,7 +719,7 @@
             opacity: 0.7;
         }
         textarea:focus,
-        input[type="text"]:focus-visible {
+        input[type="text"]::focus { /* Perbaikan selector fokus */
             outline: none;
             border-color: var(--primary-green);
             box-shadow: 0 0 0 3px rgba(55, 211, 150, 0.3), inset 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -1198,7 +1200,7 @@
             <ul>
                 <li>
                     <i class="fas fa-check-circle"></i>
-                    <div class="rule-content">
+                    <div class="rule-text-content">
                         <strong>Nama Akun:</strong> Harus mengandung kata "loony" dengan maksimal 2 angka tambahan (lebih baik tanpa angka).
                         <span class="example accepted">Contoh Diterima: <code>Elaloony89@gmail.com</code> ✅</span>
                         <span class="example rejected">Contoh Tidak Diterima: <code>elaa23@gmail.com</code> ❌ (Tidak ada "loony")</span>
@@ -1206,37 +1208,37 @@
                 </li>
                 <li>
                     <i class="fas fa-calendar-alt"></i>
-                    <div class="rule-content">
+                    <div class="rule-text-content">
                         <strong>Tahun Lahir Akun:</strong> Antara <code>1999-2002</code>.
                     </div>
                 </li>
                 <li>
                     <i class="fas fa-key"></i>
-                    <div class="rule-content">
+                    <div class="rule-text-content">
                         <strong>Password Akun:</strong> Wajib <code>aass1122</code>.
                     </div>
                 </li>
                 <li>
                     <i class="fas fa-exclamation-triangle"></i>
-                    <div class="rule-content">
+                    <div class="rule-text-content">
                         <strong>Penting:</strong> Jangan langsung logout dari akun Gmail setelah penyetoran. Ikuti instruksi admin mengenai kapan waktu yang tepat untuk logout.
                     </div>
                 </li>
                 <li>
                     <i class="fas fa-mobile-alt"></i>
-                    <div class="rule-content">
+                    <div class="rule-text-content">
                         Jika saat pembuatan akun Gmail diminta verifikasi nomor telepon, **jangan lanjutkan** proses pembuatan akun tersebut.
                     </div>
                 </li>
                 <li>
                     <i class="fas fa-money-bill-wave"></i>
-                    <div class="rule-content">
+                    <div class="rule-text-content">
                         <strong>Pembayaran:</strong> Akan dilakukan setelah proses pengecekan (estimasi 1-2 jam, maksimal 24 jam).
                     </div>
                 </li>
                 <li>
                     <i class="fas fa-user-shield"></i>
-                    <div class="rule-content">
+                    <div class="rule-text-content">
                         <strong>Akun Terverifikasi:</strong> Akun yang terkena verifikasi tambahan (misal: verifikasi profil) tidak akan dibeli, atau akan dibeli dengan harga khusus Rp 500.
                     </div>
                 </li>
